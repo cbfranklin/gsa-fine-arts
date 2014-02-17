@@ -1,0 +1,393 @@
+art = [];//variable for search results. change my name!
+var item,//for individually loaded item
+	apiRoot = 'http://hvemuseum2.gallerysystems.com/emuseum/api/',
+	
+	artistIndexCache = {'status':[],'a':[],'b':[],'c':[],'d':[],'e':[],'f':[],'g':[],'h':[],'i':[],'j':[],'k':[],'l':[],'m':[],'n':[],'o':[],'p':[],'q':[],'r':[],'s':[],'t':[],'u':[],'v':[],'w':[],'x':[],'y':[],'z':[],},
+	
+	alphaOrder = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
+	
+	scrollLoad = '<div id="scrollLoad"></div>';
+
+$(function(){
+	routes();
+	$(window).hashchange(function(){
+		$('#fail').hide();
+		routes();
+	});
+	clicks();	
+});
+
+//ROUTING
+
+function routes(){
+	if(window.location.hash === ''){
+		homePage();
+	}
+	if(window.location.hash.indexOf('#/results') !== -1){
+		results();
+	}
+	if(window.location.hash.indexOf('#/item') !== -1){
+		loadItem();
+	}
+	if(window.location.hash.indexOf('#/index') !== -1){
+		artistIndex();
+	}
+	if(window.location.hash.indexOf('#/artist') !== -1){
+		loadArtist();
+	}
+	if(window.location.hash.indexOf('#/building') !== -1){
+		loadBuilding();
+	}
+}
+
+function clicks(){
+	$('#results').on('click','.cell img', function(){
+		var objID = $(event.srcElement).parent().attr('id');
+		window.location.hash = '#/item/'+objID;
+	});
+	$('#item').on('click', function(){
+		$('#item').hide().html('');
+		$('#results').fadeIn();
+		window.location.hash = '#/results'
+	});
+}
+
+
+
+
+//API FUNCTIONS
+
+function results(){
+	$('#load').show();
+	$('section').hide();
+	$('#results').html('');
+	
+	var hash = window.location.hash.split('?');
+	
+	var searchParams = hash[1];
+	
+	var req = apiRoot+'search/objects?'+searchParams;
+	
+	$.ajax({
+		url : req,
+		dataType : "jsonp",
+		timeout : 5000
+	})
+	.success(function(json){
+		art.push(json);
+		$('#load').hide();
+		$('#results').append('<h1>Search Results</h1>');
+		$.each(art[0].results, function(i){
+			$('#results').append('<div class="cell" id="'+art[0].results[i].id+'"><img src="http://lorempixel.com/270/135/nature"><h3>'+art[0].results[i].title+'</h1><ul></ul></div>');
+			//$('#preload').load(function(){
+			setTimeout(function(){
+				$('#results .cell').eq(i)
+					.append('<li class="artist">'+art[0].results[i].artist+'</li>')
+					.append('<li>'+capitalize(art[0].results[i].classification)+'</li>')
+					.append('<li>'+art[0].results[i].displayDate+'</p>')
+					;
+				$('.cell').eq(i).addClass('fadeIn');
+				$('#results .cell ul,#results .cell img').fadeIn(100*i);//for the crap browsers
+			},i*50);
+			//});
+		});
+	})
+	.error(function(){
+		console.log('fail');
+	});
+};
+
+
+function loadItem(){
+	$('#load').show();
+	$('section').hide();
+	$('#item').html('');
+
+	var hash = window.location.hash.split('/');
+	
+	var objID = hash[2];
+	
+	var req = apiRoot+'id/objects/'+objID;
+	
+	if(isNaN(parseInt(objID))){
+		fail('This Request is Not Valid.','Item ID must be a number, and should look like this: #/item/3606.')
+	}
+	else{
+		$.ajax({
+			url : req,
+			dataType : "jsonp",
+			timeout : 5000
+		})
+		.success(function(json){
+			item = json;
+			if(item.total_results === 0){
+				$('#item').html('').show();
+				fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+			}
+			else{
+				$('#item')
+					.show()
+					.append('<h2>'+item.results.title+'</h2>')
+					.append('<h3>'+item.results.artist+'</h3>')
+					.append('<img src="http://lorempixel.com/400/300/nature">')
+					.append('<ul/>')
+					.append('<div class="share"/>')
+					;
+				$('#item ul')
+					.append('<li>'+item.results.dimensions+'</li>')
+					.append('<li>'+item.results.displayDate+'</li>')
+					.append('<li>'+item.results.region+'</li>')
+					.append('<li>'+item.results.ObjTextEntries.textEntry+'</li>')
+					.append('<li>'+item.results.ObjectsPeople[0].displayName+'</li>')
+					;
+				$('#item .share')
+					.append('<h3>Share</h3>')
+					.append('<input class="link" type="text"/>')
+					.append('<div class="qr"/>')
+					;
+				$('#item .link').val(window.location.hostname+'/m/sandbox/emuseum-branch/#item='+objID);
+				$('#results,#load').hide();
+			}
+		})
+		.error(function(){
+			fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+		});	
+	}	
+}
+
+function loadArtist(){
+	$('#load').show();
+	$('section').hide();
+	$('#artist').html('');
+	
+	var hash = window.location.hash.split('/');
+	
+	var artistID = hash[2];
+	
+	var req = apiRoot+'id/people/'+artistID;
+	
+	if(isNaN(parseInt(artistID))){
+		fail('This Request is Not Valid.','Item ID must be a number, and should look like this: #/item/3606.')
+	}
+	else{
+		$.ajax({
+			url : req,
+			dataType : "jsonp",
+			timeout : 5000
+		})
+		.success(function(json){
+			artist = json.results;
+			console.log(artist)
+			if(json.total_results === 0){
+				$('#artist').show();
+				fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+			}
+			else{
+				$('#load').hide();
+				$('#artist').append('<h2>'+artist.displayName+'</h2>').append('<p>'+artist.PeopleTextEntries.textEntry+'</p>').show();
+			}
+		})
+		.error(function(){
+			fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+		});	
+	}
+}
+
+function loadBuilding(){
+	$('#load').show();
+	$('section').hide();
+	$('#building').html('');
+	
+	var hash = window.location.hash.split('/');
+	
+	var buildingID = hash[2];
+	
+	var req = apiRoot+'id/buildings/'+buildingID;
+	
+	console.log(req)
+	
+	if(isNaN(parseInt(buildingID))){
+		fail('This Request is Not Valid.','Item ID must be a number, and should look like this: #/item/3606.')
+	}
+	else{
+		$.ajax({
+			url : req,
+			dataType : "jsonp",
+			timeout : 5000
+		})
+		.success(function(json){
+			building = json.results;
+			console.log(artist)
+			if(json.total_results === 0){
+				$('#artist').show();
+				fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+			}
+			else{
+				$('#load').hide();
+				$('#building').append('<h2>'+building.building+'</h2>').append('<p>'+building.siteType+'</p>').show();
+			}
+		})
+		.error(function(){
+			fail('This Item Could Not Be Found','We should confirm that it\'s in the API.');
+		});	
+	}
+}
+
+function prepNextLetter(alpha){
+	$(window).on('scroll', function(){
+		if($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))){
+			$(window).off('scroll');
+			setTimeout(function(){
+				if($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))){
+					var nextLetter = alphaOrder[alphaOrder.indexOf(alpha)+1]
+					fetchArtistsByLetter(nextLetter);
+				}
+			},500);
+		}
+	});
+}
+
+
+function artistIndex(){
+	$('section').hide();
+	$('#artistIndex').show();
+	if(artistIndexCache.a.length === 0){
+		fetchArtistsByLetter('a');
+	}
+	else{
+		alpha = artistIndexCache.status.last();
+		prepNextLetter(alpha);
+	}
+}
+function fetchArtistsByLetter(alpha){
+	$('#artistIndex').append(scrollLoad);
+	scrollToAnchor('scrollLoad')
+
+	$('a').on('click', function(){
+		$(window).off('scroll');
+		$('a').off('click');
+	});
+	
+	artistIndexCache.status.push(alpha);
+	
+	var req = apiRoot+'search/people?Index='+alpha,
+		callsRemaining
+		;
+	
+	$.ajax({
+		url : req,
+		dataType : "jsonp",
+		timeout : 5000
+	})
+	.success(function(json){
+		if(json.total_results <= 25){
+			for (var i = 0; i < json.total_results; i++){
+				addValue(artistIndexCache, alpha, json.results[i]);
+				if(i === json.total_results-1){
+					appendResults(alpha);
+				}
+			};
+		}
+		else{
+			for (var i = 0; i < json.results.length; i++){
+				addValue(artistIndexCache, alpha, json.results[i])
+			};
+			
+			var callsRemaining = ~~(json.total_results / 25);
+			if(json.total_results % 25 > 0){
+				callsRemaining = callsRemaining + 1;
+			}
+			
+			var callCounter = 0;
+			
+			fetchRemainingResults(callsRemaining);
+			
+			function fetchRemainingResults(callsRemaining){
+				var req = apiRoot+'search/people?Index='+alpha+'&start='+callCounter*25
+				
+				$.ajax({
+					url : req,
+					async: false,
+					dataType : "jsonp",
+					timeout : 5000
+				})
+				.success(function(json){
+					for (var k = 0; k < json.results.length; k++){
+						addValue(artistIndexCache, alpha, json.results[k]);
+					};
+					
+					callCounter = callCounter + 1;
+					
+					if(callCounter === callsRemaining){
+						appendResults(alpha);
+					}
+					else{
+						fetchRemainingResults(callsRemaining);
+					}
+				})
+				.error(function(){
+					fail('ERROR','No response from server.');
+				});					
+			};
+			function appendResults(alpha){
+
+				$('#results').hide();
+				$('#scrollLoad').remove();
+				$('#artistIndex').show().append('<div id="'+alpha+'"><h3>'+alpha.toUpperCase()+'</h3><ul></ul>')
+				for (var i = 0; i < artistIndexCache[alpha].length; i++){
+					$('#artistIndex #'+alpha+' ul').append('<li><a href="'+'#/artist/'+artistIndexCache[alpha][i].id+'">'+artistIndexCache[alpha][i].displayName+'</a></li>')
+				};
+				
+				scrollToAnchor(alpha);
+				
+				if(alpha !== 'z'){
+					prepNextLetter(alpha);
+				}
+			}
+		}
+	})
+	.error(function(){
+		fail('ERROR','No response from server.');
+	});
+}
+
+function homePage(){
+	fail('No Hash','There isn\'t a handler for this yet. It will be the homepage.');
+}
+
+//ERROR REPORTING
+
+function fail(message,description){
+	if(message === null){
+		message = 'ERROR';
+	}
+	if(description === null){
+		description === '';
+	}
+	$('#fail').html('').append('<h3>'+message+'</h3>').append('<p>'+description+'</p>').show();
+	$('#load,').hide();
+}
+
+//ASSET FUNCTIONS
+
+//LAST
+if (!Array.prototype.last){
+    Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+};
+
+//ADD VALUE TO ARRAY IN OBJECT
+function addValue(obj, key, value) {
+    if (obj.hasOwnProperty(key)) {
+        obj[key].push(value);
+    } else {
+        obj[key] = [value];
+    }
+}
+
+//SCROLL TO ANCHOR
+function scrollToAnchor(id){
+    var theID = $('#'+id);
+    $('html,body').animate({scrollTop: theID.offset().top},'slow');
+}

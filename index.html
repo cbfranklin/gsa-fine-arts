@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="True" name="HandheldFriendly">
+		<meta content="320" name="MobileOptimized">
+		<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+		
+		<script src="http://gsa.gov/resources/js/jquery.min.js" type="text/javascript"></script>
+		
+		<script src="bootstrap3/js/bootstrap.min.js"></script>
+		<link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
+		<link href="bootstrap3/css/bootstrap-theme.css" el="stylesheet">
+		
+		<script src="js/app.js" type="text/javascript"></script>
+		<script src="js/assets.js" type="text/javascript"></script>
+		<script src="js/mustache.js" type="text/javascript"></script>
+		<link href="css/app.css" rel="stylesheet">
+		
+	</head>
+	<body>
+		<div id="wrapper">
+			
+			<header>
+				<h1>eMuseum Wireframes</h1>
+			</header>
+			
+			<!-- OVERVIEWS -->
+			<section id="artist"></section>
+			<section id="artwork"></section>
+			<section id="building"></section>
+			<section id="collection"></section>
+			
+			<!-- INDEXES -->
+			<section id="collections"></section>
+			<section id="artists"></section>
+			
+			<!-- SEARCH -->
+			<section id="search"></section>
+			
+			<!-- SEARCH RESULTS -->
+			<section id="results"></section>
+			
+		</div>
+		
+		<div id="load"></div>
+		<div id="fail"></div>
+		
+		
+		
+		<div id="templates">
+		
+			<!-- OVERVIEWS -->
+			
+			<script class="artist" type="text/template">
+				<h3>Artist Overview</h3>
+				<h2>{{displayName}}</h2>
+				<p>{{{PeopleTextEntries.textEntry}}}</p>
+			</script>
+			<script class="artist-works" type="text/template">
+				<br>
+				<div class="works">
+					<ul>
+						{{#works}}
+							<li>
+								<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+								<p>{{classification}}</p>
+								<p>{{displayDate}}</p>
+							</li>
+						{{/works}}
+					</ul>
+				</div>
+			</script>
+			
+			<script class="collection" type="text/template">
+				<h2>{{collection}}</h2>
+				<h3>{{notes}}</h3>
+			</script>
+			<script class="collection-works" type="text/template">
+				<ul>
+					{{#works}}
+						<li>
+							<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+							<p><strong><a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></strong></p>
+							<p>{{displayDate}}</p>
+							<p>{{classification}}</p>
+						</li>
+					{{/works}}
+				</ul>
+			</script>
+			
+			<script class="artwork" type="text/template">
+				<h2>{{title}}</h2>
+				<h3><a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></h3>
+				<p>{{displayDate}}</p>
+				<p>{{classification}}</p>
+			</script>
+			
+			<script class="building" type="text/template">
+				<h2>{{building}}</h2>
+				<h3>{{siteType}}</h3>
+				<p>{{address}}</p>
+				<p>{{city}}, {{state}} {{zipCode}}</p>
+				<!-- BUILDING ARTWORK RESULTS HERE? -->
+			</script>
+			
+			<!-- INDEXES -->
+			
+			<script class="artists" type="text/template">
+				<h2>Artist Index</h2>
+				/*NOT IN USE YET*/
+			</script>
+			
+			<script class="collections" type="text/template">
+				<h2>Collections</h2>
+				<br>
+				<ul>
+					{{#collections}}
+						<li>
+							<h4><a href="#/collection/{{id}}">{{collection}}</a></h4>
+							<p>{{notes}}</p>
+						</li>
+					{{/collections}}
+				</ul>
+			</script>
+			
+			<!-- SEARCH -->
+			
+			<script class="search" type="text/template">
+			
+			</script>
+			
+			<!-- SEARCH RESULTS -->
+			
+			<script class="results-objects" type="text/template">
+				<h2>Search Results</h2>
+				<br>
+				<ul>
+					{{#results}}
+						<li>
+							<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+							<p><strong><a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></strong></p>
+							<p>{{displayDate}}</p>
+							<p>{{classification}}</p>
+						</li>
+					{{/results}}
+				</ul>
+			</script>
+			
+			<script class="results-people" type="text/template">
+				<h2>Search Results</h2>
+				<br>
+				<ul>
+					{{#results}}
+						<li>
+							<h4><a href="#/artist/{{id}}">{{displayName}}</a></h4>
+							<p>{{displayDate}}</p>
+						</li>
+					{{/results}}
+				</ul>
+				
+			</script>
+			
+			<script class="results-buildings" type="text/template">
+				<h2>Search Results</h2>
+				<br>
+				<ul>
+					{{#results}}
+						<li>
+							<h4><a href="#/building/{{id}}">{{building}}</a></h4>
+							<p>{{siteType}}</p>
+							<p>{{address}}</p>
+							<p>{{city}}, {{state}} {{zipCode}}</p>
+						</li>
+					{{/results}}
+				</ul>
+			</script>
+		</div>
+		
+		
+	</body>
+</html>
