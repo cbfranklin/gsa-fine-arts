@@ -65,7 +65,7 @@ a h2, a h3{
 #wrapper{
 	overflow:hidden;
 }
-#no-soup, #no-soup-2-compatibility-mode-boogaloo{
+#old-ie, #compatibility-mode{
 	display:none;
 }
 header .menu{

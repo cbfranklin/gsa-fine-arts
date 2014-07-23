@@ -101,12 +101,12 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         'img/social-media/print-active.png'
     ],
 
-    isCompat;
+    isOldIE;
 
 $(function() {
     $('#load').show();
-    compatibilityMode();
-    if (isCompat === true) {
+    ie();
+    if (isOldIE === true) {
         return;
     }
     helloDevs();
@@ -133,13 +133,16 @@ function helloDevs() {
         '|_______________________________________|\n ');
 }
 
-function compatibilityMode() {
-    console.log('testing for compat')
-    if (navigator.userAgent.indexOf('compatible; MSIE 7.0;') > -1 && !$('html').hasClass('ie7')) {
+function ie() {
+    if (navigator.userAgent.indexOf('MSIE 7') > -1 && !$('html').hasClass('ie7')) {
         $('#wrapper').hide();
-        $('#no-soup-2-compatibility-mode-boogaloo').show();
-        console.log('its compat')
-        compat = true;
+        $('#compatibility-mode').show();
+        isOldIE = true;
+        $('#load').hide();
+    } else if (navigator.userAgent.indexOf('MSIE 8')) {
+        $('#wrapper').hide();
+        $('#old-ie').show();
+        isOldIE = true;
         $('#load').hide();
     }
 }
