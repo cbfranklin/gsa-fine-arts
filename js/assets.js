@@ -149,25 +149,31 @@ function addValue(obj, key, value) {
 }
 
 //SCROLL to anchor
-function scrollToAnchor(id, theOffset) {
+function scrollToAnchor(id, theOffset, theTime) {
+    if (theTime == undefined) {
+        var theTime = 500
+    }
     var theID = $('#' + id);
     if (!theOffset) {
         var theOffset = 0;
     }
     $('html,body').animate({
         scrollTop: theID.offset().top + theOffset
-    }, 500);
+    }, theTime);
 }
 //AS JQUERY FUNCTION
 jQuery.fn.extend({
-    scrollToAnchor: function(theOffset) {
+    scrollToAnchor: function(theOffset, theTime) {
         var theSelector = this;
+        if (!theTime) {
+            var theTime = 500
+        }
         if (!theOffset) {
             var theOffset = 0;
         }
         $('html,body').animate({
             scrollTop: theSelector.offset().top + theOffset
-        }, 500);
+        }, theTime);
     }
 });
 
