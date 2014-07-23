@@ -1,49 +1,366 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]> <html class="no-js noSoup"> <![endif]-->
+<!--[if IE 7]> <html class="no-js noSoup"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+		<title>GSA Fine Arts</title>
+
 		<meta content="True" name="HandheldFriendly">
 		<meta content="320" name="MobileOptimized">
 		<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
 		
 		<script src="http://gsa.gov/resources/js/jquery.min.js" type="text/javascript"></script>
-		
 		<script src="bootstrap3/js/bootstrap.min.js"></script>
-		<link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
-		<link href="bootstrap3/css/bootstrap-theme.css" el="stylesheet">
-		
 		<script src="js/assets.js" type="text/javascript"></script>
 		<script src="js/app.js" type="text/javascript"></script>
-		<script src="js/mustache.js" type="text/javascript"></script>
+
+		<link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
+		<!--<link href="bootstrap3/css/bootstrap-theme.css" rel="stylesheet">-->
 		<link href="css/app.css" rel="stylesheet">
-		
+		<!--[if IE 8]> <link href="css/ie8.css" rel="stylesheet"> <![endif]-->
+		<!--[if lt IE 7]> <link href="css/old-ie.css" rel="stylesheet"> <![endif]-->
 	</head>
 	<body>
 		<div id="wrapper">
 			
 			<header>
-				<h1>eMuseum Wireframes</h1>
+				<img src="img/gsa-header.png">
+				<div class="crumb"></div>
+				<div class="menu">
+					<a href="#">Fine Arts Home</a>
+					<a href="#/artists">Artist</a>
+					<a href="#/galleries">Galleries</a>
+					<a href="#/location">Location</a>
+					<a href="#/search">Search Collection</a>
+					<a href="#/about">About the Collection</a>
+				</div>
 			</header>
-			
+
+			<div id="fail"></div>
+			<!-- HOME PAGE -->
+			<section id="home">
+				<div id="splash">
+				    <div class="splash-1 splash-large">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-1.jpg" />
+				        </div>
+				        <div class="splash-details splash-light-on-dark">
+				            <h3>Arthur G . Murphy</h3>
+				            <h4>New Deal Master Printmaker</h4>
+				        </div>
+				    </div>
+				    <div class="splash-2 splash-small splash-mediumlight">
+				        <div class="splash-mask"></div>
+				        <div class="splash-details splash-section">
+				            <img src="img/splash/splash-2-artist.png" />
+				        </div>
+				    </div>
+				    <div class="splash-3 splash-small">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-3.jpg" />
+				        </div>
+				        <div class="splash-details splash-dark-on-light">
+				            <h3>Mail Call!</h3>
+				            <h4>A gallery celebrating the U.S. Post Office in Federal Art</h4>
+				        </div>
+				    </div>
+				    <div class="splash-4 splash-medium splash-light">
+				        <div class="splash-mask"></div>
+				        <div class="splash-details splash-section">
+				            <img src="img/splash/splash-4-galleries.png" />
+				        </div>
+				    </div>
+				    <div class="splash-5 splash-medium splash-dark splash-title">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-5-title.png" />
+				        </div>
+				        <div class="splash-details splash-section"></div>
+				    </div>
+				    <div class="splash-6 splash-large">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-6.jpg" />
+				        </div>
+				        <div class="splash-details splash-dark-on-light">
+				            <h3>Border Stations</h3>
+				            <h4>Good Art Makes Good Neighbors</h4>
+				            
+				        </div>
+				    </div>
+				    <div class="splash-7 splash-small splash-mediumlight">
+				        <div class="splash-mask"></div>
+				        <div class="splash-details splash-section">
+				            <img src="img/splash/splash-7-location.png" />
+				        </div>
+				    </div>
+				    <div class="splash-8 splash-small">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-8.jpg" />
+				        </div>
+				        <div class="splash-details splash-light-on-dark">
+				            <h3>Kansas @ 150</h3>
+				            <h4>A featured gallery saluting the Art of Kansas</h4>
+				        </div>
+				    </div>
+				    <div class="splash-9 splash-medium">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-9.jpg" />
+				        </div>
+				        <div class="splash-details splash-dark-on-light">
+				            <h3>New Deal Art</h3>
+				            <h4>Our collection contains over 20,000 works of New Deal Art.</h4>
+				        </div>
+				    </div>
+				    <div class="splash-10 splash-small splash-dark">
+				        <div class="splash-mask"></div>
+				        <div class="splash-details splash-section">
+				            <img src="img/splash/splash-10-search.png" />
+				        </div>
+				    </div>
+				    <div class="splash-11 splash-small">
+				        <div class="splash-mask">
+				            <img src="img/splash/splash-11.jpg" />
+				        </div>
+				        <div class="splash-details splash-light-on-dark">
+				            <h3>Roberto Juarez</h3>
+				            <h4>Paintings</h4>
+				        </div>
+				    </div>
+				</div>
+			</section>
 			<!-- OVERVIEWS -->
 			<section id="artist"></section>
 			<section id="artwork"></section>
 			<section id="building"></section>
-			<section id="collection"></section>
+			<section id="gallery"></section>
 			
 			<!-- INDEXES -->
-			<section id="collections"></section>
-			<section id="artists"></section>
-			
+			<section id="galleries"></section>
+			<section id="artists">
+				<div id="artists-search">
+						<div class="search">
+							<h1>Artist Index</h1>
+							<input id="filter" type="text" placeholder="Enter Artist's Name"/>
+							<!--<div class="input-group" id="filter">
+						      <input type="text" class="form-control">
+						      <span class="input-group-btn blue-icon">
+						        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						      </span>
+						    </div>-->
+						<div id="selectAlphaWrapper" class="selectWrapper">
+						<select>
+							<option selected disabled>By Last Name</option>
+							<option value="a">A</option>
+							<option value="b">B</option>
+							<option value="c">C</option>
+							<option value="d">D</option>
+							<option value="e">E</option>
+							<option value="f">F</option>
+							<option value="g">G</option>
+							<option value="h">H</option>
+							<option value="i">I</option>
+							<option value="j">J</option>
+							<option value="k">K</option>
+							<option value="l">L</option>
+							<option value="m">M</option>
+							<option value="n">N</option>
+							<option value="o">O</option>
+							<option value="p">P</option>
+							<option value="q">Q</option>
+							<option value="r">R</option>
+							<option value="s">S</option>
+							<option value="t">T</option>
+							<option value="u">U</option>
+							<option value="v">V</option>
+							<option value="w">W</option>
+							<option value="x">X</option>
+							<option value="y">Y</option>
+							<option value="z">Z</option>
+						</select>
+						</div>
+					</div>
+				</div>
+					<!--<div id="artists-index" class="rightCol col-md-9 col-md-offset-3"></div>-->
+					<div id="artists-index"></div>
+			</section>
+			<!-- LOCATION -->
+			<section id="location">
+					<h1>Browse by Location</h1>
+					<br>
+					<div class="selectWrapper">
+						<select id="state">
+							<option value="">Select a State</option>
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="DC">District Of Columbia</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="PR">Puerto Rico</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+						</select></div>
+					<!--<h3>Location Search: Charles Evan Whittaker</h3>-->
+					<div id="map"></div>
+					<div id="results-location">
+					</div>
+				
+			</section>
 			<!-- SEARCH -->
-			<section id="search"></section>
+			<section id="search">
+
+						<h1>Search the Fine Arts Collection</h1>
+						<div id="search-for-artwork">
+							<h3>Search for Artwork</h3>
+							<label for="keywords-artwork">Search Terms:</label><input id="keywords-artwork" type="text">
+							<button type="button" class="btn btn-primary">SEARCH</button>
+						</div>
+						<div id="search-for-artist">
+							<h3>Search for Artist</h3>
+							<label for="keywords-artist">Search Terms:</label><input id="keywords-artist" type="text"><br>
+							<button type="button" class="btn btn-primary">SEARCH</button>
+						</div>
+						<div id="search-for-buildings">
+							<h3>Search for Buildings</h3>
+							<label for="">Building Name:</label><input id="building-name" type="text"><br>
+							<label for="">State:</label>
+							<div class="selectWrapper">
+							<select id="state">
+								<option value="">Select a State</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District Of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="PR">Puerto Rico</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select></div><br>
+							<label for="">City:</label>
+							<div class="selectWrapper disabled">
+							<select id="city" disabled>
+								<option value="">Select a State First</option>
+							</select>
+							</div>
+							<br>
+							<button type="button" class="btn btn-primary">SEARCH</button>
+				</div>
+
+			</section>
+			<!-- ABOUT -->
+			<section id="about">
+				<h1>About the Collection</h1>
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat nisl nulla, in euismod nunc aliquam in. Nullam quis neque viverra, volutpat quam ut, convallis risus. Morbi ullamcorper, nibh ut dapibus egestas, diam eros consequat sapien, ut venenatis quam neque quis nibh. Etiam pretium pharetra leo ac porta. Etiam dignissim diam vel iaculis ultrices. Fusce enim eros, porta nec tincidunt ac, pulvinar eget dui. Nulla tincidunt lacus ut orci cursus suscipit. Sed tincidunt tortor sed est mollis gravida. Morbi sollicitudin ut turpis eget gravida. Donec consectetur tellus sit amet velit sollicitudin tempus. Sed tempor condimentum arcu sit amet rutrum. Sed ac odio eros.
+				</p>
+				<p>
+				Phasellus non porttitor arcu. Nulla ut volutpat orci, ut tincidunt risus. Nullam dignissim sem sit amet massa semper, in euismod eros tempor. Donec egestas porttitor velit, sit amet blandit neque lacinia eget. Donec interdum id risus non laoreet. Nulla nisi libero, suscipit ac gravida eget, commodo quis purus. Maecenas quis eleifend purus.
+				</p>
+				<p>
+				Duis euismod felis ac tincidunt aliquam. Donec sollicitudin blandit tortor, vitae lacinia risus varius ac. Etiam consequat ipsum quis ornare volutpat. Donec sed accumsan mauris. Vestibulum adipiscing sem dui, quis faucibus urna dapibus at. Nullam sed auctor dolor. Sed eget commodo neque, a hendrerit elit. Vivamus aliquet commodo arcu, vel viverra augue consectetur vitae. Nulla cursus vitae tellus at tristique. Donec condimentum risus vitae eros fringilla eleifend. Donec ut euismod eros. Pellentesque pretium tincidunt lorem, vitae porta eros pellentesque quis. Aenean fermentum nisl vitae nisi porttitor, eget blandit libero rutrum. Quisque arcu neque, tempus sit amet mattis in, posuere ac diam. Sed scelerisque varius quam, ac scelerisque ligula dapibus tincidunt. Vivamus tempus ullamcorper diam vitae tincidunt.
+				</p>
+				<p>
+				Vestibulum blandit dolor nunc, a tempus arcu pellentesque nec. Nulla sed eleifend nisi. Phasellus tincidunt, lorem et pharetra volutpat, lorem dolor tempor tellus, eu hendrerit magna nulla et dolor. Maecenas quis dictum quam, vitae tincidunt est. Nulla nec euismod odio, vel vehicula dolor. Duis ultrices enim at justo semper viverra sed eu turpis. Donec ut viverra dolor. Fusce in elit vitae felis auctor ornare sed eget velit. Pellentesque pharetra eu dolor eu tempus. Nunc id metus nibh. Nam eu luctus eros. Nam venenatis elit eros, eget tempor turpis faucibus at. Duis tristique erat quis mi condimentum tempor. Cras diam lectus, lacinia quis viverra eget, vehicula quis sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec tristique justo orci, et faucibus odio porttitor ac.
+				</p>
+			</section>
 			
 			<!-- SEARCH RESULTS -->
 			<section id="results"></section>
+
+			<footer>
+				<img src="img/gsa-footer.png">
+			</footer>
 			
 		</div>
 		
 		<div id="load"></div>
-		<div id="fail"></div>
 		
 		
 		
@@ -52,28 +369,70 @@
 			<!-- OVERVIEWS -->
 			
 			<script class="artist" type="text/template">
-				<h3>Artist Overview</h3>
-				<h2>{{displayName}}</h2>
-				<p>{{{PeopleTextEntries.textEntry}}}</p>
-			</script>
-			<script class="artist-works" type="text/template">
-				<br>
-				<div class="works">
-					<ul>
-						{{#works}}
-							<li>
-								<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
-								<p>{{classification}}</p>
-								<p>{{displayDate}}</p>
-							</li>
-						{{/works}}
-					</ul>
+			<div class="row">
+				<div class="leftCol col-md-3">
+					<nav>
+						<h2 id="nav-artist-overview">Artist Overview</h2>
+						<h2 id="nav-by-this-artist">By This Artist</h2>
+					</nav>
 				</div>
-			</script>
+				<div class="rightCol col-md-9">
+						<div id="artist-overview" class="overview">
+						{{#artist}}
+							<h1>{{displayName}}</h1>
+							<p>{{{artistInfo}}}</p>
+						{{/artist}}
+						</div>
+
+						<div id="by-this-artist" class="works">
+							<h3>By This Artist</h3>
+							<ul>
+								{{#works}}
+									<li>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+										<p>{{classification}}</p>
+										<p>{{displayDate}}</p>
+									</li>
+								{{/works}}
+							</ul>
+						</div>
+					</div>
+				</div>
+				</script>
 			
-			<script class="collection" type="text/template">
-				<h2>{{collection}}</h2>
-				<h3>{{notes}}</h3>
+			<script class="gallery" type="text/template">
+				<div class="row">
+				<div class="leftCol col-md-3">
+					<nav>
+						<h2 id="nav-gallery-overview">Gallery Overview</h2>
+						<h2 id="nav-in-this-gallery">In This Gallery</h2>
+					</nav>
+				</div>
+				<div class="rightCol col-md-9">
+				{{#gallery}}
+						<div id="gallery-overview" class="overview">
+							<h1>{{collection}}</h1>
+							<p>This is where the longDesc goes.</p>
+						
+						</div>
+
+						<div id="in-this-gallery" class="works">
+							<h3>In This Gallery<span title="Number of results containing images" style="float:right" class="label label-default total-images"><span class="glyphicon glyphicon-picture"></span> {{totalImages}}</span><span style="float:right" title="Number of results" class="label label-default">{{total}}</span></h3>
+							<ul>
+								{{#Objects}}
+									<li>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+										<p>{{classification}}</p>
+										<p>{{displayDate}}</p>
+									</li>
+								{{/Objects}}
+							</ul>
+						</div>
+					{{/gallery}}
+					</div>
+				</div>
 			</script>
 			<script class="collection-works" type="text/template">
 				<ul>
@@ -89,38 +448,136 @@
 			</script>
 			
 			<script class="artwork" type="text/template">
-				<h2>{{title}}</h2>
-				<h3><a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></h3>
-				<p>{{displayDate}}</p>
-				<p>{{classification}}</p>
+			<div class="row">
+				<div class="leftCol col-md-3">
+					<nav>
+						<h2 id="nav-artwork-overview">Artwork Overview</h2>
+						{{#hasAdditional}}
+						<h2 id="nav-additional-images">Additional Images</h2>
+						{{/hasAdditional}}
+						<h2 id="nav-information">Information</h2>
+						{{#hasRelated}}
+						<h2 id="nav-also-of-interest">Also Of Interest</h2>
+						{{/hasRelated}}
+					</nav>
+				</div>
+				<div class="rightCol col-md-9">
+				{{#artwork}}
+					<div class="overview" id="artwork-overview">
+						<h1>{{title}}</h1>
+						{{^primaryImage}}<p><em>No Photo Available at this time</em><p>{{/primaryImage}}
+						{{#primaryImage}}
+						<img class="featured fancybox" {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}"{{/primaryImage}}>
+						<div class="social-media">
+							<div class="facebook"></div>
+							<div class="twitter"></div>
+							<div class="pinterest"></div>
+							<div class="email"></div>
+							<div class="print"></div>
+						</div>
+						<br>
+						<a class="fancybox" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
+						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong>{{photoCredit}}</div>{{/photoCredit}}{{/primaryImage}}
+						<br>
+						{{#interpretation}}<div class="interpretation">{{{interpretation}}}</div>{{/interpretation}}
+					</div>
+					{{#hasAdditional}}
+						<div id="additional-images" class="works">
+							<h3>Additional Images</h3>
+							<ul>
+								{{#additional}}
+									<li>
+										<a href="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^fileName}}class="noImage"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
+									</li>
+								{{/additional}}
+							</ul>
+						</div>
+						{{/hasAdditional}}
+					<div id="information" class="information">
+					<h3>Information</h3>
+						<ul>
+							{{#artist}}<li><strong>Artist:</strong> <a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></li>{{/artist}}
+							{{#displayDate}}<li><strong>Year:</strong> {{displayDate}}</li>{{/displayDate}}
+							{{#medium}}<li><strong>Medium:</strong> {{medium}}</li>{{/medium}}
+							{{#classification}}<li><strong>Classification:</strong> {{classification}}</li>{{/classification}}
+							{{#objectNumber}}<li><strong>Object Number:</strong> {{objectNumber}}</li>{{/objectNumber}}
+
+							{{#dimensions}}<li><strong>Dimensions:</strong> {{dimensions}}</li>{{/dimensions}}
+							{{#credits}}<li><strong>Credits:</strong> {{credits}}</li>{{/credits}}
+							{{#ObjectSites.building}}
+							<li><strong>Location:</strong> <a href="#/building/{{ObjectSites.siteId}}">{{ObjectSites.building}}</a></li>
+							{{/ObjectSites.building}}
+						</ul>
+					</div>
+				{{/artwork}}
+				{{#hasRelated}}
+				<div id="also-of-interest" class="works">
+					<h3>Also of Interest</h3>
+					<ul>
+						{{#related}}
+							<li>
+								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+							</li>
+						{{/related}}
+					</ul>
+				</div>
+				{{/hasRelated}}
+				</div>
+			</div>
 			</script>
 			
 			<script class="building" type="text/template">
-				<h2>{{building}}</h2>
-				<h3>{{siteType}}</h3>
-				<p>{{address}}</p>
-				<p>{{city}}, {{state}} {{zipCode}}</p>
-				<!-- BUILDING ARTWORK RESULTS HERE? -->
+			<div class="row">
+				<div class="leftCol col-md-3">
+					<nav>
+						<h2 id="nav-building-overview">Building Overview</h2>
+						{{#hasWorks}}<h2 id="nav-artwork-in-this-building">Artwork In This Building</h2>{{/hasWorks}}
+					</nav>
+				</div>
+				<div class="rightCol col-md-9">
+					{{#building}}
+					<div id="building-overview" class="overview">
+						<h1>{{building}}</h1>
+						<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}>
+						<p>{{address}}</p>
+						<p>{{city}}, {{state}} {{zipCode}}</p>
+					</div>
+					{{/building}}
+					<div id="artwork-in-this-building" class="works">
+					{{#hasWorks}}<h3>Artwork in this Building</h3>
+						<ul>
+							{{#works}}
+								<li>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^fileName}}class="noImage"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
+									<div>
+										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+										<p>{{artist}}</p>
+										<p>{{objectNumber}}</p>
+										<p>{{displayDate}}</p>
+										<p>{{classification}}</p>
+									</div>
+								</li>
+							{{/works}}
+						</ul>
+						{{/hasWorks}}
+				</div>
+				</div>
 			</script>
 			
 			<!-- INDEXES -->
 			
-			<script class="artists" type="text/template">
-				<h2>Artist Index</h2>
-				/*NOT IN USE YET*/
-			</script>
-			
-			<script class="collections" type="text/template">
-				<h2>Collections</h2>
+			<script class="galleries" type="text/template">
+				<h1>Galleries</h1>
 				<br>
-				<ul>
-					{{#collections}}
-						<li>
-							<h4><a href="#/collection/{{id}}">{{collection}}</a></h4>
-							<p>{{notes}}</p>
-						</li>
-					{{/collections}}
-				</ul>
+				{{#galleries}}
+				<div>
+					<a href="#/gallery/{{id}}"><img class="featured" style="float:left" alt="{{collection}}" {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"{{/fileName}}></a>
+					<div class="description">
+						<h2><a href="#/gallery/{{id}}">{{collection}}</a></h2>
+						<p>{{notes}}</p>
+					</div>
+				</div>
+				{{/galleries}}
 			</script>
 			
 			<!-- SEARCH -->
@@ -132,37 +589,61 @@
 			<!-- SEARCH RESULTS -->
 			
 			<script class="results-objects" type="text/template">
-				<h2>Search Results</h2>
+				<h1>Search Results<span title="Number of results containing images" style="float:right" class="label label-default total-images"><span class="glyphicon glyphicon-picture"></span> {{totalImages}}</span><span title="Number of results" style="float:right" class="label label-default">{{total}}</span></h1>
 				<br>
-				<ul>
+				{{#over9000}}
+				<div class="alert alert-warning" role="alert">
+					<h4>There are over {{highEnd}} results for this query.</h4>
+					<p><a href="#/search">Click here to refine your search.</a></p>
+				</div>
+				{{/over9000}}
+				<ul class="results results-objects">
 					{{#results}}
 						<li>
-							<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
-							<p><strong><a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></strong></p>
-							<p>{{displayDate}}</p>
-							<p>{{classification}}</p>
+							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
+							<div class="detail">
+								<h4><strong><a href="#/artwork/{{id}}">{{title}}</a></strong></h4>
+								<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
+								<p><strong>{{displayDate}}</strong></p>
+								<p>{{classification}}</p>
+								<p>{{objectNumber}}</p>
+							</div>
 						</li>
 					{{/results}}
 				</ul>
 			</script>
 			
-			<script class="results-people" type="text/template">
-				<h2>Search Results</h2>
+			<script class="results results-people" type="text/template">
+				<h1>Search Results<span style="float:right" class="label label-default">{{total}}</span></h1>
 				<br>
-				<ul>
+				{{#over9000}}
+				<div class="alert alert-warning" role="alert">
+					<h4>There are over {{highEnd}} results for this query.</h4>
+					<p><a href="#/search">Click here to refine your search.</a></p>
+				</div>
+				{{/over9000}}
+				<ul class="results results-people">
 					{{#results}}
 						<li>
-							<h4><a href="#/artist/{{id}}">{{displayName}}</a></h4>
-							<p>{{displayDate}}</p>
+							<div class="detail">
+								<h4><strong><a href="#/artist/{{id}}">{{displayName}}</a></strong></h4>
+								<p><strong>{{displayDate}}</strong></p>
+							</div>
 						</li>
 					{{/results}}
 				</ul>
 				
 			</script>
 			
-			<script class="results-buildings" type="text/template">
-				<h2>Search Results</h2>
+			<script class="results results-buildings" type="text/template">
+				<h1>Search Results<span style="float:right" class="label label-default">{{total}}</span></h1>
 				<br>
+				{{#over9000}}
+				<div class="alert alert-warning" role="alert">
+					<h4>There are over {{highEnd}} results for this query.</h4>
+					<p><a href="#/search">Click here to refine your search.</a></p>
+				</div>
+				{{/over9000}}
 				<ul>
 					{{#results}}
 						<li>
@@ -174,8 +655,31 @@
 					{{/results}}
 				</ul>
 			</script>
+			<script class="results results-location" type="text/template">
+				<div class="results-location-header">
+					<h3>Buildings in {{state}}<span style="float:right" class="label label-default">{{total}}</span></h3>
+				</div>
+				{{#locations}}
+					<h4>{{city}}</h4>
+					<ul>
+					{{#buildings}}
+						<li><a href="#/building/{{id}}">{{building}}</a></li>
+					{{/buildings}}
+					</ul>
+				{{/locations}}
+			</script>
 		</div>
 		
+		<div id="no-soup">
+			<h1>Sorry...</h1>
+			<p>Your browser is out of date, and incompatible with this site.</p>
+			<p><a href="http://whatbrowser.org/" target="_blank">Click Here</a> for more information.</p>
+		</div>
+		<div id="no-soup-2-compatibility-mode-boogaloo">
+			<h1>Sorry...</h1>
+			<p>Your browser is currently running in compatibility mode which, somewhat ironically, is incompatible with this site.</p>
+			<p><a href="http://windows.microsoft.com/en-us/internet-explorer/products/ie-9/features/compatibility-view" target="_blank">Click Here</a> for more information.</p>
+		</div>
 		
 	</body>
 </html>

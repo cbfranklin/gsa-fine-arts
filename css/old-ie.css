@@ -1,0 +1,7 @@
+/*no arrow image, IE adds its own*/
+#wrapper{
+	display:none;
+}
+#no-soup{
+	display:block;
+}

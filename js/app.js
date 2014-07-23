@@ -1,17 +1,148 @@
 var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
-'http://hvemuseum2.gallerysystems.com/emuseum/api/';
+    'https://hvemuseum2.gallerysystems.com/emuseum/api/',
 
-//MOVED ALPHAORDER AND ARTIST CACHE TO ASSETS.JS
+    artistsCache = {
+        "a": [],
+        "b": [],
+        "c": [],
+        "d": [],
+        "e": [],
+        "f": [],
+        "g": [],
+        "h": [],
+        "i": [],
+        "j": [],
+        "k": [],
+        "l": [],
+        "m": [],
+        "n": [],
+        "o": [],
+        "p": [],
+        "q": [],
+        "r": [],
+        "s": [],
+        "t": [],
+        "u": [],
+        "v": [],
+        "w": [],
+        "x": [],
+        "y": [],
+        "z": [],
+        "status": []
+    },
+
+    galleryCache = null,
+
+    alphaOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+
+    states = {
+        "al": "alabama",
+        "ak": "alaska",
+        "az": "arizona",
+        "ar": "arkansas",
+        "ca": "california",
+        "co": "colorado",
+        "ct": "connecticut",
+        "dc": "district of columbia",
+        "de": "delaware",
+        "fl": "florida",
+        "ga": "georgia",
+        "hi": "hawaii",
+        "id": "idaho",
+        "il": "illinois",
+        "in": "indiana",
+        "ia": "iowa",
+        "ks": "kansas",
+        "ky": "kentucky",
+        "la": "louisiana",
+        "me": "maine",
+        "md": "maryland",
+        "ma": "massachusetts",
+        "mi": "michigan",
+        "mn": "montana",
+        "ms": "mississippi",
+        "mo": "missouri",
+        "ne": "nebraska",
+        "nv": "nevada",
+        "nh": "new hampshire",
+        "nj": "new jersey",
+        "nm": "new mexico",
+        "ny": "new york",
+        "nc": "north carolina",
+        "nd": "north dakota",
+        "oh": "ohio",
+        "ok": "oklahoma",
+        "or": "oregon",
+        "pa": "pennsylvania",
+        "ri": "rhode island",
+        "sc": "south carolina",
+        "sd": "south dakota",
+        "tn": "tennessee",
+        "tx": "texas",
+        "ut": "utah",
+        "vt": "vermont",
+        "va": "virginia",
+        "wa": "washington",
+        "wv": "west virginia",
+        "wi": "wisconsin",
+        "wy": "wyoming"
+    },
+
+    preloadMe = [
+        'img/social-media/facebook.png',
+        'img/social-media/twitter.png',
+        'img/social-media/pinterest.png',
+        'img/social-media/email.png',
+        'img/social-media/print.png',
+        'img/social-media/facebook-active.png',
+        'img/social-media/twitter-active.png',
+        'img/social-media/pinterest-active.png',
+        'img/social-media/email-active.png',
+        'img/social-media/print-active.png'
+    ],
+
+    isCompat;
 
 $(function() {
     $('#load').show();
-    clicks();
+    compatibilityMode();
+    if (isCompat === true) {
+        return;
+    }
+    helloDevs();
+    preloadImages();
+    bindings();
     routes();
     $(window).hashchange(function() {
-        loading();
+        $('#fail').hide();
+        $('section').hide();
+        $('#load').show();
         routes();
     });
 });
+
+function helloDevs() {
+    console.log(
+        ' _______________________________________ \n' +
+        '|                                       |\n' +
+        '|          Welcome, Developers!         |\n' +
+        '|                                       |\n' +
+        "|       All JSON requests to GSA's      |\n" +
+        '|      Fine Arts API will be logged     |\n' +
+        '|          to the console below.        |\n' +
+        '|_______________________________________|\n ');
+}
+
+function compatibilityMode() {
+    console.log('testing for compat')
+    if (navigator.userAgent.indexOf('compatible; MSIE 7.0;') > -1 && !$('html').hasClass('ie7')) {
+        $('#wrapper').hide();
+        $('#no-soup-2-compatibility-mode-boogaloo').show();
+        console.log('its compat')
+        compat = true;
+        $('#load').hide();
+    }
+}
 
 //ROUTING
 function routes() {
@@ -21,25 +152,26 @@ function routes() {
         window.location.hash === '#/') {
         loadHomePage();
     }
-    //INDEXES
-    else if (window.location.hash.indexOf('#/collections') !== -1) {
-        loadCollectionsIndex();
-    } else if (window.location.hash.indexOf('#/artists') !== -1) {
+    //ARTISTS INDEX
+    else if (window.location.hash.indexOf('#/artists') !== -1) {
         loadArtists();
     }
-    //OVERVIEWS
-    else if (window.location.hash.indexOf('#/artwork/') !== -1) {
+    //GALLERIES
+    else if (window.location.hash.indexOf('#/galleries') !== -1) {
+        loadGalleries();
+    }
+    //ABOUT
+    else if (window.location.hash.indexOf('#/about') !== -1) {
+        loadAbout();
+        //OVERVIEWS
+    } else if (window.location.hash.indexOf('#/artwork/') !== -1) {
         loadArtwork();
     } else if (window.location.hash.indexOf('#/artist/') !== -1) {
         loadArtist();
     } else if (window.location.hash.indexOf('#/building/') !== -1) {
         loadBuilding();
-    } else if (window.location.hash.indexOf('#/collection/') !== -1) {
-        loadCollection();
-    }
-    //SEARCH
-    else if (window.location.hash.indexOf('#/search') !== -1) {
-        loadSearch();
+    } else if (window.location.hash.indexOf('#/gallery') !== -1) {
+        loadGallery();
     }
     //SEARCH RESULTS
     else if (window.location.hash.indexOf('#/results/artwork') !== -1) {
@@ -51,14 +183,22 @@ function routes() {
     } else if (window.location.hash.indexOf('#/results/buildings') !== -1) {
         var type = 'buildings';
         loadResults(type);
+    }
+    //SEARCH
+    else if (window.location.hash.indexOf('#/search') !== -1) {
+        loadSearch();
+    }
+    //LOCATION
+    else if (window.location.hash.indexOf('#/location') !== -1) {
+        loadLocation();
     } else {
-        fail('404', 'Bad Route')
+        fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
 
 }
 
 //CLICKS
-function clicks() {
+function bindings() {
     //IM NOT SURE THAT ANY OF THESE DO ANYTHING ANYMORE. SHOULD TRANSFER CLICK BINDINGS FROM OTHER FUNCTIONS HERE.
     $('#results').on('click', '.cell img', function() {
         var objID = $(event.srcElement).parent().attr('id');
@@ -75,7 +215,334 @@ function clicks() {
 
 //HOME PAGE
 function loadHomePage() {
-    fail('Home Page', 'No handler function yet.<br><br><img style="width:100%;height:auto;" src="http://i1135.photobucket.com/albums/m628/tonista3/bob-ross.gif">');
+    animateSplash();
+    $('#load').hide();
+    $('#home').show();
+
+    function animateSplash() {
+
+        var play = true,
+            order = [6, 2, 9, 4, 7, 1, 10, 2, 11, 8, 3],
+            interval = 1500, //2000
+            pause = 4000,
+            fadeInTime = 1800, //2500
+            fadeOutTime = 1800, //2500
+            itemQueue = [],
+            fadeOutQueue = [],
+            rotateQueue,
+            currentItem;
+
+        rotate();
+
+        $("#home #splash").hover(
+            function() {
+                //CANCEL ROTATION
+                play = false;
+                //CLEAR ALL ACTIVE TIMEOUTS
+                for (i = 0; i < itemQueue.length; i++) {
+                    clearTimeout(itemQueue[i])
+                };
+                for (i = 0; i < fadeOutQueue.length; i++) {
+                    clearTimeout(fadeOutQueue[i])
+                };
+                clearTimeout(rotateQueue);
+
+                //REORDER ARRAY TO RESUME ROTATION
+                var anustart = order.indexOf(currentItem);
+                //COOOOOOINCIDENCE!
+                var newOrder = [];
+
+                for (i = anustart; i < order.length; i++) {
+                    newOrder.push(order[i]);
+                }
+                for (i = 0; i < anustart; i++) {
+                    newOrder.push(order[i])
+                };
+
+                order = newOrder;
+
+
+            },
+            function() {
+                play = true;
+                rotate();
+            }
+        );
+
+        $('#home #splash > div').hover(
+            function() {
+                //BRING UP ITEM DETAILS, HIDE ALL OTHERS
+                $(this).children('.splash-details').fadeIn().children('p').show();
+                $(this).siblings().children('.splash-details').hide().children('p').hide();
+            },
+            function() {
+                $(this).children('.splash-details').hide().children('p').hide();
+            }
+        );
+
+        function rotate() {
+            for (var i = 0; i < order.length; i++) {
+
+                var item = order[i];
+                //itemQueue[i] = setTimeout(fade, i * interval, item);
+
+                //IE SUPPORT:
+                itemQueue[i] = setTimeout((function(item) {
+                    return function() {
+                        fade(item);
+                    };
+                })(item), i * interval);
+
+                if (i === order.length - 1) {
+                    rotateQueue = setTimeout(function() {
+                        rotate();
+                    }, (interval * i) + pause);
+                };
+
+                function fade(item) {
+                    if (play === true) {
+                        currentItem = item;
+                        $('#home #splash .splash-' + item + ' .splash-details').fadeIn(fadeInTime);
+                        var fadeOut = setTimeout(function() {
+                            if (play === true) {
+                                $('#home #splash .splash-' + item + ' .splash-details').fadeOut(fadeOutTime);
+                            }
+                        }, pause + fadeInTime);
+
+                        fadeOutQueue.push(fadeOut);
+                    }
+                    /*else {
+                        console.log('FADE suppressed ITEM # ' + item);
+                    }*/
+                }
+            }
+        }
+    };
+}
+
+function loadAbout() {
+    $('#about').show();
+    $('#load').hide();
+}
+
+function loadSearch() {
+    $('#search').show();
+    $('#load').hide();
+
+    //BIND SEARCH BUTTONS
+    $('#search-for-artwork button').on('click', searchForArtwork);
+
+    $('#search-for-artist button').on('click', searchForArtist);
+
+    $('#search-for-buildings button').on('click', searchForBuildings);
+
+    //PULL CITIES FOR SELECTED STATE
+    $('#search').on('change', '#state', function() {
+        $('#city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
+        var state = $(this).val();
+        $.ajax({
+            url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
+            dataType: "jsonp",
+            timeout: 2500
+        })
+            .success(function(json) {
+                results = json.results;
+                if (json.total_results === 0) {
+                    noArtwork()
+                } else {
+                    var cities = [];
+                    for (i in results) {
+                        if (cities.indexOf(results[i].city) === -1) {
+                            cities.push(results[i].city)
+                        }
+                    }
+                    if (cities[0] === undefined) {
+                        noArtwork()
+                    } else {
+                        $('#city').html('<option value="">Select a City</option>')
+                        for (i in cities) {
+                            if (cities[i] !== undefined && typeof cities[i] !== 'function') {
+                                $('#city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
+                            }
+                        }
+                        $('#city').removeAttr('disabled').parent('.selectWrapper').removeClass('loading').removeClass('disabled');
+                    }
+                }
+            })
+            .error(function(textStatus, error) {
+                noArtwork()
+            });
+
+        function noArtwork() {
+            $('#city').html('<option value="">No Artwork Found</option>').parent('.selectWrapper').removeClass('loading').addClass('disabled');
+        }
+    });
+
+    //BIND ENTER KEY
+    Mousetrap.bindGlobal(['enter'], function(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        } else {
+            //internet exploder
+            e.returnValue = false;
+        }
+        if ($('#search-for-artwork input[type=text]').is(":focus")) {
+            searchForArtwork()
+        }
+        if ($('#search-for-artist input[type=text]').is(":focus")) {
+            searchForArtist()
+        }
+        if ($('#search-for-buildings input[type=text]').is(":focus")) {
+            searchForBuildings()
+        }
+    });
+
+    //BUILD SEARCH QUERIES
+    function searchForArtwork() {
+        var base = '#/results/artwork?keyword=';
+        var keywords = $('#keywords-artwork').val();
+        window.location.href = base + keywords;
+    };
+
+    function searchForArtist() {
+        var base = '#/results/artists?keyword=';
+        var keywords = $('#keywords-artist').val();
+        window.location.href = base + keywords;
+    };
+
+    function searchForBuildings() {
+        var base = '#/results/buildings?';
+        var parameters = [];
+        if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
+            parameters.push('keyword=' + $('#search #building-name').val());
+        }
+        if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
+            parameters.push('State=' + $('#search #state').val());
+        }
+        if ($('#search #city').val() !== '' && $('#search #city').val() !== undefined) {
+            parameters.push('City=' + $('#search #city').val());
+        }
+        window.location.href = base + parameters.join('&');
+    };
+};
+
+function loadLocation() {
+    $('#location').show();
+    $('#load').hide();
+    var mapWidth = $('#location').width();
+    var mapHeight = mapWidth * 0.75;
+    $('#map').css({
+        width: mapWidth,
+        height: mapHeight
+    });
+    $('#map').usmap({
+        stateHoverAnimation: 0,
+        stateStyles: {
+            fill: '#C8E5F2',
+            stroke: '#7C97AD'
+        },
+        stateHoverStyles: {
+            fill: '#ea3239',
+            stroke: '#911D21'
+        },
+        labelBackingStyles: {
+            fill: '#C8E5F2',
+            stroke: '#7C97AD'
+        },
+        labelTextStyles: {
+            fill: 'black'
+        },
+        labelBackingHoverStyles: {
+            fill: '#ea3239',
+            stroke: '#911D21'
+        },
+        'click': function(event, data) {
+            $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
+            browseByState(data.name);
+        }
+    });
+
+    $('#location').on('change', '#state', function() {
+        $("#map > svg > path").each(function() {
+            $(this).css('fill', '');
+        });
+        var state = $(this).val();
+        $('#' + state).css('fill', 'red');
+        browseByState(state);
+    });
+
+    function browseByState(state) {
+        $('#location .selectWrapper').addClass('loading');
+        $("#map > svg > path").each(function() {
+            $(this).css('fill', '');
+        });
+        $('#' + state).css('fill', 'red');
+        $('#location #results-location').html('').hide();
+        var req = apiRoot + 'search/buildings?State=' + state + '&end=1000'
+        console.log('JSON request: ' + req)
+        $.ajax({
+            url: req,
+            dataType: "jsonp",
+            timeout: 2500
+        })
+            .success(function(json) {
+                var results = json.results;
+                if (json.total_results === 0 || json === undefined) {
+                    var html = '<h3>Buildings in ' + states[json.search_value[0].value.toLowerCase()].titleCase() + '<span style="float:right" class="label label-default label-danger">0</span></h3><h4>No Buildings Found</h4>'
+                    $('#location #results-location').html(html).show();
+                } else {
+                    var locations = [];
+                    for (i in results) {
+                        var hasCity = false,
+                            cityIndex = null;
+                        for (j in locations) {
+                            if (locations[j].city === results[i].city) {
+                                hasCity = true;
+                                cityIndex = j;
+                            }
+                        }
+                        if (!hasCity) {
+                            var city = {
+                                city: results[i].city,
+                                buildings: [
+                                    results[i]
+                                ]
+                            };
+                            locations.push(city);
+                        } else {
+                            if (cityIndex !== 'last') {
+                                //IE PROBLEM
+                                locations[cityIndex].buildings.push(results[i]);
+                            }
+                        }
+                    }
+
+                    locations.sort(function(a, b) {
+                        return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
+                    });
+
+                    var state = states[results[0].state.toLowerCase()].titleCase();
+
+                    var template = $('#templates .results-location').html();
+                    var html = Mustache.to_html(template, {
+                        locations: locations,
+                        state: state,
+                        total: json.total_results
+                    });
+
+                    $('#location #results-location').html(html).show();
+
+                    $('.results-location-header').sticky();
+                }
+                $('#location .selectWrapper').removeClass('loading')
+                scrollToAnchor('results-location');
+            })
+            .error(function(textStatus, error) {
+                var html = '<h3>Buildings<span style="float:right" class="label label-default label-danger">0</span></h3><h4>Server Error: No Buildings Found</h4>';
+                $('#location #results-location').html(html).show().scrollToAnchor();
+                $('#location .selectWrapper').removeClass('loading')
+            });
+    }
 }
 
 //SEARCH RESULTS
@@ -92,87 +559,201 @@ function loadResults(type) {
 
 //ARTIST INDEX
 function loadArtists() {
-
-    if (artistCache.status === 1) {
+    $('#load').show();
+    /*if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists div').length === 26) {
+            console.log('ARTISTS: DOM is preserved. No Action.')
             $('#load').hide();
             $('#artists').show();
+            artistsReady();
         } else {
-            artistsAppend(artistCache);
-            $('#load').hide();
+            artistsAppend(JSON.parse(localStorage['artistsCache']));
+            console.log('ARTISTS: artistsCache exists in localStorage.')
+            artistsReady();
         }
+    } else {*/
+    console.log('ARTISTS: No artistsCache, pulling from API.')
+    for (var i = 0; i < alphaOrder.length; i++) {
+        fetchAllResults('people', 'Index=' + alphaOrder[i], artistsHandler);
+    };
+    //}
+}
+
+function artistsReady() {
+
+    $('#artists').show();
+    //LIVE FILTER
+    $('#artists').liveFilter('#filter', '.artist', {
+        filterChildSelector: 'a',
+        filter: function(el, val) {
+            val = val.replace(/,/g, '');
+            var regex = new RegExp('((?:[a-z][a-z]+)) ');
+            if (regex.test(val)) {
+                valarray = val.split(' ');
+                var regex2 = '(?=.*{{first}}).*?(?=.*{{second}})';
+                regex2 = regex2.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+                var regex2 = new RegExp(regex2, 'i');
+                return regex2.test($(el).text());
+            } else {
+                return $(el).text().toUpperCase().indexOf(val.toUpperCase()) >= 0;
+            }
+        },
+        after: function() {
+            for (i = 0; i < 26; i++) {
+                if ($('#artists-index div').eq(i).find('.artist:not(.hidden)').length === 0) {
+                    $('#artists-index  div').eq(i).hide();
+                } else {
+                    $('#artists-index div').eq(i).show();
+                }
+            }
+        }
+    });
+    $('#load').hide()
+
+    //BROWSE WITH SELECT MENU
+    $('#selectAlphaWrapper select').change(function() {
+        //$('#filter').liveFilterClear();
+
+        var val = $(this).val();
+
+        scrollToAnchor(val, -200)
+    });
+
+    $('#artists-search').sticky();
+}
+
+//GALLERIES
+function loadGalleries() {
+    //IF IN MEMORY
+    if (galleryCache !== null) {
+        galleriesHandler(galleryCache);
     } else {
-        for (var i = 0; i < alphaOrder.length; i++) {
-            fetchAllResults('people', 'Index=' + alphaOrder[i], artistsHandler);
-        };
+        //IF IN LOCALSTORAGE
+        if (localStorage['fineArtsDB_galleryCache']) {
+            galleryCache = JSON.parse(localStorage['fineArtsDB_galleryCache']);
+            galleriesHandler(galleryCache);
+        } else {
+            //IF NEITHER
+            var req = apiRoot + 'collections/all';
+
+            console.log('JSON request: ' + req)
+
+            $.ajax({
+                url: req,
+                async: true,
+                dataType: "jsonp",
+                timeout: 10000
+            })
+                .success(function(json) {
+                    galleriesHandler(json.results);
+                    galleryCache = json.results;
+                    localStorage.setItem('fineArtsDB_galleryCache', JSON.stringify(galleryCache));
+
+                })
+                .error(fail);
+        }
+    }
+};
+
+function galleriesHandler(galleries) {
+    for (i in galleries) {
+        if (galleries[i].fileName) {
+            galleries[i].fileName = formatImagePath(galleries[i].fileName);
+        }
+    }
+    galleries.sort(function(a, b) {
+        return a.collection.toLowerCase().localeCompare(b.collection.toLowerCase());
+    });
+    for (i in galleries) {
+        galleries[i].primaryImage = galleries[i].primaryImage
+    }
+    var template = $('#templates .galleries').html();
+    var html = Mustache.to_html(template, {
+        galleries: galleries
+    })
+    $('#galleries').html(html).show();
+    $('#load').hide();
+}
+
+//GALLERY DETAIL
+function loadGallery() {
+
+    //GALLERY ID
+    var hash = window.location.hash.split('/');
+    var objID = hash[2];
+
+    //IF IN MEMORY
+    if (galleryCache !== null) {
+        var gallery = galleryCache.filter(function(obj) {
+            return obj.id == objID;
+        });
+        galleryHandler(gallery[0]);
+    } else {
+        //IF IN LOCALSTORAGE
+        if (localStorage['fineArtsDB_galleryCache']) {
+            galleryCache = JSON.parse(localStorage['fineArtsDB_galleryCache']);
+            var gallery = galleryCache.filter(function(obj) {
+                return obj.id == objID;
+            });
+            galleryHandler(gallery[0]);
+        } else {
+            //IF NEITHER, ITS JSON TIME
+            var req = apiRoot + 'collections/all';
+
+            console.log('JSON request: ' + req)
+
+            $.ajax({
+                url: req,
+                async: true,
+                dataType: "jsonp",
+                timeout: 10000
+            })
+                .success(function(json) {
+
+                    galleryCache = json.results;
+                    localStorage.setItem('fineArtsDB_galleryCache', JSON.stringify(galleryCache));
+
+                    var gallery = galleryCache.filter(function(obj) {
+                        return obj.id == objID;
+                    });
+                    galleryHandler(gallery[0]);
+                })
+                .error(fail);
+        }
     }
 }
 
-//COLLECTIONS INDEX
-function loadCollectionsIndex() {
-    var req = apiRoot + 'collections/all';
+function galleryHandler(gallery) {
+    gallery.Objects.sort(imagesFirst);
 
-    console.log(req)
-
-    $.ajax({
-        url: req,
-        async: true,
-        dataType: "jsonp",
-        timeout: 2500
-    })
-        .success(function(json) {
-            var collections = json.results;
-            var template = $('#templates .collections').html();
-            var html = Mustache.to_html(template, {
-                collections: collections
-            })
-            $('#collections').html(html).show();
-            $('#load').hide();
-        });
-};
-
-//COLLECTION DETAIL
-function loadCollection() {
-
-    var hash = window.location.hash.split('/');
-
-    var objID = hash[2];
-
-    var req = apiRoot + 'collections/' + objID;
-
-    if (isNaN(parseInt(objID))) {
-        fail('This Request is Not Valid.', 'Collection ID must be a number, and should look like this: #/collection/3606.')
-    } else {
-        console.log(req)
-        $.ajax({
-            url: req,
-            dataType: "jsonp",
-            timeout: 2500
-        })
-            .success(function(json) {
-                if (json.total_results === 0) {
-                    $('#collection').show();
-                    fail('This Collection Could Not Be Found', 'json.total_results === 0');
-                } else {
-                    var collection = json.results;
-                    var template = $('#templates .collection').html();
-                    var html = Mustache.to_html(template, collection);
-                    $('#collection').html(html);
-
-                    var works = collection.Objects;
-                    var template = $('#templates .collection-works').html();
-                    var html = Mustache.to_html(template, {
-                        works: works
-                    });
-                    $('#collection').append(html).show();
-
-                    $('#load').hide();
-                }
-            })
-            .error(function(textStatus, error) {
-                fail('This Collection Could Not Be Found', error);
-            });
+    var totalImages = 0;
+    for (i in gallery.Objects) {
+        if (gallery.Objects[i].primaryImage) {
+            gallery.Objects[i].primaryImage = formatImagePath(gallery.Objects[i].primaryImage);
+            totalImages += 1;
+        }
     }
+
+    var total = gallery.Objects.length;
+
+
+    var template = $('#templates .gallery').html();
+    var html = Mustache.to_html(template, {
+        gallery: gallery,
+        total: total,
+        totalImages: totalImages
+    });
+    $('#gallery').html(html).show();
+    $('.leftCol nav h2').on('click', function() {
+        if ($(this).attr('id')) {
+            var val = $(this).attr('id').replace('nav-', '');
+            scrollToAnchor(val);
+        }
+    });
+    $('.leftCol nav').stick_in_parent({
+        parent: $('.row')
+    });
+    $('#load').hide();
 }
 
 //ARTWORK DETAIL
@@ -187,7 +768,7 @@ function loadArtwork() {
     if (isNaN(parseInt(objID))) {
         fail('This Request is Not Valid.', 'Artwork ID must be a number, and should look like this: #/artwork/3606.')
     } else {
-        console.log(req)
+        console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             dataType: "jsonp",
@@ -196,17 +777,127 @@ function loadArtwork() {
             .success(function(json) {
                 artwork = json.results;
                 if (json.total_results === 0) {
-                    $('#artwork').show();
                     fail('This Artwork Could Not Be Found', 'We should confirm that it\'s in the API.');
                 } else {
                     var template = $('#templates .artwork').html();
-                    var html = Mustache.to_html(template, artwork);
+
+                    //TEXT TYPE INTERPRETATION
+                    if (artwork.ObjTextEntries) {
+                        if (isArray(artwork.ObjTextEntries)) {
+                            var interpretation = artwork.ObjTextEntries.filter(function(obj) {
+                                return obj.textType == 'Interpretation';
+                            });
+                            if (interpretation.length > 0) {
+                                interpretation = interpretation[0].textEntry;
+                            }
+                        } else {
+                            if (artwork.ObjTextEntries.hasOwnProperty('Interpretation')) {
+                                var interpretation = artwork.ObjTextEntries.textEntry;
+                            }
+                        }
+                    }
+                    if (artwork.ObjMedia) {
+                        if (isArray(artwork.ObjMedia)) {
+                            if (artwork.ObjMedia[0].copyright) {
+                                artwork.photoCredit = artwork.ObjMedia[0].copyright;
+                            }
+                        } else {
+                            if (artwork.ObjMedia.copyright) {
+                                artwork.photoCredit = artwork.ObjMedia.copyright;
+                            }
+                        }
+                    }
+
+                    //RELATED ARTWORK
+                    var artistRelated = [],
+                        siteRelated = [],
+                        collectionRelated = [];
+
+                    if (artwork.artistRelatedObjects) {
+                        artistRelated = artwork.artistRelatedObjects;
+                    }
+
+                    if (artwork.siteRelatedObjects) {
+                        siteRelated = artwork.siteRelatedObjects;
+                    }
+
+                    if (artwork.Collections) {
+                        collectionRelated = artwork.Collections.objects;
+                    }
+
+                    //CONCAT INTO ONE ARRAY
+                    var relatedWorks = [];
+                    relatedWorks = relatedWorks.concat(artistRelated, siteRelated, collectionRelated);
+                    if (relatedWorks.length > 0) {
+                        //REMOVE THOSE WITHOUT IMAGES
+                        relatedWorks = relatedWorks.filter(hasImage);
+                    }
+                    if (relatedWorks.length > 8) {
+                        relatedWorks.splice(8, relatedWorks.length)
+                    }
+                    var hasRelated = (relatedWorks.length > 0);
+                    if (artwork.ObjMedia) {
+                        var additional = artwork.ObjMedia;
+                        var hasAdditional = (artwork.ObjMedia.length > 0);
+                    }
+                    //var template = $('#templates .artwork-works').html();
+
+                    //FORMAT IMAGE FILENAMES
+                    if (artwork.primaryImage) {
+                        artwork.primaryImage = formatImagePath(artwork.primaryImage);
+                    }
+
+                    if (hasRelated) {
+                        for (i in relatedWorks) {
+                            if (relatedWorks[i].primaryImage) {
+                                relatedWorks[i].primaryImage = formatImagePath(relatedWorks[i].primaryImage);
+                            }
+                        }
+                    }
+
+                    if (hasAdditional) {
+                        for (i in additional) {
+                            if (additional[i].fileName) {
+                                additional[i].fileName = formatImagePath(additional[i].fileName);
+                            }
+                        }
+                    }
+
+
+                    var html = Mustache.to_html(template, {
+                        artwork: artwork,
+                        interpretation: interpretation,
+                        related: relatedWorks,
+                        hasRelated: hasRelated,
+                        additional: additional,
+                        hasAdditional: hasAdditional
+                    });
                     $('#artwork').html(html).show();
+
+                    $('.leftCol nav').stick_in_parent({
+                        parent: $('.row')
+                    });
+                    $('.leftCol nav h2').on('click', function() {
+                        if ($(this).attr('id')) {
+                            var val = $(this).attr('id').replace('nav-', '');
+                            scrollToAnchor(val);
+                        }
+                    });
+
+                    $('#additional-images a').on('click', function(event) {
+                        var display = $(this).attr('href')
+                        $('img.featured').attr('src', '').attr('src', display);
+                        $('#artwork-overview').scrollToAnchor();
+                        event.preventDefault();
+                    });
+
+                    $('.fancybox').fancybox();
+
                     $('#load').hide();
                 }
             })
-            .error(function(textStatus, error) {
-                fail('This Collection Could Not Be Found', error);
+            .error(function(request, status, error) {
+                fail('This Artwork Could Not Be Found', status);
             });
     }
 }
@@ -224,7 +915,7 @@ function loadArtist() {
         fail('This Request is Not Valid.', 'Artist ID must be a number, and should look like this: #/artist/3606.')
     } else {
 
-        console.log(req)
+        console.log('JSON request: ' + req)
 
         $.ajax({
             url: req,
@@ -238,31 +929,62 @@ function loadArtist() {
                     fail('This Artist Could Not Be Found', 'We should confirm that it\'s in the API.');
                 } else {
                     //MUSTACHE FOR ARTIST METADATA
-                    var template = $('#templates .artist').html();
-                    var html = Mustache.to_html(template, artist);
-                    $('#artist').html(html);
+                    //var template = $('#templates .artist').html();
+                    //var html = Mustache.to_html(template, artist);
+                    //$('#artist').html(html);
 
-                    //OTHER WORKS BT ARTIST
-                    var req = apiRoot + 'search/objects?ArtistID=' + artistID;
-                    console.log(req)
-                    $.ajax({
-                        url: req,
-                        dataType: "jsonp",
-                        timeout: 2500
-                    })
-                        .success(function(json) {
-                            var works = json.results;
-                            var template = $('#templates .artist-works').html();
-                            var html = Mustache.to_html(template, {
-                                works: works
-                            });
-                            $('#artist').append(html).show();
-                            $('#load').hide();
-                        });
+                    //RELATED ARTWORK
+                    var works = artist.Objects;
+                    if (artist.PeopleTextEntries) {
+                        var pte = artist.PeopleTextEntries;
+                        console.log(pte)
+                        //Is PTE an object (1 result only), or an array (multiple results)
+                        if (isArray(pte)) {
+                            for (i in pte) {
+                                if (typeof pte[i] != 'function' && pte[i].textType.indexOf('Web') > -1) {
+                                    var artistInfo = pte[i].textEntry;
+                                }
+                            }
+                        }
+                        //motherfuckers...
+                        else {
+                            if (pte.textType.indexOf('Web') > -1) {
+                                var artistInfo = pte[i].textEntry;
+                            }
+                        }
+                    }
+                    //GAH
+                    if (!isArray(works)) {
+                        var work = works;
+                        var works = [];
+                        works.push(work);
+                    }
+                    for (i in works) {
+                        if (works[i].primaryImage) {
+                            works[i].primaryImage = formatImagePath(works[i].primaryImage);
+                        }
+                    }
+
+                    var template = $('#templates .artist').html();
+                    var html = Mustache.to_html(template, {
+                        artist: artist,
+                        works: works,
+                        artistInfo: artistInfo
+                    });
+                    $('#artist').html(html).show();
+
+                    $('.leftCol nav').stick_in_parent({
+                        parent: $('.row')
+                    });
+                    $('.leftCol nav h2').on('click', function() {
+                        var val = $(this).attr('id').replace('nav-', '');
+                        scrollToAnchor(val);
+                    });
+                    $('#load').hide();
                 }
             })
             .error(function(textStatus, error) {
-                fail('This Collection Could Not Be Found', error);
+                fail('This Artist Could Not Be Found', error);
             });
     }
 }
@@ -276,7 +998,7 @@ function loadBuilding() {
 
     var req = apiRoot + 'id/buildings/' + buildingID;
 
-    console.log(req)
+    console.log('JSON request: ' + req)
 
     if (isNaN(parseInt(buildingID))) {
         fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
@@ -293,14 +1015,36 @@ function loadBuilding() {
                     fail('This Building Could Not Be Found', 'We should confirm that it\'s in the API.');
                 } else {
                     var building = json.results;
+
+                    //RELATED ARTWORK
+                    var works = building.Objects;
+                    //Buildings Artwork is stored in array "Objects",
+                    //unless there's only ONE work of art, in which case Objects IS that artwork entry...lovely.
+                    if (works.length > 0 || works.hasOwnProperty('id')) {
+                        var hasWorks = true;
+                    }
+
                     var template = $('#templates .building').html();
-                    var html = Mustache.to_html(template, building);
+                    var html = Mustache.to_html(template, {
+                        building: building,
+                        works: works,
+                        hasWorks: hasWorks
+                    });
                     $('#building').html(html).show();
+
+                    $('.leftCol nav').stick_in_parent({
+                        parent: $('.row')
+                    });
+                    $('.leftCol nav h2').on('click', function() {
+                        var val = $(this).attr('id').replace('nav-', '');
+                        scrollToAnchor(val);
+                    });
+
                     $('#load').hide();
                 }
             })
             .error(function(textStatus, error) {
-                fail('This Collection Could Not Be Found', error);
+                fail('This Building Could Not Be Found', error);
             });
     }
 }
@@ -314,7 +1058,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     var req = apiRoot + 'search/' + searchType + '?' + searchParams + '&end=1000';
 
-    console.log(req)
+    console.log('JSON request: ' + req)
 
     $.ajax({
         url: req,
@@ -324,6 +1068,9 @@ function fetchAllResults(searchType, searchParams, handler) {
     })
         .success(function(json) {
             handler(json, searchType);
+        })
+        .error(function(textStatus, error) {
+            fail('Server Connection Timed Out');
         });
 };
 
@@ -331,63 +1078,102 @@ function fetchAllResults(searchType, searchParams, handler) {
 function artistsHandler(json) {
     for (var i = 0; i < json.total_results; i++) {
         var item = json.results[i]
-        addValue(artistCache, item.index.toLowerCase(), item);
-        console.log(item.index)
+        addValue(artistsCache, item.index.toLowerCase(), item);
     };
 
-    artistCache.status.push(json.results[0].index);
-    if (artistCache.status.length === 26) {
+    artistsCache.status.push(json.results[0].index);
+    if (artistsCache.status.length === 26) {
         console.log('DONE')
-        artistCache.status = 1;
-        artistsAppend(artistCache);
-        localStorage.setItem('artistCache', JSON.stringify(artistCache));
+        //delete artistsCache.status;
+        //console.log(artistsCache)
+        artistsAppend(artistsCache);
+        //var stringified = JSON.stringify(artistsCache);
+        //localStorage.setItem('fineArtsDB_artistsCache', stringified);
     }
 }
 
 //APPENDS artists to Artist Index, and preps next letter append on scroll function.
 function artistsAppend(source) {
     $('#fail,#load').hide();
-    $('#artists').show();
 
     for (var i = 0; i < Object.size(source) - 1; i++) {
-        $('#artists').show().append('<div id="' + source[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + source[alphaOrder[i]][0].index + '</h3><ul></ul>')
+        $('#artists #artists-index').show().append('<div id="' + source[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + source[alphaOrder[i]][0].index + '</h3><ul></ul>')
         for (var j = 0; j < source[alphaOrder[i]].length; j++) {
-            $('#artists #' + alphaOrder[i] + ' ul').append('<li><a href="' + '#/artist/' + source[alphaOrder[i]][j].id + '">' + source[alphaOrder[i]][j].displayName + '</a></li>');
+            if (source[alphaOrder[i]][j].lastName && source[alphaOrder[i]][j].firstName) {
+                var name = '<strong>' + source[alphaOrder[i]][j].lastName + '</strong> ' + source[alphaOrder[i]][j].firstName;
+            } else {
+                var name = '<strong>' + source[alphaOrder[i]][j].displayName + '</strong>';
+            }
+            $('#artists #' + alphaOrder[i] + ' ul').append('<li class="artist"><a href="' + '#/artist/' + source[alphaOrder[i]][j].id + '">' + name + '</a></li>');
         };
+        if (i === 25) {
+            artistsReady();
+        }
     };
 }
+
 
 //CACHES any result -- UNUSED
 function cacheResults(item) {
     resultsCache.push(item);
 }
 
-function loading() {
-    $('#fail').hide();
-    $('section').hide();
-    $('#load').show();
-}
-
 //APPENDS search results
 function appendResults(json, type) {
-    console.log('APPEND RESULTS', type)
     var results = json.results;
-    var template = $('#templates .results-' + type).html();
-    var html = Mustache.to_html(template, {
-        results: results
-    });
-    $('#results').html(html).show();
-    $('#load').hide();
+    if (json.results.length !== 0) {
+        //SORT RESULTS WITH IMAGES FIRST
+        if (results.length > 1) {
+            results.sort(imagesFirst);
+            //SORT ALPHA BY TITLE
+            results = results.sort(function(a, b) {
+                return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+            });
+        }
+        var totalImages = 0;
+        //FORMAT IMAGE PATHS
+        for (i in results) {
+            if (results[i].primaryImage) {
+                results[i].primaryImage = formatImagePath(results[i].primaryImage);
+                totalImages += 1;
+            }
+        }
+
+        var highEnd = 200;
+        if (json.total_results > highEnd) {
+            var over9000 = true;
+        }
+
+        var template = $('#templates .results-' + type).html();
+        var html = Mustache.to_html(template, {
+            results: results,
+            total: json.total_results,
+            over9000: over9000,
+            highEnd: highEnd,
+            totalImages: totalImages
+        });
+        $('#results').html(html).show();
+        $('#load').hide();
+
+        $('#results h1').sticky();
+    } else {
+        $('#results').html('<h1>Search Results</h1><h2>No Results Found.</h2>').show();
+        $('#load').hide();
+    }
 }
+
+
+
+
 
 //ERROR REPORT
 function fail(message, description) {
-    if (message === null) {
-        message = 'ERROR';
+    if (message === undefined) {
+        var message = 'ERROR';
     }
-    if (description === null) {
-        description === '';
+    if (description === undefined) {
+        var description = 'Probably an issue reaching the API';
     }
     $('#fail').html('').append('<h3>' + message + '</h3>').append('<p>' + description + '</p>').show();
-    $('#load').hide();
-}
+    $('#load,section').hide();
+};
