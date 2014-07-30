@@ -91,7 +91,7 @@ function imagesFirst(a, b) {
 
 //GET FILENAME FROM PATH
 function formatImagePath(str) {
-    var match = str.match(/[^\/]*$/)[0].replace('jpg', 'png').replace('JPG', 'png');
+    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
     if (match === '') {
         return false;
     } else {

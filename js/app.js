@@ -2,36 +2,43 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     'https://hvemuseum2.gallerysystems.com/emuseum/api/',
 
     artistsCache = {
-        "a": [],
-        "b": [],
-        "c": [],
-        "d": [],
-        "e": [],
-        "f": [],
-        "g": [],
-        "h": [],
-        "i": [],
-        "j": [],
-        "k": [],
-        "l": [],
-        "m": [],
-        "n": [],
-        "o": [],
-        "p": [],
-        "q": [],
-        "r": [],
-        "s": [],
-        "t": [],
-        "u": [],
-        "v": [],
-        "w": [],
-        "x": [],
-        "y": [],
-        "z": [],
-        "status": []
+        artists: {
+            "a": [],
+            "b": [],
+            "c": [],
+            "d": [],
+            "e": [],
+            "f": [],
+            "g": [],
+            "h": [],
+            "i": [],
+            "j": [],
+            "k": [],
+            "l": [],
+            "m": [],
+            "n": [],
+            "o": [],
+            "p": [],
+            "q": [],
+            "r": [],
+            "s": [],
+            "t": [],
+            "u": [],
+            "v": [],
+            "w": [],
+            "x": [],
+            "y": [],
+            "z": []
+        },
+        "status": [],
+        "date": null
     },
 
-    galleryCache = null,
+    galleriesCache = {
+        "galleries": null,
+        "date": null
+
+    },
 
     alphaOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
 
@@ -59,9 +66,10 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         "md": "maryland",
         "ma": "massachusetts",
         "mi": "michigan",
-        "mn": "montana",
+        "mn": "minnesota",
         "ms": "mississippi",
         "mo": "missouri",
+        "mt": "montana",
         "ne": "nebraska",
         "nv": "nevada",
         "nh": "new hampshire",
@@ -109,7 +117,7 @@ $(function() {
     if (isOldIE === true) {
         return;
     }
-    helloDevs();
+    /*helloDevs();*/
     preloadImages();
     bindings();
     routes();
@@ -139,11 +147,13 @@ function ie() {
         $('#compatibility-mode').show();
         isOldIE = true;
         $('#load').hide();
-    } else if (navigator.userAgent.indexOf('MSIE 8')) {
+    } else if (navigator.userAgent.indexOf('MSIE 8') > -1) {
         $('#wrapper').hide();
         $('#old-ie').show();
         isOldIE = true;
         $('#load').hide();
+    } else {
+        $('#old-ie,#compatibility-mode').remove();
     }
 }
 
@@ -211,6 +221,10 @@ function bindings() {
         $('#item').hide().html('');
         $('#results').fadeIn();
         window.location.hash = '#/results'
+    });
+
+    $("img").on('error', function() {
+        $(this).unbind("error").attr("src", "broken.gif");
     });
 }
 
@@ -403,13 +417,13 @@ function loadSearch() {
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var keywords = $('#keywords-artwork').val();
+        var keywords = $('#keywords-artwork').val().replace(' ', '%20');
         window.location.href = base + keywords;
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var keywords = $('#keywords-artist').val();
+        var keywords = $('#keywords-artist').val().replace(' ', '%20');
         window.location.href = base + keywords;
     };
 
@@ -519,10 +533,17 @@ function loadLocation() {
                             }
                         }
                     }
+                    console.log(locations[0].buildings)
 
-                    locations.sort(function(a, b) {
-                        return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
-                    });
+                    /*locations[0].buildings.sort(function(a, b) {
+                        return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
+                    });*/
+
+                    for (i = 0; i < locations.length; i++) {
+                        locations[i].buildings.sort(function(a, b) {
+                            return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
+                        });
+                    }
 
                     var state = states[results[0].state.toLowerCase()].titleCase();
 
@@ -628,13 +649,13 @@ function artistsReady() {
 //GALLERIES
 function loadGalleries() {
     //IF IN MEMORY
-    if (galleryCache !== null) {
-        galleriesHandler(galleryCache);
+    if (galleriesCache !== null) {
+        galleriesHandler(galleriesCache);
     } else {
         //IF IN LOCALSTORAGE
-        if (localStorage['fineArtsDB_galleryCache']) {
-            galleryCache = JSON.parse(localStorage['fineArtsDB_galleryCache']);
-            galleriesHandler(galleryCache);
+        if (localStorage['fineArtsDB_galleriesCache']) {
+            galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
+            galleriesHandler(galleriesCache);
         } else {
             //IF NEITHER
             var req = apiRoot + 'collections/all';
@@ -649,8 +670,8 @@ function loadGalleries() {
             })
                 .success(function(json) {
                     galleriesHandler(json.results);
-                    galleryCache = json.results;
-                    localStorage.setItem('fineArtsDB_galleryCache', JSON.stringify(galleryCache));
+                    galleriesCache = json.results;
+                    localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
 
                 })
                 .error(fail);
@@ -686,16 +707,16 @@ function loadGallery() {
     var objID = hash[2];
 
     //IF IN MEMORY
-    if (galleryCache !== null) {
-        var gallery = galleryCache.filter(function(obj) {
+    if (galleriesCache !== null) {
+        var gallery = galleriesCache.filter(function(obj) {
             return obj.id == objID;
         });
         galleryHandler(gallery[0]);
     } else {
         //IF IN LOCALSTORAGE
-        if (localStorage['fineArtsDB_galleryCache']) {
-            galleryCache = JSON.parse(localStorage['fineArtsDB_galleryCache']);
-            var gallery = galleryCache.filter(function(obj) {
+        if (localStorage['fineArtsDB_galleriesCache']) {
+            galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
+            var gallery = galleriesCache.filter(function(obj) {
                 return obj.id == objID;
             });
             galleryHandler(gallery[0]);
@@ -713,10 +734,10 @@ function loadGallery() {
             })
                 .success(function(json) {
 
-                    galleryCache = json.results;
-                    localStorage.setItem('fineArtsDB_galleryCache', JSON.stringify(galleryCache));
+                    galleriesCache = json.results;
+                    localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
 
-                    var gallery = galleryCache.filter(function(obj) {
+                    var gallery = galleriesCache.filter(function(obj) {
                         return obj.id == objID;
                     });
                     galleryHandler(gallery[0]);
@@ -817,20 +838,46 @@ function loadArtwork() {
                         collectionRelated = [];
 
                     if (artwork.artistRelatedObjects) {
+                        if (!isArray(artwork.artistRelatedObjects)) {
+                            var aro = artwork.artistRelatedObjects;
+                            artwork.artistRelatedObjects = [];
+                            artwork.artistRelatedObjects.push(aro);
+                        }
                         artistRelated = artwork.artistRelatedObjects;
                     }
 
                     if (artwork.siteRelatedObjects) {
+                        if (!isArray(artwork.siteRelatedObjects)) {
+                            var sro = artwork.siteRelatedObjects;
+                            artwork.siteRelatedObjects = [];
+                            artwork.siteRelatedObjects.push(sro);
+                        }
                         siteRelated = artwork.siteRelatedObjects;
                     }
 
                     if (artwork.Collections) {
-                        collectionRelated = artwork.Collections.objects;
+                        console.log('artwork.Collections ' + artwork.Collections)
+                        if (!isArray(artwork.Collections)) {
+                            var c = artwork.Collections;
+                            artwork.Collections = [];
+                            artwork.Collections.push(c);
+                        }
+                        for (i in artwork.Collections) {
+                            if (!isArray(artwork.Collections[i].objects)) {
+                                var aco = artwork.Collections[i].objects;
+                                artwork.Collections[i].objects = [];
+                                artwork.Collections[i].objects.push(aco);
+                            }
+                            collectionRelated.concat(artwork.Collections[i].objects)
+                        }
+                        //collectionRelated = artwork.Collections.objects;
+                        console.log('collectionRelated ' + collectionRelated)
                     }
 
                     //CONCAT INTO ONE ARRAY
                     var relatedWorks = [];
                     relatedWorks = relatedWorks.concat(artistRelated, siteRelated, collectionRelated);
+                    console.log(relatedWorks)
                     if (relatedWorks.length > 0) {
                         //REMOVE THOSE WITHOUT IMAGES
                         relatedWorks = relatedWorks.filter(hasImage);
@@ -846,10 +893,6 @@ function loadArtwork() {
                     //var template = $('#templates .artwork-works').html();
 
                     //FORMAT IMAGE FILENAMES
-                    if (artwork.primaryImage) {
-                        artwork.primaryImage = formatImagePath(artwork.primaryImage);
-                    }
-
                     if (hasRelated) {
                         for (i in relatedWorks) {
                             if (relatedWorks[i].primaryImage) {
@@ -863,6 +906,15 @@ function loadArtwork() {
                             if (additional[i].fileName) {
                                 additional[i].fileName = formatImagePath(additional[i].fileName);
                             }
+                        }
+                    }
+
+                    if (artwork.primaryImage) {
+                        artwork.primaryImage = formatImagePath(artwork.primaryImage);
+                    } else {
+                        if (hasAdditional) {
+                            artwork.primaryImage = formatImagePath(additional[0].fileName);
+                            additional.splice(0, 1);
                         }
                     }
 
@@ -894,7 +946,7 @@ function loadArtwork() {
                         event.preventDefault();
                     });
 
-                    $('.fancybox').fancybox();
+                    //$('.fancybox').fancybox();
 
                     $('#load').hide();
                 }
@@ -1021,6 +1073,10 @@ function loadBuilding() {
 
                     //RELATED ARTWORK
                     var works = building.Objects;
+
+                    works.sort(function(a, b) {
+                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    });
                     //Buildings Artwork is stored in array "Objects",
                     //unless there's only ONE work of art, in which case Objects IS that artwork entry...lovely.
                     if (works.length > 0 || works.hasOwnProperty('id')) {
@@ -1123,16 +1179,37 @@ function cacheResults(item) {
 
 //APPENDS search results
 function appendResults(json, type) {
+    console.log(type)
     var results = json.results;
+    console.log(results)
     if (json.results.length !== 0) {
         //SORT RESULTS WITH IMAGES FIRST
-        if (results.length > 1) {
-            results.sort(imagesFirst);
-            //SORT ALPHA BY TITLE
-            results = results.sort(function(a, b) {
-                return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-            });
-        }
+        /*if (results.length > 1) {
+            if(type === 'objects'){
+                results.sort(imagesFirst);
+                //SORT ALPHA BY TITLE
+                results = results.sort(function(a, b) {
+                    return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                });
+            }
+            if(type === 'people'){
+                results = results.sort(function(a, b) {
+                    return a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase());
+                });
+            }
+            if(type === 'buildings'){
+                for(i in results){
+                    console.log(results[i].building)
+                    if(results[i].building == undefined){
+                        results.splice(i,1)
+                    }
+                }
+                console.log(results[0].building)
+                results = results.sort(function(a, b) {
+                    return a.building.toLowerCase().localeCompare(b.buliding.toLowerCase());
+                });
+            
+        }}*/
         var totalImages = 0;
         //FORMAT IMAGE PATHS
         for (i in results) {

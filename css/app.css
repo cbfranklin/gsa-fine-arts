@@ -117,8 +117,7 @@ section{
 }
 
 #home #splash {
-    width:950px;
-    height:800px;
+    height:900px;
     position:relative;
     font-family: 'Open Sans', sans-serif;
     margin:0 auto;
@@ -358,7 +357,7 @@ select{
    width:100%;
 }
 .selectWrapper.loading{
-	background: url(http://njosnavel.in/gsa/sandbox/emuseum-dev/img/load-select.gif) 98% center no-repeat #efefef;
+	background: url(../img/load-select.gif) 98% center no-repeat #efefef;
 }
 .selectWrapper.loading span{
 	display:none;
@@ -424,8 +423,10 @@ input[type=text]{
 	float:left;
 	display:block;
 	width:320px;
+	height:140px;
 	margin:0;
 	padding:10px;
+	overflow:hidden;
 }
 .works li div{
 	overflow:hidden;
@@ -464,6 +465,7 @@ input[type=text]{
 }
 img{
 	position:relative;
+	font-size:0px;
 }
 img.featured{
 	width:480px;
@@ -602,6 +604,17 @@ h3 .label .glyphicon{
 	overflow:hidden;
 	padding:20px 10px;
 }
+/* FIREFOX */
+
+@-moz-document url-prefix() { 
+  .selectWrapper {
+     background:#efefef;
+  }
+  .selectWrapper.loading{
+	background: url(../img/load-select.gif) 93% center no-repeat #efefef;
+	}
+}
+
 /* FANCYBOX */
 /*! fancyBox v2.1.5 fancyapps.com | fancyapps.com/fancybox/#license */
 .fancybox-wrap,
