@@ -37,7 +37,6 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     galleriesCache = {
         "galleries": null,
         "date": null
-
     },
 
     alphaOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
@@ -109,7 +108,8 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         'img/social-media/print-active.png'
     ],
 
-    isOldIE;
+    isOldIE,
+    searchQuery;
 
 $(function() {
     $('#load').show();
@@ -417,29 +417,52 @@ function loadSearch() {
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var keywords = $('#keywords-artwork').val().replace(' ', '%20');
-        window.location.href = base + keywords;
+        var keywords = $('#keywords-artwork').val();
+        window.location.href = base + keywords.replace(/ /, '%20');;
+        searchQuery = '"' + keywords + '"';
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var keywords = $('#keywords-artist').val().replace(' ', '%20');
-        window.location.href = base + keywords;
+        var keywords = $('#keywords-artist').val();
+        window.location.href = base + keywords.replace(/ /, '%20');
+        searchQuery = '"' + keywords + '"';
     };
 
     function searchForBuildings() {
         var base = '#/results/buildings?';
         var parameters = [];
+        var searchParams;
         if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
-            parameters.push('keyword=' + $('#search #building-name').val());
+            parameters.push('keyword=' + $('#search #building-name').val().replace(/ /, '%20'));
+            searchParams.name = $('#search #building-name').val();
         }
         if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
             parameters.push('State=' + $('#search #state').val());
+            searchParams.state = $('#search #state').val();
         }
         if ($('#search #city').val() !== '' && $('#search #city').val() !== undefined) {
             parameters.push('City=' + $('#search #city').val());
+            searchParams.city = $('#search #city').val();
         }
+
         window.location.href = base + parameters.join('&');
+
+        if (searchParams.name && searchparams.city && searchParams.state) {
+            searchQuery = '"' + searchParams.name + '" in ' + searchParams.city + ', ' + searchParams.state;
+        }
+        if (!searchParams.name && searchparams.city && searchParams.state) {
+            searchQuery = searchParams.city + ', ' + searchParams.state;
+        }
+        if (!searchParams.name && !searchparams.city && searchParams.state) {
+            states[searchParams.state.toLowerCase()].titleCase();
+        }
+        if (searchParams.name && !searchparams.city && searchParams.state) {
+            '"' + searchParams.name + '" in ' + searchParams.statestates[searchParams.state.toLowerCase()].titleCase();
+        }
+        if (searchParams.name && !searchparams.city && !searchParams.state) {
+            '"' + searchParams.name + '"'
+        }
     };
 };
 
@@ -649,34 +672,34 @@ function artistsReady() {
 //GALLERIES
 function loadGalleries() {
     //IF IN MEMORY
-    if (galleriesCache !== null) {
+    /*    if (galleriesCache !== null) {
         galleriesHandler(galleriesCache);
     } else {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
             galleriesHandler(galleriesCache);
-        } else {
-            //IF NEITHER
-            var req = apiRoot + 'collections/all';
+        } else {*/
+    //IF NEITHER
+    var req = apiRoot + 'collections/all';
 
-            console.log('JSON request: ' + req)
+    console.log('JSON request: ' + req)
 
-            $.ajax({
-                url: req,
-                async: true,
-                dataType: "jsonp",
-                timeout: 10000
-            })
-                .success(function(json) {
-                    galleriesHandler(json.results);
-                    galleriesCache = json.results;
-                    localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
+    $.ajax({
+        url: req,
+        async: true,
+        dataType: "jsonp",
+        timeout: 10000
+    })
+        .success(function(json) {
+            galleriesHandler(json.results);
+            galleriesCache = json.results;
+            localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
 
-                })
-                .error(fail);
-        }
-    }
+        })
+        .error(fail);
+    //}
+    //}
 };
 
 function galleriesHandler(galleries) {
@@ -820,6 +843,7 @@ function loadArtwork() {
                             }
                         }
                     }
+
                     if (artwork.ObjMedia) {
                         if (isArray(artwork.ObjMedia)) {
                             if (artwork.ObjMedia[0].copyright) {
@@ -940,8 +964,9 @@ function loadArtwork() {
                     });
 
                     $('#additional-images a').on('click', function(event) {
-                        var display = $(this).attr('href')
-                        $('img.featured').attr('src', '').attr('src', display);
+                        var display = $(this).attr('href');
+                        var large = display.replace('/display', '/large')
+                        $('img.featured').attr('src', display).parent('a').attr('href', large);
                         $('#artwork-overview').scrollToAnchor();
                         event.preventDefault();
                     });
@@ -1184,32 +1209,39 @@ function appendResults(json, type) {
     console.log(results)
     if (json.results.length !== 0) {
         //SORT RESULTS WITH IMAGES FIRST
-        /*if (results.length > 1) {
-            if(type === 'objects'){
+        if (results.length > 1) {
+            if (type === 'objects') {
                 results.sort(imagesFirst);
                 //SORT ALPHA BY TITLE
                 results = results.sort(function(a, b) {
-                    return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    if (a.title && b.title) {
+                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    }
                 });
             }
-            if(type === 'people'){
+            if (type === 'people') {
                 results = results.sort(function(a, b) {
-                    return a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase());
+                    if (a.lastName && b.lastName) {
+                        return a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase());
+                    }
                 });
             }
-            if(type === 'buildings'){
-                for(i in results){
+            if (type === 'buildings') {
+                for (i in results) {
                     console.log(results[i].building)
-                    if(results[i].building == undefined){
-                        results.splice(i,1)
+                    if (results[i].building == undefined) {
+                        results.splice(i, 1)
                     }
                 }
                 console.log(results[0].building)
                 results = results.sort(function(a, b) {
-                    return a.building.toLowerCase().localeCompare(b.buliding.toLowerCase());
+                    if (a.building && b.building) {
+                        return a.building.toLowerCase().localeCompare(b.buliding.toLowerCase());
+                    }
                 });
-            
-        }}*/
+
+            }
+        }
         var totalImages = 0;
         //FORMAT IMAGE PATHS
         for (i in results) {
@@ -1230,7 +1262,7 @@ function appendResults(json, type) {
             total: json.total_results,
             over9000: over9000,
             highEnd: highEnd,
-            totalImages: totalImages
+            searchQuery: searchQuery
         });
         $('#results').html(html).show();
         $('#load').hide();

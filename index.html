@@ -417,7 +417,7 @@
 						</div>
 
 						<div id="in-this-gallery" class="works">
-							<h3>In This Gallery<span title="Number of results containing images" style="float:right" class="label label-default total-images"><span class="glyphicon glyphicon-picture"></span> {{totalImages}}</span><span style="float:right" title="Number of results" class="label label-default">{{total}}</span></h3>
+							<h3>In This Gallery<span style="float:left" title="Number of results" class="label label-default">{{total}}</span></h3>
 							<ul>
 								{{#Objects}}
 									<li>
@@ -478,13 +478,16 @@
 						<br>
 						<a target="_blank" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
 						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong>{{photoCredit}}</div>{{/photoCredit}}{{/primaryImage}}
-						<br>
-						{{#interpretation}}<div class="interpretation">{{{interpretation}}}</div>{{/interpretation}}
 					</div>
 					{{#hasAdditional}}
 						<div id="additional-images" class="works">
 							<h3>Additional Images</h3>
 							<ul>
+								<li>
+									<a href="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}">
+										<img src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"/>
+									</a>
+								</li>
 								{{#additional}}
 									<li>
 										<a href="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
@@ -510,6 +513,11 @@
 						</ul>
 					</div>
 				{{/artwork}}
+
+					{{#interpretation}}
+					<hr>
+					<div class="interpretation"><strong>Work Insights: </strong>{{{interpretation}}}</div>
+					{{/interpretation}}
 				{{#hasRelated}}
 				<div id="also-of-interest" class="works">
 					<h3>Also of Interest</h3>
@@ -590,7 +598,7 @@
 			<!-- SEARCH RESULTS -->
 			
 			<script class="results-objects" type="text/template">
-				<h1>Search Results<span title="Number of results containing images" style="float:right" class="label label-default total-images"><span class="glyphicon glyphicon-picture"></span> {{totalImages}}</span><span title="Number of results" style="float:right" class="label label-default">{{total}}</span></h1>
+				<h1>Results{{#searchQuery}} <small>for {{searchQuery}}</small>{{/searchQuery}}<span title="Number of results" style="float:left" class="label label-default">{{total}}</span></h1>
 				<br>
 				{{#over9000}}
 				<div class="alert alert-warning" role="alert">
@@ -615,7 +623,7 @@
 			</script>
 			
 			<script class="results results-people" type="text/template">
-				<h1>Search Results<span style="float:right" class="label label-default">{{total}}</span></h1>
+				<h1>Results{{#searchQuery}} <small>for {{searchQuery}}{{/searchQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h1>
 				<br>
 				{{#over9000}}
 				<div class="alert alert-warning" role="alert">
@@ -637,7 +645,7 @@
 			</script>
 			
 			<script class="results results-buildings" type="text/template">
-				<h1>Search Results<span style="float:right" class="label label-default">{{total}}</span></h1>
+				<h1>Results{{#searchQuery}} <small>for {{searchQuery}}{{/searchQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h1>
 				<br>
 				{{#over9000}}
 				<div class="alert alert-warning" role="alert">
@@ -658,7 +666,7 @@
 			</script>
 			<script class="results results-location" type="text/template">
 				<div class="results-location-header">
-					<h3>Buildings in {{state}}<span style="float:right" class="label label-default">{{total}}</span></h3>
+					<h3>Buildings in {{state}}<span style="float:left" class="label label-default">{{total}}</span></h3>
 				</div>
 				{{#locations}}
 					<h4>{{city}}</h4>
