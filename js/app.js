@@ -301,9 +301,10 @@ function loadHomePage() {
             for (var i = 0; i < order.length; i++) {
 
                 var item = order[i];
-                //itemQueue[i] = setTimeout(fade, i * interval, item);
 
-                //IE SUPPORT:
+                itemQueue[i] = setTimeout(fade, i * interval, item);
+
+                /*IE8 SUPPORT NO LONGER NECESSARY:
                 itemQueue[i] = setTimeout((function(item) {
                     return function() {
                         fade(item);
@@ -314,7 +315,7 @@ function loadHomePage() {
                     rotateQueue = setTimeout(function() {
                         rotate();
                     }, (interval * i) + pause);
-                };
+                };*/
 
                 function fade(item) {
                     if (play === true) {
@@ -378,7 +379,7 @@ function loadSearch() {
                     } else {
                         $('#city').html('<option value="">Select a City</option>')
                         for (i in cities) {
-                            if (cities[i] !== undefined && typeof cities[i] !== 'function') {
+                            if (cities[i] !== undefined) {
                                 $('#city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
                             }
                         }
@@ -432,37 +433,37 @@ function loadSearch() {
     function searchForBuildings() {
         var base = '#/results/buildings?';
         var parameters = [];
-        var searchParams;
+        //var searchParams = {};
         if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
             parameters.push('keyword=' + $('#search #building-name').val().replace(/ /, '%20'));
-            searchParams.name = $('#search #building-name').val();
+            //searchParams.name = $('#search #building-name').val();
         }
         if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
             parameters.push('State=' + $('#search #state').val());
-            searchParams.state = $('#search #state').val();
+            //searchParams.state = $('#search #state').val();
         }
         if ($('#search #city').val() !== '' && $('#search #city').val() !== undefined) {
             parameters.push('City=' + $('#search #city').val());
-            searchParams.city = $('#search #city').val();
+            //searchParams.city = $('#search #city').val();
         }
 
         window.location.href = base + parameters.join('&');
 
-        if (searchParams.name && searchparams.city && searchParams.state) {
+        /*if (searchParams.name && searchParams.city && searchParams.state) {
             searchQuery = '"' + searchParams.name + '" in ' + searchParams.city + ', ' + searchParams.state;
         }
-        if (!searchParams.name && searchparams.city && searchParams.state) {
+        if (!searchParams.name && searchParams.city && searchParams.state) {
             searchQuery = searchParams.city + ', ' + searchParams.state;
         }
-        if (!searchParams.name && !searchparams.city && searchParams.state) {
+        if (!searchParams.name && !searchParams.city && searchParams.state) {
             states[searchParams.state.toLowerCase()].titleCase();
         }
-        if (searchParams.name && !searchparams.city && searchParams.state) {
+        if (searchParams.name && !searchParams.city && searchParams.state) {
             '"' + searchParams.name + '" in ' + searchParams.statestates[searchParams.state.toLowerCase()].titleCase();
         }
-        if (searchParams.name && !searchparams.city && !searchParams.state) {
+        if (searchParams.name && !searchParams.city && !searchParams.state) {
             '"' + searchParams.name + '"'
-        }
+        }*/
     };
 };
 
@@ -901,7 +902,6 @@ function loadArtwork() {
                     //CONCAT INTO ONE ARRAY
                     var relatedWorks = [];
                     relatedWorks = relatedWorks.concat(artistRelated, siteRelated, collectionRelated);
-                    console.log(relatedWorks)
                     if (relatedWorks.length > 0) {
                         //REMOVE THOSE WITHOUT IMAGES
                         relatedWorks = relatedWorks.filter(hasImage);
@@ -911,7 +911,19 @@ function loadArtwork() {
                     }
                     var hasRelated = (relatedWorks.length > 0);
                     if (artwork.ObjMedia) {
-                        var additional = artwork.ObjMedia;
+                        var additional = [];
+                        if (!isArray(artwork.ObjMedia)) {
+                            if (artwork.ObjMedia.primaryDisplay === 1) {
+                                additional = null;
+                            }
+                        } else {
+                            for (i in artwork.ObjMedia) {
+                                if (artwork.ObjMedia[i].primaryDisplay !== 1) {
+                                    additional.push(artwork.ObjMedia[i]);
+                                }
+                            }
+                        }
+                        console.log(additional)
                         var hasAdditional = (artwork.ObjMedia.length > 0);
                     }
                     //var template = $('#templates .artwork-works').html();
@@ -962,16 +974,18 @@ function loadArtwork() {
                             scrollToAnchor(val);
                         }
                     });
-
+                    //SWAP FEATURED IMAGE AREA ON CLICK
                     $('#additional-images a').on('click', function(event) {
                         var display = $(this).attr('href');
                         var large = display.replace('/display', '/large')
                         $('img.featured').attr('src', display).parent('a').attr('href', large);
+                        $('.click-to-enlarge').attr('href', large);
+                        if ($(this).attr('data-credit')) {
+                            $('.photo-credit span').text($(this).attr('data-credit'));
+                        }
                         $('#artwork-overview').scrollToAnchor();
                         event.preventDefault();
                     });
-
-                    //$('.fancybox').fancybox();
 
                     $('#load').hide();
                 }
@@ -1021,7 +1035,7 @@ function loadArtist() {
                         //Is PTE an object (1 result only), or an array (multiple results)
                         if (isArray(pte)) {
                             for (i in pte) {
-                                if (typeof pte[i] != 'function' && pte[i].textType.indexOf('Web') > -1) {
+                                if (pte[i].textType.indexOf('Web') > -1) {
                                     var artistInfo = pte[i].textEntry;
                                 }
                             }
@@ -1236,12 +1250,37 @@ function appendResults(json, type) {
                 console.log(results[0].building)
                 results = results.sort(function(a, b) {
                     if (a.building && b.building) {
-                        return a.building.toLowerCase().localeCompare(b.buliding.toLowerCase());
+                        return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
                     }
                 });
 
             }
         }
+
+        //GET SEARCH PARAMETERS AS OBJECT
+        var searchParams = window.location.hash.split('?')[1].split("&").map(function(n) {
+            return n = n.split("="), this[n[0]] = n[1], this
+        }.bind({}))[0];
+
+        var yourQuery = null;
+
+        //BUILD STRING SUMMARY FOR QUERY
+        if (searchParams.keyword && searchParams.City && searchParams.State) {
+            yourQuery = '"' + searchParams.keyword + '" in ' + searchParams.City + ', ' + searchParams.State;
+        }
+        if (!searchParams.keyword && searchParams.City && searchParams.State) {
+            yourQuery = searchParams.City + ', ' + searchParams.State;
+        }
+        if (!searchParams.keyword && !searchParams.City && searchParams.State) {
+            yourQuery = states[searchParams.state.toLowerCase()].titleCase();
+        }
+        if (searchParams.keyword && !searchParams.City && searchParams.State) {
+            yourQuery = '"' + searchParams.keyword + '" in ' + searchParams.states[searchParams.State.toLowerCase()].titleCase();
+        }
+        if (searchParams.keyword && !searchParams.City && !searchParams.State) {
+            yourQuery = '"' + searchParams.keyword + '"'
+        }
+
         var totalImages = 0;
         //FORMAT IMAGE PATHS
         for (i in results) {
@@ -1256,13 +1295,14 @@ function appendResults(json, type) {
             var over9000 = true;
         }
 
+
         var template = $('#templates .results-' + type).html();
         var html = Mustache.to_html(template, {
             results: results,
             total: json.total_results,
             over9000: over9000,
             highEnd: highEnd,
-            searchQuery: searchQuery
+            yourQuery: yourQuery
         });
         $('#results').html(html).show();
         $('#load').hide();

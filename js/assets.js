@@ -122,13 +122,6 @@ String.prototype.titleCase = function() {
     });
 }
 
-//LAST in array
-if (!Array.prototype.last) {
-    Array.prototype.last = function() {
-        return this[this.length - 1];
-    };
-};
-
 //OBJECT size
 Object.size = function(obj) {
     var size = 0,
@@ -174,6 +167,15 @@ jQuery.fn.extend({
         $('html,body').animate({
             scrollTop: theSelector.offset().top + theOffset
         }, theTime);
+    }
+});
+
+//GET SEARCH QUERY PARAMS AS OBJECT
+jQuery.extend({
+    getQueryParameters: function(str) {
+        return (str || document.location.search).replace(/(^\?)/, '').split("&").map(function(n) {
+            return n = n.split("="), this[n[0]] = n[1], this
+        }.bind({}))[0];
     }
 });
 
