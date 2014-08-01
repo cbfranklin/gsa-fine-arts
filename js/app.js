@@ -108,8 +108,7 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         'img/social-media/print-active.png'
     ],
 
-    isOldIE,
-    searchQuery;
+    isOldIE;
 
 $(function() {
     $('#load').show();
@@ -418,52 +417,32 @@ function loadSearch() {
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var keywords = $('#keywords-artwork').val();
-        window.location.href = base + keywords.replace(/ /, '%20');;
-        searchQuery = '"' + keywords + '"';
+        var keywords = $('#keywords-artwork').val().doorknob();
+        window.location.href = base + keywords;
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var keywords = $('#keywords-artist').val();
-        window.location.href = base + keywords.replace(/ /, '%20');
-        searchQuery = '"' + keywords + '"';
+        var keywords = $('#keywords-artist').val().doorknob();
+        window.location.href = base + keywords;
     };
 
     function searchForBuildings() {
         var base = '#/results/buildings?';
         var parameters = [];
-        //var searchParams = {};
+
         if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
-            parameters.push('keyword=' + $('#search #building-name').val().replace(/ /, '%20'));
-            //searchParams.name = $('#search #building-name').val();
+            parameters.push('keyword=' + $('#search #building-name').val().doorknob());
         }
         if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
             parameters.push('State=' + $('#search #state').val());
-            //searchParams.state = $('#search #state').val();
+
         }
         if ($('#search #city').val() !== '' && $('#search #city').val() !== undefined) {
             parameters.push('City=' + $('#search #city').val());
-            //searchParams.city = $('#search #city').val();
         }
 
         window.location.href = base + parameters.join('&');
-
-        /*if (searchParams.name && searchParams.city && searchParams.state) {
-            searchQuery = '"' + searchParams.name + '" in ' + searchParams.city + ', ' + searchParams.state;
-        }
-        if (!searchParams.name && searchParams.city && searchParams.state) {
-            searchQuery = searchParams.city + ', ' + searchParams.state;
-        }
-        if (!searchParams.name && !searchParams.city && searchParams.state) {
-            states[searchParams.state.toLowerCase()].titleCase();
-        }
-        if (searchParams.name && !searchParams.city && searchParams.state) {
-            '"' + searchParams.name + '" in ' + searchParams.statestates[searchParams.state.toLowerCase()].titleCase();
-        }
-        if (searchParams.name && !searchParams.city && !searchParams.state) {
-            '"' + searchParams.name + '"'
-        }*/
     };
 };
 
@@ -557,7 +536,6 @@ function loadLocation() {
                             }
                         }
                     }
-                    console.log(locations[0].buildings)
 
                     /*locations[0].buildings.sort(function(a, b) {
                         return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
@@ -881,7 +859,6 @@ function loadArtwork() {
                     }
 
                     if (artwork.Collections) {
-                        console.log('artwork.Collections ' + artwork.Collections)
                         if (!isArray(artwork.Collections)) {
                             var c = artwork.Collections;
                             artwork.Collections = [];
@@ -896,7 +873,6 @@ function loadArtwork() {
                             collectionRelated.concat(artwork.Collections[i].objects)
                         }
                         //collectionRelated = artwork.Collections.objects;
-                        console.log('collectionRelated ' + collectionRelated)
                     }
 
                     //CONCAT INTO ONE ARRAY
@@ -923,7 +899,6 @@ function loadArtwork() {
                                 }
                             }
                         }
-                        console.log(additional)
                         var hasAdditional = (artwork.ObjMedia.length > 0);
                     }
                     //var template = $('#templates .artwork-works').html();
@@ -1220,7 +1195,6 @@ function cacheResults(item) {
 function appendResults(json, type) {
     console.log(type)
     var results = json.results;
-    console.log(results)
     if (json.results.length !== 0) {
         //SORT RESULTS WITH IMAGES FIRST
         if (results.length > 1) {
@@ -1242,12 +1216,10 @@ function appendResults(json, type) {
             }
             if (type === 'buildings') {
                 for (i in results) {
-                    console.log(results[i].building)
                     if (results[i].building == undefined) {
                         results.splice(i, 1)
                     }
                 }
-                console.log(results[0].building)
                 results = results.sort(function(a, b) {
                     if (a.building && b.building) {
                         return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
@@ -1280,6 +1252,7 @@ function appendResults(json, type) {
         if (searchParams.keyword && !searchParams.City && !searchParams.State) {
             yourQuery = '"' + searchParams.keyword + '"'
         }
+        yourQuery = yourQuery.replace('%20', ' ')
 
         var totalImages = 0;
         //FORMAT IMAGE PATHS

@@ -170,22 +170,13 @@ jQuery.fn.extend({
     }
 });
 
-//GET SEARCH QUERY PARAMS AS OBJECT
-jQuery.extend({
-    getQueryParameters: function(str) {
-        return (str || document.location.search).replace(/(^\?)/, '').split("&").map(function(n) {
-            return n = n.split("="), this[n[0]] = n[1], this
-        }.bind({}))[0];
-    }
-});
-
 //Matches WHITESPACE and ""
 var whitespace = /^[ \t\r\n]*$/;
 //Matches unsafe aka SPECIAL CHARACTERS
 var safe = /[^\s\w]/gi;
-//SANATIZES stings for API search (allows [+-], replaces [,_] with whitespace)
-function doorknob(str) {
-    str = str.replace(/[^\w,_+-]/gi, '').replace(/[,_]/g, ' ');
+//SANATIZES stings for API search (allows [+-], replaces [,_] with whitespace, all whitespace becomes %20)
+String.prototype.doorknob = function() {
+    var str = this.replace(/[^\w,_+-]/gi, '').replace(/[,_]/g, ' ').replace(/ /, '%20');
     return str;
 }
 
