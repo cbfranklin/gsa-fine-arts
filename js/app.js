@@ -1033,12 +1033,13 @@ function loadArtist() {
                             works[i].primaryImage = formatImagePath(works[i].primaryImage);
                         }
                     }
-
+                    var totalWorks = works.length;
                     var template = $('#templates .artist').html();
                     var html = Mustache.to_html(template, {
                         artist: artist,
                         works: works,
-                        artistInfo: artistInfo
+                        artistInfo: artistInfo,
+                        totalWorks : totalWorks
                     });
                     $('#artist').html(html).show();
 
