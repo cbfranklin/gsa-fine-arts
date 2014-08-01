@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js noSoup"> <![endif]-->
-<!--[if IE 7]> <html class="no-js noSoup"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]> <html class="no-js ie7"> <![endif]-->
 <!--[if IE 8]> <html class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
@@ -140,12 +140,6 @@
 						<div class="search">
 							<h1>Artist Index</h1>
 							<input id="filter" type="text" placeholder="Enter Artist's Name"/>
-							<!--<div class="input-group" id="filter">
-						      <input type="text" class="form-control">
-						      <span class="input-group-btn blue-icon">
-						        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-						      </span>
-						    </div>-->
 						<div id="selectAlphaWrapper" class="selectWrapper">
 						<select>
 							<option selected disabled>By Last Name</option>
@@ -179,7 +173,6 @@
 						</div>
 					</div>
 				</div>
-					<!--<div id="artists-index" class="rightCol col-md-9 col-md-offset-3"></div>-->
 					<div id="artists-index"></div>
 			</section>
 			<!-- LOCATION -->
@@ -242,7 +235,6 @@
 							<option value="WI">Wisconsin</option>
 							<option value="WY">Wyoming</option>
 						</select></div>
-					<!--<h3>Location Search: Charles Evan Whittaker</h3>-->
 					<div id="map"></div>
 					<div id="results-location">
 					</div>
@@ -263,7 +255,7 @@
 							<button type="button" class="btn btn-primary">SEARCH</button>
 						</div>
 						<div id="search-for-buildings">
-							<h3>Search for Buildings</h3>
+							<h3>Search by Location</h3>
 							<label for="">Building Name:</label><input id="building-name" type="text"><br>
 							<label for="">State:</label>
 							<div class="selectWrapper">
@@ -656,7 +648,7 @@
 				{{/over9000}}
 				<ul>
 					{{#results}}
-						<li>
+						<li class="detail">
 							<h4><a href="#/building/{{id}}">{{building}}</a></h4>
 							<p>{{siteType}}</p>
 							<p>{{address}}</p>
