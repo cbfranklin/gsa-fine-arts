@@ -158,6 +158,7 @@ function ie() {
 
 //ROUTING
 function routes() {
+    navHighlight();
     //HOME PAGE
     if (window.location.hash === '' ||
         window.location.hash === '#' ||
@@ -167,14 +168,17 @@ function routes() {
     //ARTISTS INDEX
     else if (window.location.hash.indexOf('#/artists') !== -1) {
         loadArtists();
+        navHighlight('artists');
     }
     //GALLERIES
     else if (window.location.hash.indexOf('#/galleries') !== -1) {
         loadGalleries();
+        navHighlight('galleries');
     }
     //ABOUT
     else if (window.location.hash.indexOf('#/about') !== -1) {
         loadAbout();
+        navHighlight('about');
         //OVERVIEWS
     } else if (window.location.hash.indexOf('#/artwork/') !== -1) {
         loadArtwork();
@@ -199,10 +203,12 @@ function routes() {
     //SEARCH
     else if (window.location.hash.indexOf('#/search') !== -1) {
         loadSearch();
+        navHighlight('search');
     }
     //LOCATION
     else if (window.location.hash.indexOf('#/location') !== -1) {
         loadLocation();
+        navHighlight('location');
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
@@ -227,7 +233,14 @@ function bindings() {
     });
 }
 
-//ROUTES
+//NAV HIGHLIGHTER
+function navHighlight(page) {
+    if (page) {
+        $('header .menu .nav-' + page).addClass('active');
+    } else {
+        $('header .menu a').removeClass('active');
+    }
+}
 
 //HOME PAGE
 function loadHomePage() {
@@ -355,43 +368,47 @@ function loadSearch() {
 
     //PULL CITIES FOR SELECTED STATE
     $('#search').on('change', '#state', function() {
-        $('#city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
-        var state = $(this).val();
-        $.ajax({
-            url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
-            dataType: "jsonp",
-            timeout: 2500
-        })
-            .success(function(json) {
-                results = json.results;
-                if (json.total_results === 0) {
-                    noArtwork()
-                } else {
-                    var cities = [];
-                    for (i in results) {
-                        if (cities.indexOf(results[i].city) === -1) {
-                            cities.push(results[i].city)
-                        }
-                    }
-                    if (cities[0] === undefined) {
+        if ($(this).val() === '') {
+            $('#city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
+        } else {
+            $('#city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
+            var state = $(this).val();
+            $.ajax({
+                url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
+                dataType: "jsonp",
+                timeout: 2500
+            })
+                .success(function(json) {
+                    results = json.results;
+                    if (json.total_results === 0) {
                         noArtwork()
                     } else {
-                        $('#city').html('<option value="">Select a City</option>')
-                        for (i in cities) {
-                            if (cities[i] !== undefined) {
-                                $('#city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
+                        var cities = [];
+                        for (i in results) {
+                            if (cities.indexOf(results[i].city) === -1) {
+                                cities.push(results[i].city)
                             }
                         }
-                        $('#city').removeAttr('disabled').parent('.selectWrapper').removeClass('loading').removeClass('disabled');
+                        if (cities[0] === undefined) {
+                            noArtwork()
+                        } else {
+                            $('#city').html('<option value="">Select a City</option>')
+                            for (i in cities) {
+                                if (cities[i] !== undefined) {
+                                    $('#city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
+                                }
+                            }
+                            $('#city').removeAttr('disabled').parent('.selectWrapper').removeClass('loading').removeClass('disabled');
+                        }
                     }
-                }
-            })
-            .error(function(textStatus, error) {
-                noArtwork()
-            });
+                })
+                .error(function(textStatus, error) {
+                    noArtwork()
+                });
 
-        function noArtwork() {
-            $('#city').html('<option value="">No Artwork Found</option>').parent('.selectWrapper').removeClass('loading').addClass('disabled');
+            function noArtwork() {
+                $('#city').html('<option value="">No Artwork Found</option>').parent('.selectWrapper').removeClass('loading').addClass('disabled');
+            }
         }
     });
 
@@ -432,7 +449,7 @@ function loadSearch() {
         var parameters = [];
 
         if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
-            parameters.push('keyword=' + $('#search #building-name').val().doorknob());
+            parameters.push('Building%20Name=' + $('#search #building-name').val().doorknob());
         }
         if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
             parameters.push('State=' + $('#search #state').val());
@@ -1035,7 +1052,7 @@ function loadArtist() {
                         artist: artist,
                         works: works,
                         artistInfo: artistInfo,
-                        totalWorks : totalWorks
+                        totalWorks: totalWorks
                     });
                     $('#artist').html(html).show();
 
@@ -1191,8 +1208,16 @@ function cacheResults(item) {
 //APPENDS search results
 function appendResults(json, type) {
     console.log(type)
-    var results = json.results;
-    if (json.results.length !== 0) {
+    if (json.results && json.results.length !== 0) {
+        if (isArray(json.results)) {
+            console.log('isArray')
+            var results = json.results;
+        } else {
+            console.log('isNOTArray')
+            var results = [];
+            results.push(json.results);
+            console.log(results)
+        }
         //SORT RESULTS WITH IMAGES FIRST
         if (results.length > 1) {
             if (type === 'objects') {
@@ -1225,63 +1250,71 @@ function appendResults(json, type) {
 
             }
         }
-
-        //GET SEARCH PARAMETERS AS OBJECT
-        var searchParams = window.location.hash.split('?')[1].split("&").map(function(n) {
-            return n = n.split("="), this[n[0]] = n[1], this
-        }.bind({}))[0];
-
-        var yourQuery = null;
-
-        //BUILD STRING SUMMARY FOR QUERY
-        if (searchParams.keyword && searchParams.City && searchParams.State) {
-            yourQuery = '"' + searchParams.keyword + '" in ' + searchParams.City + ', ' + searchParams.State;
-        }
-        if (!searchParams.keyword && searchParams.City && searchParams.State) {
-            yourQuery = searchParams.City + ', ' + searchParams.State;
-        }
-        if (!searchParams.keyword && !searchParams.City && searchParams.State) {
-            yourQuery = states[searchParams.state.toLowerCase()].titleCase();
-        }
-        if (searchParams.keyword && !searchParams.City && searchParams.State) {
-            yourQuery = '"' + searchParams.keyword + '" in ' + searchParams.states[searchParams.State.toLowerCase()].titleCase();
-        }
-        if (searchParams.keyword && !searchParams.City && !searchParams.State) {
-            yourQuery = '"' + searchParams.keyword + '"'
-        }
-        yourQuery = yourQuery.replace('%20', ' ')
-
-        var totalImages = 0;
-        //FORMAT IMAGE PATHS
-        for (i in results) {
-            if (results[i].primaryImage) {
-                results[i].primaryImage = formatImagePath(results[i].primaryImage);
-                totalImages += 1;
-            }
-        }
-
-        var highEnd = 200;
-        if (json.total_results > highEnd) {
-            var over9000 = true;
-        }
-
-
-        var template = $('#templates .results-' + type).html();
-        var html = Mustache.to_html(template, {
-            results: results,
-            total: json.total_results,
-            over9000: over9000,
-            highEnd: highEnd,
-            yourQuery: yourQuery
-        });
-        $('#results').html(html).show();
-        $('#load').hide();
-
-        $('#results h1').sticky();
     } else {
         $('#results').html('<h1>Search Results</h1><h2>No Results Found.</h2>').show();
         $('#load').hide();
+
+        var type = 'none';
     }
+    //GET SEARCH PARAMETERS AS OBJECT
+    var searchParams = window.location.hash.split('?')[1].split("&").map(function(n) {
+        return n = n.split("="), this[n[0]] = n[1], this
+    }.bind({}))[0];
+
+    var yourQuery = '';
+
+    console.log(searchParams)
+
+    //BUILD STRING SUMMARY FOR QUERY...BUILDINGS FIRST
+    if (searchParams['Building%20Name'] && searchParams.City && searchParams.State) {
+        yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.City + ', ' + searchParams.State;
+    }
+    if (!searchParams['Building%20Name'] && searchParams.City && searchParams.State) {
+        yourQuery = searchParams.City + ', ' + searchParams.State;
+    }
+    if (!searchParams['Building%20Name'] && !searchParams.City && searchParams.State) {
+        yourQuery = states[searchParams.state.toLowerCase()].titleCase();
+    }
+    if (searchParams['Building%20Name'] && !searchParams.City && searchParams.State) {
+        yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.states[searchParams.State.toLowerCase()].titleCase();
+    }
+    if (searchParams['Building%20Name'] && !searchParams.City && !searchParams.State) {
+        yourQuery = '"' + searchParams['Building%20Name'] + '"'
+    }
+    //ALL OTHER SEARCHES
+    if (searchParams.keyword) {
+        yourQuery = '"' + searchParams.keyword + '"'
+    }
+
+    yourQuery = yourQuery.replace('%20', ' ')
+
+    var totalImages = 0;
+    //FORMAT IMAGE PATHS
+    for (i in results) {
+        if (results[i].primaryImage) {
+            results[i].primaryImage = formatImagePath(results[i].primaryImage);
+            totalImages += 1;
+        }
+    }
+
+    var highEnd = 200;
+    if (json.total_results > highEnd) {
+        var over9000 = true;
+    }
+
+    var template = $('#templates .results-' + type).html();
+    var html = Mustache.to_html(template, {
+        results: results,
+        total: json.total_results,
+        over9000: over9000,
+        highEnd: highEnd,
+        yourQuery: yourQuery
+    });
+
+    $('#results').html(html).show();
+    $('#load').hide();
+
+    $('#results h1').sticky();
 }
 
 

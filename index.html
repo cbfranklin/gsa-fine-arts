@@ -27,12 +27,12 @@
 				<img src="img/gsa-header.png">
 				<div class="crumb"></div>
 				<div class="menu">
-					<a href="#">Fine Arts Home</a>
-					<a href="#/artists">Artist</a>
-					<a href="#/galleries">Galleries</a>
-					<a href="#/location">Location</a>
-					<a href="#/search">Search Collection</a>
-					<a href="#/about">About the Collection</a>
+					<a class="nav-home" href="#">Fine Arts Home</a>
+					<a class="nav-artists" href="#/artists">Artists</a>
+					<a class="nav-galleries" href="#/galleries">Galleries</a>
+					<a class="nav-location" href="#/location">Location</a>
+					<a class="nav-search" href="#/search">Search Collection</a>
+					<a class="nav-about" href="#/about">About the Collection</a>
 				</div>
 			</header>
 
@@ -582,13 +582,15 @@
 				{{/galleries}}
 			</script>
 			
-			<!-- SEARCH -->
-			
-			<script class="search" type="text/template">
-			
-			</script>
-			
 			<!-- SEARCH RESULTS -->
+			<script class="results-none" type="text/template">
+				<h1>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">0</span></h1>
+				<br>
+				<div class="alert alert-danger" role="alert">
+					<h4>Your search yielded no results.</h4>
+					<p><a href="#/search">Click here to refine your search.</a></p>
+				</div>
+			</script>
 			
 			<script class="results-objects" type="text/template">
 				<h1>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">{{total}}</span></h1>
@@ -646,29 +648,18 @@
 					<p><a href="#/search">Click here to refine your search.</a></p>
 				</div>
 				{{/over9000}}
-				<ul>
+				<ul class="results results-buildings">
 					{{#results}}
-						<li class="detail">
+						<li>
+							<div class="detail">
 							<h4><a href="#/building/{{id}}">{{building}}</a></h4>
 							<p>{{siteType}}</p>
 							<p>{{address}}</p>
 							<p>{{city}}, {{state}} {{zipCode}}</p>
+						</div>
 						</li>
 					{{/results}}
 				</ul>
-			</script>
-			<script class="results results-location" type="text/template">
-				<div class="results-location-header">
-					<h3>Buildings in {{state}}<span style="float:left" class="label label-default">{{total}}</span></h3>
-				</div>
-				{{#locations}}
-					<h4>{{city}}</h4>
-					<ul>
-					{{#buildings}}
-						<li><a href="#/building/{{id}}">{{building}}</a></li>
-					{{/buildings}}
-					</ul>
-				{{/locations}}
 			</script>
 		</div>
 		

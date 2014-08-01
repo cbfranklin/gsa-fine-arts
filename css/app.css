@@ -82,6 +82,9 @@ header .menu a{
 	padding:15px 20px;
 	display:inline-block;
 }
+header .menu a.active{
+	font-family: 'open-sans-condensed-bold'
+}
 header .menu a:hover{
 	text-decoration: none;
 }
@@ -544,6 +547,10 @@ img.noImage{
 	border-left: 1px solid #ea3239;
 	padding-left:10px;
 }
+#results .detail h4{
+	font-family:'open-sans-condensed-bold';
+}
+
 .results.results-objects li div.detail{
 	margin-left:154px;
 }
