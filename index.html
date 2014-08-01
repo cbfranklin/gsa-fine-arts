@@ -661,6 +661,20 @@
 					{{/results}}
 				</ul>
 			</script>
+			<!-- FOR LOCATION PAGE-->
+			<script class="results results-location" type="text/template">
+				<div class="results-location-header">
+					<h3>Buildings in {{state}}<span style="float:left" class="label label-default">{{total}}</span></h3>
+				</div>
+				{{#locations}}
+					<h4>{{city}}</h4>
+					<ul>
+					{{#buildings}}
+						<li><a href="#/building/{{id}}">{{building}}</a></li>
+					{{/buildings}}
+					</ul>
+				{{/locations}}
+			</script>
 		</div>
 		
 		<div id="old-ie">

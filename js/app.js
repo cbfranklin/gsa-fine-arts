@@ -314,21 +314,6 @@ function loadHomePage() {
 
                 var item = order[i];
 
-                itemQueue[i] = setTimeout(fade, i * interval, item);
-
-                /*IE8 SUPPORT NO LONGER NECESSARY:
-                itemQueue[i] = setTimeout((function(item) {
-                    return function() {
-                        fade(item);
-                    };
-                })(item), i * interval);
-
-                if (i === order.length - 1) {
-                    rotateQueue = setTimeout(function() {
-                        rotate();
-                    }, (interval * i) + pause);
-                };*/
-
                 function fade(item) {
                     if (play === true) {
                         currentItem = item;
@@ -345,6 +330,21 @@ function loadHomePage() {
                         console.log('FADE suppressed ITEM # ' + item);
                     }*/
                 }
+
+                itemQueue[i] = setTimeout(fade, i * interval, item);
+
+                /*IE8 SUPPORT NO LONGER NECESSARY:
+                itemQueue[i] = setTimeout((function(item) {
+                    return function() {
+                        fade(item);
+                    };
+                })(item), i * interval);
+
+                if (i === order.length - 1) {
+                    rotateQueue = setTimeout(function() {
+                        rotate();
+                    }, (interval * i) + pause);
+                };*/
             }
         }
     };
@@ -1100,7 +1100,12 @@ function loadBuilding() {
                     var building = json.results;
 
                     //RELATED ARTWORK
-                    var works = building.Objects;
+                    if (isArray(building.Objects)) {
+                        var works = building.Objects;
+                    } else {
+                        var works = [];
+                        works.push(building.Objects);
+                    }
 
                     works.sort(function(a, b) {
                         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
