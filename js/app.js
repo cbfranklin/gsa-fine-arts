@@ -997,10 +997,6 @@ function loadArtist() {
                     $('#artist').show();
                     fail('This Artist Could Not Be Found', 'We should confirm that it\'s in the API.');
                 } else {
-                    //MUSTACHE FOR ARTIST METADATA
-                    //var template = $('#templates .artist').html();
-                    //var html = Mustache.to_html(template, artist);
-                    //$('#artist').html(html);
 
                     //RELATED ARTWORK
                     var works = artist.Objects;
