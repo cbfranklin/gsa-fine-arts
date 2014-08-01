@@ -1106,10 +1106,11 @@ function loadBuilding() {
                         var works = [];
                         works.push(building.Objects);
                     }
-
-                    works.sort(function(a, b) {
-                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-                    });
+                    if (works.length > 1) {
+                        works.sort(function(a, b) {
+                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                        });
+                    }
                     //Buildings Artwork is stored in array "Objects",
                     //unless there's only ONE work of art, in which case Objects IS that artwork entry...lovely.
                     if (works.length > 0 || works.hasOwnProperty('id')) {
