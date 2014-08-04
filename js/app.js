@@ -864,6 +864,7 @@ function loadArtwork() {
                             artwork.artistRelatedObjects.push(aro);
                         }
                         artistRelated = artwork.artistRelatedObjects;
+						creditLine = artwork.artistRelatedObjects.creditLine;
                     }
 
                     if (artwork.siteRelatedObjects) {
@@ -953,7 +954,8 @@ function loadArtwork() {
                         related: relatedWorks,
                         hasRelated: hasRelated,
                         additional: additional,
-                        hasAdditional: hasAdditional
+                        hasAdditional: hasAdditional,
+						creditLine : creditLine
                     });
                     $('#artwork').html(html).show();
 
