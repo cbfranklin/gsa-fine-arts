@@ -1118,12 +1118,14 @@ function loadBuilding() {
                     if (works.length > 0 || works.hasOwnProperty('id')) {
                         var hasWorks = true;
                     }
+                    var worksLength = works.length;
 
                     var template = $('#templates .building').html();
                     var html = Mustache.to_html(template, {
                         building: building,
                         works: works,
-                        hasWorks: hasWorks
+                        hasWorks: hasWorks,
+                        worksLength : worksLength
                     });
                     $('#building').html(html).show();
 
