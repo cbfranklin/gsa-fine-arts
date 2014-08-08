@@ -177,10 +177,16 @@ function routes() {
     }
     //ABOUT
     else if (window.location.hash.indexOf('#/about') !== -1) {
-        loadAbout();
-        navHighlight('about');
-        //OVERVIEWS
-    } else if (window.location.hash.indexOf('#/artwork/') !== -1) {
+            loadAbout();
+            navHighlight('about');
+    }
+    //Disclaimer
+    else if (window.location.hash.indexOf('#/disclaimer') !== -1) {
+        loadDisclaimer();
+        navHighlight('disclaimer');
+    }
+    //OVERVIEWS
+    else if (window.location.hash.indexOf('#/artwork/') !== -1) {
         loadArtwork();
     } else if (window.location.hash.indexOf('#/artist/') !== -1) {
         loadArtist();
@@ -354,6 +360,10 @@ function loadAbout() {
     $('#about').show();
     $('#load').hide();
 }
+function loadDisclaimer() {
+    $('#disclaimer').show();
+    $('#load').hide();
+}
 
 function loadSearch() {
     $('#search').show();
@@ -434,13 +444,15 @@ function loadSearch() {
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var keywords = $('#keywords-artwork').val().doorknob();
+        var uncleansedKeywords = $('#keywords-artwork').val();
+        var keywords =  uncleansedKeywords.replace(" ","%20"); // removed doorknob()
         window.location.href = base + keywords;
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var keywords = $('#keywords-artist').val().doorknob();
+        var uncleansedKeywords = $('#keywords-artist').val();
+        var keywords =  uncleansedKeywords.replace(" ","%20");
         window.location.href = base + keywords;
     };
 
