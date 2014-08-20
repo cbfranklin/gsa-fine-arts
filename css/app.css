@@ -99,7 +99,7 @@ section{
 	min-height:100%;
 	display:none;
 }
-#load{
+/*#load{
 	height:100%;
 	width:100%;
 	position:absolute;
@@ -109,6 +109,12 @@ section{
 	opacity:0.6;
 	display:none;
 	z-index:100;
+}*/
+#load{
+	width:100%;
+	background:url(../img/load.gif) center center no-repeat;
+	display:none;
+	min-height:100px;
 }
 #fail{
 	/*position:absolute;

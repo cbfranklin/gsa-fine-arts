@@ -358,11 +358,11 @@
 
 			<!-- SEARCH RESULTS -->
 			<section id="results"></section>
-
+			<div id="load"></div>
 			<footer>
                 <div class="menu">
                     <ul>
-                        <li><a class="nav-disclaimer" target="_blank" href="#/disclaimer">Disclaimer</a></li>
+                        <li><a class="nav-disclaimer" href="#/disclaimer">Disclaimer</a></li>
                         <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/10335">Art in Architecture Program</a></li>
                         <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/103339">Fine Arts Program</a></li>
                     </ul>
@@ -371,8 +371,6 @@
 			</footer>
 			
 		</div>
-		
-		<div id="load"></div>
 		
 		
 		
@@ -526,7 +524,7 @@
 							<li><strong>Location:</strong> <a href="#/building/{{ObjectSites.siteId}}">{{ObjectSites.building}}</a></li>
 							{{/ObjectSites.building}}
 							{{#isInCollections}}
-							<li class="galleries"><strong>Galleries:</strong> {{#Collections}}<a href="#/gallery/{{id}}">{{collection}}</a> {{/Collections}}</li>
+							<li class="galleries"><strong>Galleries:</strong> {{#Collections}}<a href="#/gallery/{{id}}">{{collection}}</a>{{/Collections}}</li>
 							{{/isInCollections}}
 						</ul>
 					</div>
@@ -703,6 +701,7 @@
 				{{/locations}}
 			</script>
 		</div>
+
 		
 		<div id="old-ie">
 			<h1>Sorry...</h1>

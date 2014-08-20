@@ -108,10 +108,16 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         'img/social-media/print-active.png'
     ],
 
-    isOldIE;
+    isOldIE,
+    $load,
+    $fail,
+    $section;
 
 $(function() {
-    $('#load').show();
+    $load = $('#load');
+    $section = $('section')
+    $fail = $('#fail');
+    $load.show();
     ie();
     if (isOldIE === true) {
         return;
@@ -121,9 +127,9 @@ $(function() {
     bindings();
     routes();
     $(window).hashchange(function() {
-        $('#fail').hide();
-        $('section').hide();
-        $('#load').show();
+        $fail.hide();
+        $section.hide();
+        $load.show();
         routes();
     });
 });
@@ -145,12 +151,12 @@ function ie() {
         $('#wrapper').hide();
         $('#compatibility-mode').show();
         isOldIE = true;
-        $('#load').hide();
+        $load.hide();
     } else if (navigator.userAgent.indexOf('MSIE 8') > -1) {
         $('#wrapper').hide();
         $('#old-ie').show();
         isOldIE = true;
-        $('#load').hide();
+        $load.hide();
     } else {
         $('#old-ie,#compatibility-mode').remove();
     }
@@ -180,10 +186,9 @@ function routes() {
             loadAbout();
             navHighlight('about');
     }
-    //Disclaimer
+    //DISCLAIMER
     else if (window.location.hash.indexOf('#/disclaimer') !== -1) {
         loadDisclaimer();
-        navHighlight('disclaimer');
     }
     //OVERVIEWS
     else if (window.location.hash.indexOf('#/artwork/') !== -1) {
@@ -254,7 +259,7 @@ function navHighlight(page) {
 //HOME PAGE
 function loadHomePage() {
     animateSplash();
-    $('#load').hide();
+    $load.hide();
     $('#home').show();
 
     function animateSplash() {
@@ -361,16 +366,16 @@ function loadHomePage() {
 
 function loadAbout() {
     $('#about').show();
-    $('#load').hide();
+    $load.hide();
 }
 function loadDisclaimer() {
     $('#disclaimer').show();
-    $('#load').hide();
+    $load.hide();
 }
 
 function loadSearch() {
     $('#search').show();
-    $('#load').hide();
+    $load.hide();
 
     //BIND SEARCH BUTTONS
     $('#search-for-artwork button').on('click', searchForArtwork);
@@ -483,7 +488,7 @@ function loadSearch() {
 
 function loadLocation() {
     $('#location').show();
-    $('#load').hide();
+    $load.hide();
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
     $('#map').css({
@@ -572,15 +577,15 @@ function loadLocation() {
                         }
                     }
 
-                    /*locations[0].buildings.sort(function(a, b) {
-                        return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
-                    });*/
-
                     for (i = 0; i < locations.length; i++) {
                         locations[i].buildings.sort(function(a, b) {
                             return a.building.toLowerCase().localeCompare(b.building.toLowerCase());
                         });
                     }
+
+                    locations.sort(function(a, b) {
+                            return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
+                    });
 
                     var state = states[results[0].state.toLowerCase()].titleCase();
 
@@ -620,11 +625,11 @@ function loadResults(type) {
 
 //ARTIST INDEX
 function loadArtists() {
-    $('#load').show();
+    $load.show();
     /*if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists div').length === 26) {
             console.log('ARTISTS: DOM is preserved. No Action.')
-            $('#load').hide();
+            $load.hide();
             $('#artists').show();
             artistsReady();
         } else {
@@ -669,7 +674,7 @@ function artistsReady() {
             }
         }
     });
-    $('#load').hide()
+    $load.hide()
 
     //BROWSE WITH SELECT MENU
     $('#selectAlphaWrapper select').change(function() {
@@ -733,7 +738,7 @@ function galleriesHandler(galleries) {
         galleries: galleries
     })
     $('#galleries').html(html).show();
-    $('#load').hide();
+    $load.hide();
 }
 
 //GALLERY DETAIL
@@ -817,7 +822,7 @@ function galleryHandler(gallery) {
     $('.leftCol nav').stick_in_parent({
         parent: $('.row')
     });
-    $('#load').hide();
+    $load.hide();
 }
 
 //ARTWORK DETAIL
@@ -860,6 +865,7 @@ function loadArtwork() {
                             }
                         }
                     }
+                    interpretation = interpretation.replace(/<[^>]*>/gi, "");
 
                     if (artwork.ObjMedia) {
                         if (isArray(artwork.ObjMedia)) {
@@ -1020,7 +1026,7 @@ function loadArtwork() {
                         event.preventDefault();
                     });
 
-                    $('#load').hide();
+                    $load.hide();
                 }
             })
             .error(function(request, status, error) {
@@ -1106,7 +1112,7 @@ function loadArtist() {
                         var val = $(this).attr('id').replace('nav-', '');
                         scrollToAnchor(val);
                     });
-                    $('#load').hide();
+                    $load.hide();
                 }
             })
             .error(function(textStatus, error) {
@@ -1184,7 +1190,7 @@ function loadBuilding() {
                         scrollToAnchor(val);
                     });
 
-                    $('#load').hide();
+                    $load.hide();
                 }
             })
             .error(function(textStatus, error) {
@@ -1309,7 +1315,7 @@ function appendResults(json, type) {
         }
     } else {
         $('#results').html('<h1>Search Results</h1><h2>No Results Found.</h2>').show();
-        $('#load').hide();
+        $load.hide();
 
         var type = 'none';
     }
@@ -1369,7 +1375,7 @@ function appendResults(json, type) {
     });
 
     $('#results').html(html).show();
-    $('#load').hide();
+    $load.hide();
 
     $('#results h1').sticky();
 }
