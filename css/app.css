@@ -258,10 +258,11 @@ section{
 	height:204px;
 	overflow:hidden;
 }
-.social-media div{
+.social-media a{
 	height:41px;
 	width:41px;
 	cursor:pointer;
+	display:block;
 }
 .social-media .facebook{
 	background:url(../img/social-media/facebook.png);
@@ -417,6 +418,9 @@ input[type=text]{
 	list-style: none;
 	margin:0;
 	padding:0;
+}
+.information .galleries a:not(:last-of-type)::after {
+	content: ", "
 }
 .works ul{
 	margin:0;

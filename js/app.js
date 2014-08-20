@@ -206,6 +206,7 @@ function routes() {
         loadResults(type);
     } else if (window.location.hash.indexOf('#/results/buildings') !== -1) {
         var type = 'buildings';
+        console.log('load results buildings')
         loadResults(type);
     }
     //SEARCH
@@ -426,35 +427,38 @@ function loadSearch() {
 
     //BIND ENTER KEY
     Mousetrap.bindGlobal(['enter'], function(e) {
-        if (e.preventDefault) {
-            e.preventDefault();
-        } else {
-            //internet exploder
-            e.returnValue = false;
-        }
         if ($('#search-for-artwork input[type=text]').is(":focus")) {
             searchForArtwork()
+            pd()
         }
         if ($('#search-for-artist input[type=text]').is(":focus")) {
             searchForArtist()
+            pd()
         }
         if ($('#search-for-buildings input[type=text]').is(":focus")) {
             searchForBuildings()
+            pd()
+        }
+        function pd(){
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                //internet exploder
+                e.returnValue = false;
+            }
         }
     });
 
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var uncleansedKeywords = $('#keywords-artwork').val();
-        var keywords =  uncleansedKeywords.replace(" ","%20"); // removed doorknob()
+        var keywords =  $('#keywords-artwork').val().doorknob()
         window.location.href = base + keywords;
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var uncleansedKeywords = $('#keywords-artist').val();
-        var keywords =  uncleansedKeywords.replace(" ","%20");
+        var keywords =  $('#keywords-artist').val().doorknob()
         window.location.href = base + keywords;
     };
 
@@ -781,6 +785,9 @@ function loadGallery() {
 }
 
 function galleryHandler(gallery) {
+    gallery.Objects.sort(function(a, b) {
+        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+    });
     gallery.Objects.sort(imagesFirst);
 
     var totalImages = 0;
@@ -878,6 +885,7 @@ function loadArtwork() {
                             artwork.artistRelatedObjects.push(aro);
                         }
                         artistRelated = artwork.artistRelatedObjects;
+                        console.log(artwork.artistRelatedObjects)
 						//creditLine = artwork.artistRelatedObjects.creditLine;
                     }
 
@@ -888,6 +896,7 @@ function loadArtwork() {
                             artwork.siteRelatedObjects.push(sro);
                         }
                         siteRelated = artwork.siteRelatedObjects;
+                        console.log(artwork.siteRelatedObjects)
                     }
 
                     if (artwork.Collections) {
@@ -917,6 +926,9 @@ function loadArtwork() {
                     if (relatedWorks.length > 8) {
                         relatedWorks.splice(8, relatedWorks.length)
                     }
+                    relatedWorks.sort(function(a, b) {
+                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    });
                     var hasRelated = (relatedWorks.length > 0);
                     if (artwork.ObjMedia) {
                         var additional = [];
@@ -961,14 +973,27 @@ function loadArtwork() {
                         }
                     }
 
+                    if(artwork.Collections && artwork.Collections.length > 0){
+                        var isInCollections = true;
+                    }
 
+                    //SOCIAL MEDIA
+                    var wlh = encodeURIComponent(window.location.href);
+                    var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/'+artwork.primaryImage;
+                    var socialMedia = {}
+                    socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
+                    socialMedia.twitter = 'http://twitter.com/share?text='+artwork.title+' by '+artwork.artist+'&url=' + wlh + '&hashtags=finearts'; 
+                    socialMedia.pinterest = 'http://pinterest.com/pin/create/button/?url='+wlh+'&media='+imagePath+'&description='+artwork.title+' by '+artwork.artist;
+                    socialMedia.email = 'mailto:?subject='+encodeURIComponent('Fine Arts: '+artwork.title+' by '+artwork.artist)+'&body='+encodeURIComponent("I've shared a link to GSA Fine Arts: ")+'%0D%0D'+wlh;
                     var html = Mustache.to_html(template, {
                         artwork: artwork,
                         interpretation: interpretation,
                         related: relatedWorks,
                         hasRelated: hasRelated,
                         additional: additional,
-                        hasAdditional: hasAdditional
+                        hasAdditional: hasAdditional,
+                        socialMedia: socialMedia,
+                        isInCollections: isInCollections
 						//creditLine : creditLine
                     });
                     $('#artwork').html(html).show();
@@ -1044,7 +1069,6 @@ function loadArtist() {
                                 }
                             }
                         }
-                        //motherfuckers...
                         else {
                             if (pte.textType.indexOf('Web') > -1) {
                                 var artistInfo = pte[i].textEntry;
@@ -1057,6 +1081,9 @@ function loadArtist() {
                         var works = [];
                         works.push(work);
                     }
+                    works.sort(function(a, b) {
+                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    });
                     for (i in works) {
                         if (works[i].primaryImage) {
                             works[i].primaryImage = formatImagePath(works[i].primaryImage);
@@ -1120,19 +1147,25 @@ function loadBuilding() {
                         var works = building.Objects;
                     } else {
                         var works = [];
-                        works.push(building.Objects);
+                        if(building.Objects){
+                            works.push(building.Objects);
+                        }
                     }
-                    if (works.length > 1) {
+                    var worksLength = works.length;
+                    if (worksLength > 1) {
                         works.sort(function(a, b) {
                             return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
                         });
                     }
-                    //Buildings Artwork is stored in array "Objects",
-                    //unless there's only ONE work of art, in which case Objects IS that artwork entry...lovely.
-                    if (works.length > 0 || works.hasOwnProperty('id')) {
+                    if (worksLength > 0) {
                         var hasWorks = true;
+                        console.log(works)
+                        for(i in works){
+                            if(works[i].primaryImage){
+                                works[i].primaryImage = formatImagePath(works[i].primaryImage);
+                            }
+                        }
                     }
-                    var worksLength = works.length;
 
                     var template = $('#templates .building').html();
                     var html = Mustache.to_html(template, {
@@ -1297,7 +1330,7 @@ function appendResults(json, type) {
         yourQuery = searchParams.City + ', ' + searchParams.State;
     }
     if (!searchParams['Building%20Name'] && !searchParams.City && searchParams.State) {
-        yourQuery = states[searchParams.state.toLowerCase()].titleCase();
+        yourQuery = states[searchParams.State.toLowerCase()].titleCase();
     }
     if (searchParams['Building%20Name'] && !searchParams.City && searchParams.State) {
         yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.states[searchParams.State.toLowerCase()].titleCase();
@@ -1310,7 +1343,7 @@ function appendResults(json, type) {
         yourQuery = '"' + searchParams.keyword + '"'
     }
 
-    yourQuery = yourQuery.replace('%20', ' ')
+    yourQuery = yourQuery.replace(/%20/g, ' ')
 
     var totalImages = 0;
     //FORMAT IMAGE PATHS

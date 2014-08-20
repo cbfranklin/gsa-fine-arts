@@ -362,9 +362,9 @@
 			<footer>
                 <div class="menu">
                     <ul>
-                        <li><a class="nav-disclaimer" href="#/disclaimer">Disclaimer</a></li>
-                        <li><a class="nav-disclaimer" href="http://www.gsa.gov/portal/category/10335">Art in Architecture Program</a></li>
-                        <li><a class="nav-disclaimer" href="http://www.gsa.gov/portal/category/103339">Fine Arts Program</a></li>
+                        <li><a class="nav-disclaimer" target="_blank" href="#/disclaimer">Disclaimer</a></li>
+                        <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/10335">Art in Architecture Program</a></li>
+                        <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/103339">Fine Arts Program</a></li>
                     </ul>
                 </div>
 				<img src="img/gsa-footer.png">
@@ -481,13 +481,15 @@
 						{{#primaryImage}}
 						<a target="_blank" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">
 						<img class="featured" src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"></a>
+						{{#socialMedia}}
 						<div class="social-media">
-							<div class="facebook"></div>
-							<div class="twitter"></div>
-							<div class="pinterest"></div>
-							<div class="email"></div>
-							<div class="print"></div>
+							<a class="facebook" href="{{facebook}}" target="_blank"></a>
+							<a class="twitter" href="{{twitter}}" target="_blank"></a>
+							<a class="pinterest" href="{{pinterest}}" target="_blank"></a>
+							<a class="email" href="{{email}}" target="_blank"></a>
+							<a class="print"></a>
 						</div>
+						{{/socialMedia}}
 						<br>
 						<a class="click-to-enlarge" target="_blank" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
 						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}{{/primaryImage}}
@@ -523,6 +525,9 @@
 							{{#ObjectSites.building}}
 							<li><strong>Location:</strong> <a href="#/building/{{ObjectSites.siteId}}">{{ObjectSites.building}}</a></li>
 							{{/ObjectSites.building}}
+							{{#isInCollections}}
+							<li class="galleries"><strong>Galleries:</strong> {{#Collections}}<a href="#/gallery/{{id}}">{{collection}}</a> {{/Collections}}</li>
+							{{/isInCollections}}
 						</ul>
 					</div>
 				{{/artwork}}
@@ -560,7 +565,7 @@
 					{{#building}}
 					<div id="building-overview" class="overview">
 						<h1>{{building}}</h1>
-						<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}>
+						<!--<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}>-->
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
 					</div>
@@ -570,7 +575,7 @@
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images//{{fileName}}"{{/fileName}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{artist}}</p>
@@ -582,6 +587,7 @@
 							{{/works}}
 						</ul>
 						{{/hasWorks}}
+						{{^hasWorks}}<h4>No Artwork Found in this Building</h4>{{/hasWorks}}
 				</div>
 				</div>
 			</script>

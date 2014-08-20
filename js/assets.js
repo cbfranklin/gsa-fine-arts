@@ -176,7 +176,7 @@ var whitespace = /^[ \t\r\n]*$/;
 var safe = /[^\s\w]/gi;
 //SANATIZES stings for API search (allows [+-], replaces [,_] with whitespace, all whitespace becomes %20)
 String.prototype.doorknob = function() {
-    var str = this.replace(/[^\w,_+-]/gi, '').replace(/[,_]/g, ' ').replace(/ /, '%20');
+    var str = this.replace(/[,_+-]/gi, '').replace(/[,_]/g, ' ').replace(/\s+/g, '%20');
     return str;
 }
 
