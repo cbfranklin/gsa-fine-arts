@@ -111,13 +111,14 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     isOldIE,
     $load,
     $fail,
-    $section;
+    $section,
+    loadTimeout;
 
 $(function() {
     $load = $('#load');
-    $section = $('section')
+    $section = $('section');
     $fail = $('#fail');
-    $load.show();
+    load();
     ie();
     if (isOldIE === true) {
         return;
@@ -129,7 +130,7 @@ $(function() {
     $(window).hashchange(function() {
         $fail.hide();
         $section.hide();
-        $load.show();
+        load();
         routes();
     });
 });
@@ -151,12 +152,12 @@ function ie() {
         $('#wrapper').hide();
         $('#compatibility-mode').show();
         isOldIE = true;
-        $load.hide();
+        loaded();
     } else if (navigator.userAgent.indexOf('MSIE 8') > -1) {
         $('#wrapper').hide();
         $('#old-ie').show();
         isOldIE = true;
-        $load.hide();
+        loaded();
     } else {
         $('#old-ie,#compatibility-mode').remove();
     }
@@ -206,13 +207,15 @@ function routes() {
     else if (window.location.hash.indexOf('#/results/artwork') !== -1) {
         var type = 'objects';
         loadResults(type);
+        navHighlight('search');
     } else if (window.location.hash.indexOf('#/results/artists') !== -1) {
         var type = 'people';
         loadResults(type);
+        navHighlight('search');
     } else if (window.location.hash.indexOf('#/results/buildings') !== -1) {
         var type = 'buildings';
-        console.log('load results buildings')
         loadResults(type);
+        navHighlight('search');
     }
     //SEARCH
     else if (window.location.hash.indexOf('#/search') !== -1) {
@@ -259,7 +262,7 @@ function navHighlight(page) {
 //HOME PAGE
 function loadHomePage() {
     animateSplash();
-    $load.hide();
+    loaded();
     $('#home').show();
 
     function animateSplash() {
@@ -366,16 +369,16 @@ function loadHomePage() {
 
 function loadAbout() {
     $('#about').show();
-    $load.hide();
+    loaded();
 }
 function loadDisclaimer() {
     $('#disclaimer').show();
-    $load.hide();
+    loaded();
 }
 
 function loadSearch() {
     $('#search').show();
-    $load.hide();
+    loaded();
 
     //BIND SEARCH BUTTONS
     $('#search-for-artwork button').on('click', searchForArtwork);
@@ -488,7 +491,9 @@ function loadSearch() {
 
 function loadLocation() {
     $('#location').show();
-    $load.hide();
+    //reset
+    $('#state').val('');
+    loaded();
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
     $('#map').css({
@@ -526,9 +531,15 @@ function loadLocation() {
         $("#map > svg > path").each(function() {
             $(this).css('fill', '');
         });
+
         var state = $(this).val();
-        $('#' + state).css('fill', 'red');
-        browseByState(state);
+        if(state !== ''){
+            $('#' + state).css('fill', 'red');
+            browseByState(state);
+        }
+        else{
+            $('#results-location').html('').hide()
+        }
     });
 
     function browseByState(state) {
@@ -625,11 +636,10 @@ function loadResults(type) {
 
 //ARTIST INDEX
 function loadArtists() {
-    $load.show();
     /*if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists div').length === 26) {
             console.log('ARTISTS: DOM is preserved. No Action.')
-            $load.hide();
+            loaded();
             $('#artists').show();
             artistsReady();
         } else {
@@ -738,7 +748,7 @@ function galleriesHandler(galleries) {
         galleries: galleries
     })
     $('#galleries').html(html).show();
-    $load.hide();
+    loaded();
 }
 
 //GALLERY DETAIL
@@ -822,7 +832,7 @@ function galleryHandler(gallery) {
     $('.leftCol nav').stick_in_parent({
         parent: $('.row')
     });
-    $load.hide();
+    loaded();
 }
 
 //ARTWORK DETAIL
@@ -846,7 +856,7 @@ function loadArtwork() {
             .success(function(json) {
                 artwork = json.results;
                 if (json.total_results === 0) {
-                    fail('This Artwork Could Not Be Found', 'We should confirm that it\'s in the API.');
+                    fail("We're Sorry", 'This Artwork Could Not Be Found');
                 } else {
                     var template = $('#templates .artwork').html();
 
@@ -857,15 +867,14 @@ function loadArtwork() {
                                 return obj.textType == 'Interpretation';
                             });
                             if (interpretation.length > 0) {
-                                interpretation = interpretation[0].textEntry;
+                                interpretation = interpretation[0].textEntry.replace(/<[^>]*>/gi, "");;
                             }
                         } else {
                             if (artwork.ObjTextEntries.hasOwnProperty('Interpretation')) {
-                                var interpretation = artwork.ObjTextEntries.textEntry;
+                                var interpretation = artwork.ObjTextEntries.textEntry.replace(/<[^>]*>/gi, "");;
                             }
                         }
                     }
-                    interpretation = interpretation.replace(/<[^>]*>/gi, "");
 
                     if (artwork.ObjMedia) {
                         if (isArray(artwork.ObjMedia)) {
@@ -891,7 +900,6 @@ function loadArtwork() {
                             artwork.artistRelatedObjects.push(aro);
                         }
                         artistRelated = artwork.artistRelatedObjects;
-                        console.log(artwork.artistRelatedObjects)
 						//creditLine = artwork.artistRelatedObjects.creditLine;
                     }
 
@@ -902,7 +910,6 @@ function loadArtwork() {
                             artwork.siteRelatedObjects.push(sro);
                         }
                         siteRelated = artwork.siteRelatedObjects;
-                        console.log(artwork.siteRelatedObjects)
                     }
 
                     if (artwork.Collections) {
@@ -1026,12 +1033,10 @@ function loadArtwork() {
                         event.preventDefault();
                     });
 
-                    $load.hide();
+                    loaded();
                 }
             })
-            .error(function(request, status, error) {
-                fail('This Artwork Could Not Be Found', status);
-            });
+            .error(fail);
     }
 }
 
@@ -1059,14 +1064,13 @@ function loadArtist() {
                 artist = json.results;
                 if (json.total_results === 0) {
                     $('#artist').show();
-                    fail('This Artist Could Not Be Found', 'We should confirm that it\'s in the API.');
+                    fail("We're Sorry", 'This Artist Could Not Be Found');
                 } else {
 
                     //RELATED ARTWORK
                     var works = artist.Objects;
                     if (artist.PeopleTextEntries) {
                         var pte = artist.PeopleTextEntries;
-                        console.log(pte)
                         //Is PTE an object (1 result only), or an array (multiple results)
                         if (isArray(pte)) {
                             for (i in pte) {
@@ -1112,12 +1116,10 @@ function loadArtist() {
                         var val = $(this).attr('id').replace('nav-', '');
                         scrollToAnchor(val);
                     });
-                    $load.hide();
+                    loaded();
                 }
             })
-            .error(function(textStatus, error) {
-                fail('This Artist Could Not Be Found', error);
-            });
+            .error(fail);
     }
 }
 
@@ -1143,8 +1145,7 @@ function loadBuilding() {
             .success(function(json) {
                 building = json.results;
                 if (json.total_results === 0) {
-                    $('#building').show();
-                    fail('This Building Could Not Be Found', 'We should confirm that it\'s in the API.');
+                    fail("We're Sorry", 'This Building Could Not Be Found');
                 } else {
                     var building = json.results;
 
@@ -1165,7 +1166,6 @@ function loadBuilding() {
                     }
                     if (worksLength > 0) {
                         var hasWorks = true;
-                        console.log(works)
                         for(i in works){
                             if(works[i].primaryImage){
                                 works[i].primaryImage = formatImagePath(works[i].primaryImage);
@@ -1190,12 +1190,10 @@ function loadBuilding() {
                         scrollToAnchor(val);
                     });
 
-                    $load.hide();
+                    loaded();
                 }
             })
-            .error(function(textStatus, error) {
-                fail('This Building Could Not Be Found', error);
-            });
+            .error(fail);
     }
 }
 
@@ -1219,9 +1217,7 @@ function fetchAllResults(searchType, searchParams, handler) {
         .success(function(json) {
             handler(json, searchType);
         })
-        .error(function(textStatus, error) {
-            fail('Server Connection Timed Out');
-        });
+        .error(fail);
 };
 
 //CACHES all artists, Saves as local storage
@@ -1273,13 +1269,10 @@ function appendResults(json, type) {
     console.log(type)
     if (json.results && json.results.length !== 0) {
         if (isArray(json.results)) {
-            console.log('isArray')
             var results = json.results;
         } else {
-            console.log('isNOTArray')
             var results = [];
             results.push(json.results);
-            console.log(results)
         }
         //SORT RESULTS WITH IMAGES FIRST
         if (results.length > 1) {
@@ -1315,7 +1308,7 @@ function appendResults(json, type) {
         }
     } else {
         $('#results').html('<h1>Search Results</h1><h2>No Results Found.</h2>').show();
-        $load.hide();
+        loaded();
 
         var type = 'none';
     }
@@ -1326,7 +1319,6 @@ function appendResults(json, type) {
 
     var yourQuery = '';
 
-    console.log(searchParams)
 
     //BUILD STRING SUMMARY FOR QUERY...BUILDINGS FIRST
     if (searchParams['Building%20Name'] && searchParams.City && searchParams.State) {
@@ -1375,22 +1367,34 @@ function appendResults(json, type) {
     });
 
     $('#results').html(html).show();
-    $load.hide();
+    loaded();
 
     $('#results h1').sticky();
 }
 
+//LOAD WITH TIMEOUT
+function load(){
+    clearTimeout(loadTimeout);
+    $fail.hide();
+    $section.hide();
+    $load.show();
+    loadTimeout = setTimeout(fail,20000);
+}
 
+function loaded(){
+    clearTimeout(loadTimeout);
+    $load.hide();
+}
 
 
 
 //ERROR REPORT
 function fail(message, description) {
     if (message === undefined) {
-        var message = 'ERROR';
+        var message = "We're Sorry";
     }
     if (description === undefined) {
-        var description = 'Probably an issue reaching the API';
+        var description = 'An error has occured. Please try again.';
     }
     $('#fail').html('').append('<h3>' + message + '</h3>').append('<p>' + description + '</p>').show();
     $('#load,section').hide();

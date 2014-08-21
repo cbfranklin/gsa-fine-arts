@@ -363,7 +363,7 @@
                 <div class="menu">
                     <ul>
                         <li><a class="nav-disclaimer" href="#/disclaimer">Disclaimer</a></li>
-                        <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/10335">Art in Architecture Program</a></li>
+                        <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/103335">Art in Architecture Program</a></li>
                         <li><a class="nav-disclaimer" target="_blank" href="http://www.gsa.gov/portal/category/103339">Fine Arts Program</a></li>
                     </ul>
                 </div>
@@ -423,7 +423,7 @@
 				{{#gallery}}
 						<div id="gallery-overview" class="overview">
 							<h1>{{collection}}</h1>
-							<p>This is where the longDesc goes.</p>
+							{{longDesc}}
 						
 						</div>
 
@@ -573,7 +573,7 @@
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{artist}}</p>
