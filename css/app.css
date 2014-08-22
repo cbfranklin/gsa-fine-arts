@@ -103,7 +103,10 @@ section{
 	width:100%;
 	background:url(../img/load.gif) center center no-repeat;
 	display:none;
-	min-height:100px;
+	min-height:150px;
+	padding-top:100px;
+	color:#ea3239;
+	text-align:center;
 }
 #fail{
 	/*position:absolute;

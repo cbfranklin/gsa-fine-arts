@@ -81,12 +81,14 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
         "ok": "oklahoma",
         "or": "oregon",
         "pa": "pennsylvania",
+        "pr": "puerto rico",
         "ri": "rhode island",
         "sc": "south carolina",
         "sd": "south dakota",
         "tn": "tennessee",
         "tx": "texas",
         "ut": "utah",
+        "vi": "virgin islands",
         "vt": "vermont",
         "va": "virginia",
         "wa": "washington",
@@ -112,7 +114,9 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     $load,
     $fail,
     $section,
-    loadTimeout;
+    loadTimeout,
+    refreshPeriod/*IN DAYS*/=7,
+    today = getDate();
 
 $(function() {
     $load = $('#load');
@@ -184,8 +188,8 @@ function routes() {
     }
     //ABOUT
     else if (window.location.hash.indexOf('#/about') !== -1) {
-            loadAbout();
-            navHighlight('about');
+        loadAbout();
+        navHighlight('about');
     }
     //DISCLAIMER
     else if (window.location.hash.indexOf('#/disclaimer') !== -1) {
@@ -371,6 +375,7 @@ function loadAbout() {
     $('#about').show();
     loaded();
 }
+
 function loadDisclaimer() {
     $('#disclaimer').show();
     loaded();
@@ -447,7 +452,8 @@ function loadSearch() {
             searchForBuildings()
             pd()
         }
-        function pd(){
+
+        function pd() {
             if (e.preventDefault) {
                 e.preventDefault();
             } else {
@@ -460,13 +466,13 @@ function loadSearch() {
     //BUILD SEARCH QUERIES
     function searchForArtwork() {
         var base = '#/results/artwork?keyword=';
-        var keywords =  $('#keywords-artwork').val().doorknob()
+        var keywords = $('#keywords-artwork').val().doorknob()
         window.location.href = base + keywords;
     };
 
     function searchForArtist() {
         var base = '#/results/artists?keyword=';
-        var keywords =  $('#keywords-artist').val().doorknob()
+        var keywords = $('#keywords-artist').val().doorknob()
         window.location.href = base + keywords;
     };
 
@@ -493,6 +499,11 @@ function loadLocation() {
     $('#location').show();
     //reset
     $('#state').val('');
+    $("#map > svg > path").each(function() {
+        $(this).css('fill', '');
+    });
+    $('#results-location').html('').hide()
+
     loaded();
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
@@ -521,10 +532,11 @@ function loadLocation() {
             fill: '#ea3239',
             stroke: '#911D21'
         },
-        'click': function(event, data) {
+        click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
             browseByState(data.name);
-        }
+        },
+        includeTerritories: ['PR', 'VI']
     });
 
     $('#location').on('change', '#state', function() {
@@ -533,11 +545,10 @@ function loadLocation() {
         });
 
         var state = $(this).val();
-        if(state !== ''){
+        if (state !== '') {
             $('#' + state).css('fill', 'red');
             browseByState(state);
-        }
-        else{
+        } else {
             $('#results-location').html('').hide()
         }
     });
@@ -557,7 +568,13 @@ function loadLocation() {
             timeout: 2500
         })
             .success(function(json) {
-                var results = json.results;
+                var results = []
+                if(isArray(json.results)){
+                    results.concat(json.results)
+                }
+                else{
+                    results.push(json.results);
+                }
                 if (json.total_results === 0 || json === undefined) {
                     var html = '<h3>Buildings in ' + states[json.search_value[0].value.toLowerCase()].titleCase() + '<span style="float:right" class="label label-default label-danger">0</span></h3><h4>No Buildings Found</h4>'
                     $('#location #results-location').html(html).show();
@@ -595,7 +612,7 @@ function loadLocation() {
                     }
 
                     locations.sort(function(a, b) {
-                            return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
+                        return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
                     });
 
                     var state = states[results[0].state.toLowerCase()].titleCase();
@@ -636,23 +653,36 @@ function loadResults(type) {
 
 //ARTIST INDEX
 function loadArtists() {
-    /*if (localStorage['fineArtsDB_artistsCache']) {
+    if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists div').length === 26) {
             console.log('ARTISTS: DOM is preserved. No Action.')
             loaded();
             $('#artists').show();
             artistsReady();
         } else {
-            artistsAppend(JSON.parse(localStorage['artistsCache']));
+            artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
+            if(today > (artistsCache.date + refreshPeriod*86400)){
+                console.log('ARTISTS: Old artistsCache, refreshing from API.')
+                load('Refreshing artists from the Fine Arts Database', 30000)
+                loadFromAPI()
+                return;
+            }
+            artistsAppend(artistsCache);
             console.log('ARTISTS: artistsCache exists in localStorage.')
             artistsReady();
         }
-    } else {*/
-    console.log('ARTISTS: No artistsCache, pulling from API.')
-    for (var i = 0; i < alphaOrder.length; i++) {
-        fetchAllResults('people', 'Index=' + alphaOrder[i], artistsHandler);
-    };
-    //}
+    } else {
+        load('Loading artists from the Fine Arts Database', 30000)
+        console.log('ARTISTS: No artistsCache, pulling from API.')
+        loadFromAPI()
+    }
+    function loadFromAPI(){
+        var queue = [];
+        var interval = 300;
+        for (var i = 0; i < alphaOrder.length; i++) {
+            queue[i] = setTimeout(fetchAllResults, i * interval, 'people', 'Index=' + alphaOrder[i], artistsHandler);
+        };
+    }
 }
 
 function artistsReady() {
@@ -684,7 +714,7 @@ function artistsReady() {
             }
         }
     });
-    $load.hide()
+    loaded()
 
     //BROWSE WITH SELECT MENU
     $('#selectAlphaWrapper select').change(function() {
@@ -701,34 +731,39 @@ function artistsReady() {
 //GALLERIES
 function loadGalleries() {
     //IF IN MEMORY
-    /*    if (galleriesCache !== null) {
+    if (galleriesCache.galleries !== null) {
         galleriesHandler(galleriesCache);
     } else {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
+            if(today > (galleriesCache.date + refreshPeriod*86400)){
+                console.log('ARTISTS: Old artistsCache, refreshing from API.')
+                load('Refreshing galleries from the Fine Arts Database');
+                loadFromAPI();
+                return;
+            }
             galleriesHandler(galleriesCache);
-        } else {*/
-    //IF NEITHER
-    var req = apiRoot + 'collections/all';
-
-    console.log('JSON request: ' + req)
-
-    $.ajax({
-        url: req,
-        async: true,
-        dataType: "jsonp",
-        timeout: 10000
-    })
-        .success(function(json) {
-            galleriesHandler(json.results);
+        } else {
+            //IF NEITHER
+            load('Loading galleries from the Fine Arts Database');
+            loadFromAPI();
+        }
+    }
+    function loadFromAPI(){
+        var req = apiRoot + 'collections/all';
+        console.log('JSON request: ' + req)
+        $.ajax({
+            url: req,
+            async: true,
+            dataType: "jsonp",
+            timeout: 10000
+        }).success(function(json) {
             galleriesCache = json.results;
+            galleriesHandler(galleriesCache);
             localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
-
-        })
-        .error(fail);
-    //}
-    //}
+        }) .error(fail);
+    }
 };
 
 function galleriesHandler(galleries) {
@@ -900,7 +935,7 @@ function loadArtwork() {
                             artwork.artistRelatedObjects.push(aro);
                         }
                         artistRelated = artwork.artistRelatedObjects;
-						//creditLine = artwork.artistRelatedObjects.creditLine;
+                        //creditLine = artwork.artistRelatedObjects.creditLine;
                     }
 
                     if (artwork.siteRelatedObjects) {
@@ -986,18 +1021,18 @@ function loadArtwork() {
                         }
                     }
 
-                    if(artwork.Collections && artwork.Collections.length > 0){
+                    if (artwork.Collections && artwork.Collections.length > 0) {
                         var isInCollections = true;
                     }
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
-                    var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/'+artwork.primaryImage;
+                    var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/' + artwork.primaryImage;
                     var socialMedia = {}
                     socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
-                    socialMedia.twitter = 'http://twitter.com/share?text='+artwork.title+' by '+artwork.artist+'&url=' + wlh + '&hashtags=finearts'; 
-                    socialMedia.pinterest = 'http://pinterest.com/pin/create/button/?url='+wlh+'&media='+imagePath+'&description='+artwork.title+' by '+artwork.artist;
-                    socialMedia.email = 'mailto:?subject='+encodeURIComponent('Fine Arts: '+artwork.title+' by '+artwork.artist)+'&body='+encodeURIComponent("I've shared a link to GSA Fine Arts: ")+'%0D%0D'+wlh;
+                    socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=finearts';
+                    socialMedia.pinterest = 'http://pinterest.com/pin/create/button/?url=' + wlh + '&media=' + imagePath + '&description=' + artwork.title + ' by ' + artwork.artist;
+                    socialMedia.email = 'mailto:?subject=' + encodeURIComponent('Fine Arts: ') + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&body=' + encodeURIComponent("I've shared a link to GSA Fine Arts: ") + '%0D%0D' + wlh;
                     var html = Mustache.to_html(template, {
                         artwork: artwork,
                         interpretation: interpretation,
@@ -1007,7 +1042,7 @@ function loadArtwork() {
                         hasAdditional: hasAdditional,
                         socialMedia: socialMedia,
                         isInCollections: isInCollections
-						//creditLine : creditLine
+                        //creditLine : creditLine
                     });
                     $('#artwork').html(html).show();
 
@@ -1078,8 +1113,7 @@ function loadArtist() {
                                     var artistInfo = pte[i].textEntry;
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             if (pte.textType.indexOf('Web') > -1) {
                                 var artistInfo = pte[i].textEntry;
                             }
@@ -1154,7 +1188,7 @@ function loadBuilding() {
                         var works = building.Objects;
                     } else {
                         var works = [];
-                        if(building.Objects){
+                        if (building.Objects) {
                             works.push(building.Objects);
                         }
                     }
@@ -1166,8 +1200,8 @@ function loadBuilding() {
                     }
                     if (worksLength > 0) {
                         var hasWorks = true;
-                        for(i in works){
-                            if(works[i].primaryImage){
+                        for (i in works) {
+                            if (works[i].primaryImage) {
                                 works[i].primaryImage = formatImagePath(works[i].primaryImage);
                             }
                         }
@@ -1178,7 +1212,7 @@ function loadBuilding() {
                         building: building,
                         works: works,
                         hasWorks: hasWorks,
-                        worksLength : worksLength
+                        worksLength: worksLength
                     });
                     $('#building').html(html).show();
 
@@ -1224,33 +1258,35 @@ function fetchAllResults(searchType, searchParams, handler) {
 function artistsHandler(json) {
     for (var i = 0; i < json.total_results; i++) {
         var item = json.results[i]
-        addValue(artistsCache, item.index.toLowerCase(), item);
+        addValue(artistsCache.artists, item.index.toLowerCase(), item);
     };
-
+    if(!artistsCache.status){
+        artistsCache.status = [];
+    }
     artistsCache.status.push(json.results[0].index);
     if (artistsCache.status.length === 26) {
         console.log('DONE')
-        //delete artistsCache.status;
-        //console.log(artistsCache)
+        artistsCache.date = getDate();
+        delete artistsCache.status;
         artistsAppend(artistsCache);
-        //var stringified = JSON.stringify(artistsCache);
-        //localStorage.setItem('fineArtsDB_artistsCache', stringified);
+        var stringified = JSON.stringify(artistsCache);
+        localStorage.setItem('fineArtsDB_artistsCache', stringified);
     }
 }
 
 //APPENDS artists to Artist Index, and preps next letter append on scroll function.
 function artistsAppend(source) {
     $('#fail,#load').hide();
-
-    for (var i = 0; i < Object.size(source) - 1; i++) {
-        $('#artists #artists-index').show().append('<div id="' + source[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + source[alphaOrder[i]][0].index + '</h3><ul></ul>')
-        for (var j = 0; j < source[alphaOrder[i]].length; j++) {
-            if (source[alphaOrder[i]][j].lastName && source[alphaOrder[i]][j].firstName) {
-                var name = '<strong>' + source[alphaOrder[i]][j].lastName + '</strong> ' + source[alphaOrder[i]][j].firstName;
+    var artists = source.artists;
+    for (var i = 0; i < Object.size(source.artists); i++) {
+        $('#artists #artists-index').show().append('<div id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><ul></ul>')
+        for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
+            if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
+                var name = '<strong>' + artists[alphaOrder[i]][j].lastName + '</strong> ' + artists[alphaOrder[i]][j].firstName;
             } else {
-                var name = '<strong>' + source[alphaOrder[i]][j].displayName + '</strong>';
+                var name = '<strong>' + artists[alphaOrder[i]][j].displayName + '</strong>';
             }
-            $('#artists #' + alphaOrder[i] + ' ul').append('<li class="artist"><a href="' + '#/artist/' + source[alphaOrder[i]][j].id + '">' + name + '</a></li>');
+            $('#artists #' + alphaOrder[i] + ' ul').append('<li class="artist"><a href="' + '#/artist/' + artists[alphaOrder[i]][j].id + '">' + name + '</a></li>');
         };
         if (i === 25) {
             artistsReady();
@@ -1373,15 +1409,22 @@ function appendResults(json, type) {
 }
 
 //LOAD WITH TIMEOUT
-function load(){
+function load(message,timeout) {
     clearTimeout(loadTimeout);
+
+    if (message) {
+        $load.text(message)
+    }
+    if(!timeout){
+        var timeout = 10000;
+    }
     $fail.hide();
     $section.hide();
     $load.show();
-    loadTimeout = setTimeout(fail,20000);
+    loadTimeout = setTimeout(fail, timeout);
 }
 
-function loaded(){
+function loaded() {
     clearTimeout(loadTimeout);
     $load.hide();
 }
