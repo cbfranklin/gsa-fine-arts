@@ -570,9 +570,10 @@ function loadLocation() {
             .success(function(json) {
                 var results = []
                 if(isArray(json.results)){
-                    results.concat(json.results)
+                    results = results.concat(json.results)
                 }
                 else{
+                    console.log('is not Array')
                     results.push(json.results);
                 }
                 if (json.total_results === 0 || json === undefined) {
@@ -614,7 +615,7 @@ function loadLocation() {
                     locations.sort(function(a, b) {
                         return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
                     });
-
+                    console.log(results)
                     var state = states[results[0].state.toLowerCase()].titleCase();
 
                     var template = $('#templates .results-location').html();
