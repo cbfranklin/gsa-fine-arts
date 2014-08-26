@@ -539,12 +539,6 @@ img.noImage{
 	.crumb{
 		display:none;
 	}
-	.social-media a{
-		float:left;
-		width:auto;
-		height:auto;
-		margin-top:10px;
-	}
 	#home #splash,
 	#home #splash > div{
 		overflow:hidden;
@@ -603,8 +597,6 @@ img.noImage{
 		display:block;
 		width:100%;
 	}
-}
-@media (max-width: 480px){
 	h1{
 		font-size:36px;
 	}
@@ -613,6 +605,16 @@ img.noImage{
 		height:auto;
 		float:none;
 	}
+	.social-media{
+		width:205px;
+		height:41px;
+	}
+	.social-media a{
+		display:block;
+		float:left;
+	}
+}
+@media (max-width: 480px){
 	#search > div{
 		padding-top:25px;
 	}
