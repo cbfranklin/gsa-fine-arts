@@ -244,7 +244,7 @@ function bindings() {
         $('header .menu').slideToggle();
     });
     $(window).on('resize',function(){
-        if($header.width() > 480){
+        if($header.width() > 769){
             $('header .menu').show()
         }
         else{
@@ -252,7 +252,7 @@ function bindings() {
         }
     });
     $('header .menu a').on('click',function(){
-        if($header.width() < 480){
+        if($header.width() < 769){
             $('header .menu').slideToggle()
         }
     });
@@ -269,7 +269,7 @@ function navHighlight(page) {
 
 //HOME PAGE
 function loadHomePage() {
-    if($(window).width() > 480){
+    if($(window).width() > 769){
         animateSplash();
     }
     loaded();

@@ -126,6 +126,14 @@ section{
 	padding-left:0;
 	padding-right:0;
 }
+#home .mobile-title{
+	display:none;
+	color:#000;
+	padding:10px;
+}
+#home .mobile-title h1{
+	color:rgb(102,167,197);
+}
 #home #splash {
     height:900px;
     position:relative;
@@ -184,6 +192,10 @@ section{
 }
 #home #splash .splash-mask {
     position:absolute;
+}
+#home #splash .splash-text .splash-mask {
+    width:100%;
+    height:100%;
 }
 #home #splash > div p {
     font-size:12px;
@@ -259,15 +271,14 @@ section{
     top:80%;
     left:75%;
 }
-
-/*.splash-2 img,
+.splash-2 img,
 .splash-4 img,
 .splash-5 img,
 .splash-7 img,
 .splash-10 img{
 	width:100%;
 	height:100%;
-}*/
+}
 
 .social-media{
 	width:41px;
@@ -534,19 +545,39 @@ img.noImage{
 		height:auto;
 		margin-top:10px;
 	}
-}
-@media (max-width: 480px){
-	h1{
-		font-size:30px;
-	}
 	#home #splash,
 	#home #splash > div{
 		overflow:hidden;
 	}
-	img.featured{
+	#home #splash{
+		height:auto;
+	}
+	#home #splash > div{
+		width:100%;
+		height:120px;
+		position:static;
+	}
+	#home .mobile-title{
+		display:block;
+		min-height:100px;
+		width:100%;
+		text-align: center;
+		color: rgb(102,167,197);
+		background: rgb(185,221,239);
+	}
+	.splash-text{
+		display:none;
+	}
+	#home #splash .splash-details{
+		display:block;
+	}
+	#home #splash .splash-mask{
+		width:100%;
+		height:100%;
+	}
+	#home #splash img{
 		width:100%;
 		height:auto;
-		float:none;
 	}
 	.menu-trigger{
 		background:rgb(212,242,252);
@@ -572,23 +603,15 @@ img.noImage{
 		display:block;
 		width:100%;
 	}
-	#home #splash{
-		height:auto;
+}
+@media (max-width: 480px){
+	h1{
+		font-size:36px;
 	}
-	#home #splash > div{
+	img.featured{
 		width:100%;
-		height:120px;
-		position:static;
-	}
-	.splash-2,
-	.splash-4,
-	.splash-5,
-	.splash-7,
-	.splash-10{
-		display:none;
-	}
-	#home #splash .splash-details{
-		display:block;
+		height:auto;
+		float:none;
 	}
 	#search > div{
 		padding-top:25px;
