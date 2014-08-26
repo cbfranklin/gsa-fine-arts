@@ -334,7 +334,10 @@ function loadHomePage() {
             function() {
                 $(this).children('.splash-details').hide().children('p').hide();
             }
-        );
+        ).click(function(){
+            var hash = $(this).attr('href');
+            window.location.hash = hash;
+        });
 
         function rotate() {
             for (var i = 0; i < order.length; i++) {
