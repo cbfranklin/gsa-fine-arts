@@ -763,7 +763,7 @@ function loadGalleries() {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
             localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
-        }) .error(fail);
+        }) .error(function(){fail()});
     }
 };
 
@@ -830,7 +830,7 @@ function loadGallery() {
                     });
                     galleryHandler(gallery[0]);
                 })
-                .error(fail);
+                .error(function(){fail()});
         }
     }
 }
@@ -1031,7 +1031,7 @@ function loadArtwork() {
                     var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/' + artwork.primaryImage;
                     var socialMedia = {}
                     socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
-                    socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=finearts';
+                    socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=GSAfinearts';
                     socialMedia.pinterest = 'http://pinterest.com/pin/create/button/?url=' + wlh + '&media=' + imagePath + '&description=' + artwork.title + ' by ' + artwork.artist;
                     socialMedia.email = 'mailto:?subject=' + encodeURIComponent('Fine Arts: ') + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&body=' + encodeURIComponent("I've shared a link to GSA Fine Arts: ") + '%0D%0D' + wlh;
                     var html = Mustache.to_html(template, {
@@ -1072,7 +1072,7 @@ function loadArtwork() {
                     loaded();
                 }
             })
-            .error(fail);
+            .error(function(){fail()});
     }
 }
 
@@ -1154,7 +1154,7 @@ function loadArtist() {
                     loaded();
                 }
             })
-            .error(fail);
+            .error(function(){fail()});
     }
 }
 
@@ -1228,7 +1228,7 @@ function loadBuilding() {
                     loaded();
                 }
             })
-            .error(fail);
+            .error(function(){fail()});
     }
 }
 
@@ -1252,7 +1252,7 @@ function fetchAllResults(searchType, searchParams, handler) {
         .success(function(json) {
             handler(json, searchType);
         })
-        .error(fail);
+        .error(function(){fail()});
 };
 
 //CACHES all artists, Saves as local storage
@@ -1417,7 +1417,7 @@ function load(message,timeout) {
         $load.text(message)
     }
     if(!timeout){
-        var timeout = 10000;
+        var timeout = 15000;
     }
     $fail.hide();
     $section.hide();
@@ -1427,13 +1427,14 @@ function load(message,timeout) {
 
 function loaded() {
     clearTimeout(loadTimeout);
-    $load.hide();
+    $load.hide().text('');
 }
 
 
 
 //ERROR REPORT
 function fail(message, description) {
+    console.log('fail',message,description)
     if (message === undefined) {
         var message = "We're Sorry";
     }
