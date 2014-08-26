@@ -114,6 +114,7 @@ var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     $load,
     $fail,
     $section,
+    $header,
     loadTimeout,
     refreshPeriod/*IN DAYS*/=7,
     today = getDate();
@@ -122,6 +123,7 @@ $(function() {
     $load = $('#load');
     $section = $('section');
     $fail = $('#fail');
+    $header = $('header');
     load();
     ie();
     if (isOldIE === true) {
@@ -238,19 +240,21 @@ function routes() {
 
 //CLICKS
 function bindings() {
-    //IM NOT SURE THAT ANY OF THESE DO ANYTHING ANYMORE. SHOULD TRANSFER CLICK BINDINGS FROM OTHER FUNCTIONS HERE.
-    $('#results').on('click', '.cell img', function() {
-        var objID = $(event.srcElement).parent().attr('id');
-        window.location.hash = '#/item/' + objID;
+    $('.menu-trigger').on('click',function(){
+        $('header .menu').slideToggle();
     });
-    $('#item').on('click', function() {
-        $('#item').hide().html('');
-        $('#results').fadeIn();
-        window.location.hash = '#/results'
+    $(window).on('resize',function(){
+        if($header.width() > 480){
+            $('header .menu').show()
+        }
+        else{
+            $('header .menu').hide()
+        }
     });
-
-    $("img").on('error', function() {
-        $(this).unbind("error").attr("src", "broken.gif");
+    $('header .menu a').on('click',function(){
+        if($header.width() < 480){
+            $('header .menu').slideToggle()
+        }
     });
 }
 
@@ -265,7 +269,9 @@ function navHighlight(page) {
 
 //HOME PAGE
 function loadHomePage() {
-    animateSplash();
+    if($(window).width() > 480){
+        animateSplash();
+    }
     loaded();
     $('#home').show();
 
