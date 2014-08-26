@@ -122,7 +122,10 @@ section{
 	padding:50px;
 	display:none;
 }
-
+#home{
+	padding-left:0;
+	padding-right:0;
+}
 #home #splash {
     height:900px;
     position:relative;
