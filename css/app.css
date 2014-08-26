@@ -260,6 +260,15 @@ section{
     left:75%;
 }
 
+/*.splash-2 img,
+.splash-4 img,
+.splash-5 img,
+.splash-7 img,
+.splash-10 img{
+	width:100%;
+	height:100%;
+}*/
+
 .social-media{
 	width:41px;
 	height:204px;
