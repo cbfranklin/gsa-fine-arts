@@ -804,7 +804,7 @@ function loadGallery() {
     var objID = hash[2];
 
     //IF IN MEMORY
-    if (galleriesCache !== null) {
+    if (galleriesCache.galleries !== null) {
         var gallery = galleriesCache.filter(function(obj) {
             return obj.id == objID;
         });
