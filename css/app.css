@@ -490,6 +490,10 @@ input[type=text]{
 	font-family: 'open-sans-condensed-bold';
 	margin:0;
 }
+#in-this-gallery h4{
+	font-size:18px;
+	margin-bottom:7px;
+}
 .works p{
 	margin:0;
 	line-height:1.2em;
