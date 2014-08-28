@@ -147,7 +147,7 @@ section{
     overflow:hidden;
     cursor:pointer;
 }
-#home #splash > div.splash-title {
+div.splash-title {
     cursor:default;
 }
 #home #splash > div h3, #splash > div h4 {
@@ -165,41 +165,43 @@ section{
     line-height: 1.3em;
 }
 
-#home #splash .splash-details {
+.splash-details {
     padding:20px;
     width:100%;
     height:100%;
     position:absolute;
     top:0;
     left:0;
-    display:none;
+    /*display:none;*/
+    opacity:0;
 }
-#home #splash div.splash-text{
+div.splash-text-flex{
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 #home #splash div.splash-text h4{
 	font-size:22px;
 	line-height:1.5em;
 }
-#home #splash .splash-details.splash-section {
+.splash-details.splash-section {
     background: none;
     padding:0;
 }
-#home #splash .splash-details.splash-dark-on-light{
+.splash-details.splash-dark-on-light{
     color:#4a4a4a;
     background-color: rgba(255, 255, 255, 0.7);
 }
-#home #splash .splash-details.splash-light-on-dark{
+.splash-details.splash-light-on-dark{
     color:#d2eaf7;
     background-color: rgba(51, 105, 130, 0.6);
 }
 
-#home #splash .splash-details h4 {
+.splash-details h4 {
     font-weight: normal;
 }
-#home #splash .splash-details p{
+.splash-details p{
     display:none;
 }
 #home #splash .splash-mask {
@@ -207,81 +209,81 @@ section{
     top:0;
     left:0;
 }
-#home #splash .splash-text .splash-mask {
+.splash-text .splash-mask {
     width:100%;
     height:100%;
 }
 #home #splash > div p {
     font-size:12px;
 }
-#home .splash-small {
+.splash-small {
     width:25%;
     height:20%;
 }
-#home .splash-medium {
+.splash-medium {
     width:50%;
     height:20%;
 }
-#home .splash-large {
+.splash-large {
     width:50%;
     height:40%;
 }
-#home .splash-light {
+.splash-light {
     background-color:#cfebfa;
 }
-#home .splash-mediumlight {
+.splash-mediumlight {
     background-color:#a6d7f4;
 }
-#home .splash-dark {
+.splash-dark {
     background-color:#69a8c4;
 }
-#home .splash-blacktext {
+.splash-blacktext {
     color:black;
 }
-#home .splash-whitetext {
+.splash-whitetext {
     color:white;
 }
-#home .splash-1 {
+.splash-1 {
     top:0;
     left:0;
 }
-#home .splash-2 {
+.splash-2 {
     top:0;
     left:50%;
 }
-#home .splash-3 {
+.splash-3 {
     top:0;
     left:75%;
 }
-#home .splash-4 {
+.splash-4 {
     top:20%;
     left:50%;
 }
-#home .splash-5 {
+.splash-5 {
     top:40%;
     left:0;
 }
-#home .splash-6 {
+.splash-6 {
     top:40%;
     left:50%;
 }
-#home .splash-7 {
+.splash-7 {
     top:60%;
     left:0;
 }
-#home .splash-8 {
+.splash-8 {
     top:60%;
     left:25%;
 }
-#home .splash-9 {
+.splash-9 {
     top:80%;
     left:0;
 }
-#home .splash-10 {
+.splash-10 {
     top:80%;
     left:50%;
 }
-#home .splash-11 {
+.splash-11 {
     top:80%;
     left:75%;
 }
@@ -576,9 +578,6 @@ img.noImage{
 		text-align: center;
 		color: rgb(102,167,197);
 		background: rgb(185,221,239);
-	}
-	.splash-text{
-		display:none;
 	}
 	#home #splash .splash-details{
 		display:block;
