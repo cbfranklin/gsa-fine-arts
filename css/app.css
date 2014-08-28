@@ -45,10 +45,10 @@ h1,h2,h3,h4,h5,h6{
     font-weight: normal;
     font-style: normal;
 }*/
-/*strong{
+strong{
 	font-weight:normal;
 	font-family: 'open-sans-condensed-bold';
-}*/
+}
 h1{
 	color:#ea3239;
 	font-family: 'open-sans-condensed-bold';
@@ -164,12 +164,24 @@ section{
 #home #splash > div h4{
     line-height: 1.3em;
 }
+
 #home #splash .splash-details {
     padding:20px;
     width:100%;
     height:100%;
     position:absolute;
+    top:0;
+    left:0;
     display:none;
+}
+#home #splash div.splash-text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#home #splash div.splash-text h4{
+	font-size:22px;
+	line-height:1.5em;
 }
 #home #splash .splash-details.splash-section {
     background: none;
@@ -192,6 +204,8 @@ section{
 }
 #home #splash .splash-mask {
     position:absolute;
+    top:0;
+    left:0;
 }
 #home #splash .splash-text .splash-mask {
     width:100%;
