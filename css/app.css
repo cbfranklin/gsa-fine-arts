@@ -491,7 +491,7 @@ input[type=text]{
 .works img{
 	width:120px;
 	height:120px;
-	background:#ccc;
+	background:rgb(236,247,253);
 	float:left;
 	margin-right:15px;
 	clear:both;
@@ -536,9 +536,8 @@ img.featured{
 	cursor:pointer;
 }
 
-img.noImage{
-	background:#777!important;
-	cursor:default!important;
+img.noImage.featured{
+	cursor:default;
 }
 
 .overview, .works{
