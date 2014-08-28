@@ -126,12 +126,12 @@ section{
 	padding-left:0;
 	padding-right:0;
 }
-#home .mobile-title{
+.mobile-title{
 	display:none;
 	color:#000;
 	padding:10px;
 }
-#home .mobile-title h1{
+.mobile-title h1{
 	color:rgb(102,167,197);
 }
 #home #splash {
@@ -569,7 +569,7 @@ img.noImage{
 		height:120px;
 		position:static;
 	}
-	#home .mobile-title{
+.mobile-title{
 		display:block;
 		min-height:100px;
 		width:100%;
@@ -595,12 +595,13 @@ img.noImage{
 		background:rgb(212,242,252);
 		height:40px;
 		cursor:pointer;
+		position:relative;
 	}
 	.menu-trigger:before {
 		content:'\2630';
 		position:absolute;
 		left:20px;
-		top:10px;
+		top:2px;
 		font-size:26px;
 	}
 	header .menu{

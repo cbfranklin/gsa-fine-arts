@@ -272,6 +272,13 @@ function loadHomePage() {
     if($(window).width() > 769){
         animateSplash();
     }
+
+    $('#splash > div').on('click',function(){
+        var hash = $(this).attr('href');
+        window.location.hash = hash;
+        console.log(hash)
+    });
+
     loaded();
     $('#home').show();
 
