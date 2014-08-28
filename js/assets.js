@@ -8477,7 +8477,7 @@ window.Raphael.vml && function(R) {
                 }
                 // adjust font-size
                 if (stateAttr['font-size']) {
-                    stateAttr['font-size'] = (parseInt(stateAttr['font-size']) / this.scale) + 'px';
+                    stateAttr['font-size'] = /*(parseInt(stateAttr['font-size']) / this.scale)*/'12' + 'px';
                 }
 
                 this.labelTexts[state] = R.text(otherStates[state].x, otherStates[state].y, state).attr(stateAttr);

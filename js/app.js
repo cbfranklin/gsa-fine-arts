@@ -309,7 +309,7 @@ function loadHomePage() {
                     clearTimeout(fadeOutQueue[i])
                 };
                 clearTimeout(rotateQueue);
-
+                $('.splash-details').css('opacity','0');
                 //REORDER ARRAY TO RESUME ROTATION
                 var anustart = order.indexOf(currentItem);
                 //COOOOOOINCIDENCE!
