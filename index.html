@@ -414,7 +414,7 @@
 							<ul>
 								{{#works}}
 									<li>
-										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{classification}}</p>
 										<p>{{displayDate}}</p>
@@ -447,7 +447,7 @@
 							<ul>
 								{{#Objects}}
 									<li>
-										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
 										<p>{{classification}}</p>
@@ -519,7 +519,7 @@
 								</li>
 								{{#additional}}
 									<li>
-										<a data-credit="{{copyright}}" href="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
+										<a data-credit="{{copyright}}" href="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage" src="img/no-image.jpg"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
 									</li>
 								{{/additional}}
 							</ul>
@@ -557,7 +557,7 @@
 					<ul>
 						{{#related}}
 							<li>
-								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
 							</li>
 						{{/related}}
 					</ul>
@@ -589,7 +589,7 @@
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{artist}}</p>
@@ -645,7 +645,7 @@
 				<ul class="results results-objects">
 					{{#results}}
 						<li>
-							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
+							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
 							<div class="detail">
 								<h4><strong><a href="#/artwork/{{id}}">{{title}}</a></strong></h4>
 								<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
