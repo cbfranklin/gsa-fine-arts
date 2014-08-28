@@ -531,7 +531,7 @@ img.featured{
 	width:480px;
 	height:480px;
 	float:left;
-	background:#ccc;
+	background:rgb(236,247,253);
 	margin-right:25px;
 	cursor:pointer;
 }
