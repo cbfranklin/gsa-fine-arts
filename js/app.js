@@ -286,10 +286,10 @@ function loadHomePage() {
 
         var play = true,
             order = [6, 2, 9, 4, 5, 7, 1, 10, 2, 11, 8, 3],
-            interval = 1500, //2000
-            pause = 4000,
-            fadeInTime = 1800, //2500
-            fadeOutTime = 1800, //2500
+            interval = 1200, //2000
+            pause = 8000,
+            fadeInTime = 900, //2500
+            fadeOutTime = 900, //2500
             itemQueue = [],
             fadeOutQueue = [],
             rotateQueue,
@@ -309,7 +309,7 @@ function loadHomePage() {
                     clearTimeout(fadeOutQueue[i])
                 };
                 clearTimeout(rotateQueue);
-                $('.splash-details').css('opacity','0');
+                //$('.splash-details').css('opacity','0');
                 //REORDER ARRAY TO RESUME ROTATION
                 var anustart = order.indexOf(currentItem);
                 //COOOOOOINCIDENCE!
@@ -335,11 +335,18 @@ function loadHomePage() {
         $('#home #splash > div').hover(
             function() {
                 //BRING UP ITEM DETAILS, HIDE ALL OTHERS
-                $(this).children('.splash-details')/*.fadeIn()*/.animate({opacity: 1},400).children('p').show();
-                $(this).siblings().children('.splash-details')/*.hide()*/.css('opacity','0').children('p').hide();
+                $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
+                $(this).siblings().children('.splash-details').each(function(i){
+                    var delay = i*25;
+                    var fadeTo0 = function(el){
+                        console.log(el)
+                        $(el).stop().animate({opacity: 0},50).children('p').hide();  
+                    }
+                    setTimeout(fadeTo0,delay,this)
+                });
             },
             function() {
-                $(this).children('.splash-details')/*.hide()*/.css('opacity','0').children('p').hide();
+                $(this).children('.splash-details').stop().animate({opacity: 0},200).children('p').hide();
             }
         ).click(function(){
             var hash = $(this).attr('href');
@@ -355,11 +362,11 @@ function loadHomePage() {
                     if (play === true) {
                         currentItem = item;
                         //$('#home #splash .splash-' + item + ' .splash-details').fadeIn(fadeInTime);
-                        $('.splash-' + item + ' .splash-details').animate({opacity: 1},fadeInTime);
+                        $('.splash-' + item + ' .splash-details').stop().animate({opacity: 1},fadeInTime);
                         var fadeOut = setTimeout(function() {
                             if (play === true) {
                                 //$('#home #splash .splash-' + item + ' .splash-details').fadeOut(fadeOutTime);
-                                $('.splash-' + item + ' .splash-details').animate({opacity: 0},fadeOutTime);
+                                $('.splash-' + item + ' .splash-details').stop().animate({opacity: 0},fadeOutTime);
                             }
                         }, pause + fadeInTime);
 
