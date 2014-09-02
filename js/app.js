@@ -869,6 +869,11 @@ function loadGallery() {
 }
 
 function galleryHandler(gallery) {
+    if(!isArray(gallery.Objects)){
+        var obj = gallery.Objects;
+        gallery.Objects = [];
+        gallery.Objects.push(obj)
+    }
     gallery.Objects.sort(function(a, b) {
         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
     });
