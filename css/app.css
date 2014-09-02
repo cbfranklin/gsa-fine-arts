@@ -45,10 +45,7 @@ h1,h2,h3,h4,h5,h6{
     font-weight: normal;
     font-style: normal;
 }*/
-strong{
-	font-weight:normal;
-	font-family: 'open-sans-condensed-bold';
-}
+
 h1{
 	color:#ea3239;
 	font-family: 'open-sans-condensed-bold';
@@ -208,6 +205,10 @@ div.splash-title {
     position:absolute;
     top:0;
     left:0;
+}
+.splash-details strong{
+	font-weight:normal;
+	font-family: 'open-sans-condensed-bold';
 }
 .splash-text .splash-mask {
     width:100%;

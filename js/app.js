@@ -763,7 +763,7 @@ function loadGalleries() {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
-            if(today > (galleriesCache.date + refreshPeriod*86400)){
+            if(today > 1409685913/*(galleriesCache.date + refreshPeriod*86400)*/){
                 console.log('ARTISTS: Old artistsCache, refreshing from API.')
                 load('Refreshing galleries from the Fine Arts Database');
                 loadFromAPI();
@@ -829,34 +829,42 @@ function loadGallery() {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
-            var gallery = galleriesCache.filter(function(obj) {
-                return obj.id == objID;
-            });
-            galleryHandler(gallery[0]);
+            if(today > galleriesCache.date){
+                jsonTime();
+            }
+            else{
+                var gallery = galleriesCache.filter(function(obj) {
+                    return obj.id == objID;
+                });
+                galleryHandler(gallery[0]);
+            }
         } else {
             //IF NEITHER, ITS JSON TIME
-            var req = apiRoot + 'collections/all';
-
-            console.log('JSON request: ' + req)
-
-            $.ajax({
-                url: req,
-                async: true,
-                dataType: "jsonp",
-                timeout: 10000
-            })
-                .success(function(json) {
-
-                    galleriesCache = json.results;
-                    localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
-
-                    var gallery = galleriesCache.filter(function(obj) {
-                        return obj.id == objID;
-                    });
-                    galleryHandler(gallery[0]);
-                })
-                .error(function(){fail()});
+            jsonTime();
         }
+    }
+    function jsonTime(){
+        var req = apiRoot + 'collections/all';
+
+        console.log('JSON request: ' + req)
+
+        $.ajax({
+            url: req,
+            async: true,
+            dataType: "jsonp",
+            timeout: 10000
+        })
+            .success(function(json) {
+
+                galleriesCache = json.results;
+                localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
+
+                var gallery = galleriesCache.filter(function(obj) {
+                    return obj.id == objID;
+                });
+                galleryHandler(gallery[0]);
+            })
+            .error(function(){fail()});
     }
 }
 
