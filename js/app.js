@@ -1222,6 +1222,8 @@ function loadBuilding() {
                 } else {
                     var building = json.results;
 
+                    building.primaryImage = formatImagePath(building.primaryImage);
+
                     //RELATED ARTWORK
                     if (isArray(building.Objects)) {
                         var works = building.Objects;
