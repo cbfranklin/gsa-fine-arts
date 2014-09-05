@@ -145,8 +145,6 @@ function helloDevs() {
     console.log(
         ' _______________________________________ \n' +
         '|                                       |\n' +
-        '|          Welcome, Developers!         |\n' +
-        '|                                       |\n' +
         "|       All JSON requests to GSA's      |\n" +
         '|      Fine Arts API will be logged     |\n' +
         '|          to the console below.        |\n' +
