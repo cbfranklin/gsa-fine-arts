@@ -284,7 +284,7 @@ function loadHomePage() {
 
         var play = true,
             order = [6, 2, 9, 4, 5, 7, 1, 10, 2, 11, 8, 3],
-            interval = 1200, //2000
+            interval = 800, //2000
             pause = 8000,
             fadeInTime = 900, //2500
             fadeOutTime = 900, //2500
