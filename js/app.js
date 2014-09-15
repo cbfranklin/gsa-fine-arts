@@ -337,7 +337,6 @@ function loadHomePage() {
                 $(this).siblings().children('.splash-details').each(function(i){
                     var delay = i*25;
                     var fadeTo0 = function(el){
-                        console.log(el)
                         $(el).stop().animate({opacity: 0},50).children('p').hide();  
                     }
                     setTimeout(fadeTo0,delay,this)

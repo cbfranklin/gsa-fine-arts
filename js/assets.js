@@ -1,3 +1,5 @@
+//ROLLED BACK PRIOR TO 7d2de73
+
 /*
  * jQuery hashchange event - v1.3 - 7/21/2010
  * http://benalman.com/projects/jquery-hashchange-plugin/
@@ -78,6 +80,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * Copyright 2012 Janis Skarnelis - janis@fancyapps.com
  *
  */
+
+
+/*!
+* FitText.js 1.2
+*
+* Copyright 2011, Dave Rupert http://daverupert.com
+* Released under the WTFPL license
+* http://sam.zoy.org/wtfpl/
+*
+* Date: Thu May 05 14:23:00 2011 -0600
+*/
 
 function getDate(){
     return Math.round(new Date().getTime() / 1000);
@@ -184,9 +197,9 @@ String.prototype.doorknob = function() {
     return str;
 }
 
-//ARRAY INDEXOF POLYFILL ...off cause no IE8 support anyways
-/*if (!Array.prototype.indexOf) {
-    Array.prototype.indexOf = function(elt) {
+//ARRAY INDEXOF POLYFILL
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function(elt /*, from*/ ) {
         var len = this.length >>> 0;
 
         var from = Number(arguments[1]) || 0;
@@ -201,7 +214,7 @@ String.prototype.doorknob = function() {
         }
         return -1;
     };
-}*/
+}
 
 //JQUERY.BROWSER SHIM (for HASHCHANGE and RAPHAEL)
 
@@ -242,7 +255,7 @@ String.prototype.doorknob = function() {
     jQuery.browser = browser;
 })();
 
-//PRELOAD SOME IMAGES: ...this is totally not working in newer Chromes and Firefoxes. Too aggressive with data collection
+//PRELOAD SOME IMAGES:
 function preloadImages(arrayOfImages) {
     $(arrayOfImages).each(function() {
         $('<img/>')[0].src = this;
@@ -272,9 +285,9 @@ function hasImage(obj) {
     return obj.hasOwnProperty('primaryImage')
 }
 
-//POLYFILL FOR ARRAY.PROTOTYPE.FILTER...should stay for full mobile compatibility
+//POLYFILL FOR ARRAY.PROTOTYPE.FILTER
 if (!Array.prototype.filter) {
-    Array.prototype.filter = function(fun) {
+    Array.prototype.filter = function(fun /*, thisArg */ ) {
         "use strict";
 
         if (this === void 0 || this === null)
@@ -308,6 +321,40 @@ function isArray(obj) {
         return false;
     }
 }
+
+//FITTEXT
+(function( $ ){
+
+  $.fn.fitText = function( kompressor, options ) {
+
+    // Setup options
+    var compressor = kompressor || 1,
+        settings = $.extend({
+          'minFontSize' : Number.NEGATIVE_INFINITY,
+          'maxFontSize' : Number.POSITIVE_INFINITY
+        }, options);
+
+    return this.each(function(){
+
+      // Store the object
+      var $this = $(this);
+
+      // Resizer() resizes items based on the object width divided by the compressor * 10
+      var resizer = function () {
+        $this.css('font-size', Math.max(Math.min($this.width() / (compressor*10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+      };
+
+      // Call once to set.
+      resizer();
+
+      // Call on resize. Opera debounces their resize by default.
+      $(window).on('resize.fittext orientationchange.fittext', resizer);
+
+    });
+
+  };
+
+})( jQuery );
 
 
 //MODERNIZR
