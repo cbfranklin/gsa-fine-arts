@@ -358,12 +358,18 @@ function loadHomePage() {
                 function fade(item) {
                     if (play === true) {
                         currentItem = item;
+                        //FADE TO ZERO FOR SOME ELEMENTS, NOT FOR OTHERS
+                        var fadeOutPartial = [2,4,7,10];
+                        var fadeOutVal = 0;
+                        if(fadeOutPartial.indexOf(item) > -1){
+                            var fadeOutVal = 0.5;
+                        }
                         //$('#home #splash .splash-' + item + ' .splash-details').fadeIn(fadeInTime);
                         $('.splash-' + item + ' .splash-details').stop().animate({opacity: 1},fadeInTime);
                         var fadeOut = setTimeout(function() {
                             if (play === true) {
                                 //$('#home #splash .splash-' + item + ' .splash-details').fadeOut(fadeOutTime);
-                                $('.splash-' + item + ' .splash-details').stop().animate({opacity: 0},fadeOutTime);
+                                $('.splash-' + item + ' .splash-details').stop().animate({opacity: fadeOutVal},fadeOutTime);
                             }
                         }, pause + fadeInTime);
 

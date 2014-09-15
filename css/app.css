@@ -244,6 +244,9 @@ div.splash-title {
 .splash-whitetext {
     color:white;
 }
+.splash-fade-out-partial .splash-details{
+	opacity:0.5;
+}
 .splash-1 {
     top:0;
     left:0;
