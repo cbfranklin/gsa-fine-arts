@@ -382,12 +382,12 @@ function loadHomePage() {
                         fade(item);
                     };
                 })(item), i * interval);
-
+                */
                 if (i === order.length - 1) {
                     rotateQueue = setTimeout(function() {
                         rotate();
                     }, (interval * i) + pause);
-                };*/
+                };
             }
         }
     };
