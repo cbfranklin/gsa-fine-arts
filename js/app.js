@@ -291,7 +291,9 @@ function loadHomePage() {
             itemQueue = [],
             fadeOutQueue = [],
             rotateQueue,
-            currentItem;
+            currentItem,
+            fadeOutPartial = [2,4,7,10],
+            partialFadeVal = 0.33;
 
         rotate();
 
@@ -334,16 +336,24 @@ function loadHomePage() {
             function() {
                 //BRING UP ITEM DETAILS, HIDE ALL OTHERS
                 $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
-                $(this).siblings().children('.splash-details').each(function(i){
+                $(this).siblings().each(function(i){
                     var delay = i*25;
+                    var fadeOutVal = 0;
+                    if($(this).hasClass('splash-fade-out-partial')){
+                        var fadeOutVal = partialFadeVal;
+                    }
                     var fadeTo0 = function(el){
-                        $(el).stop().animate({opacity: 0},50).children('p').hide();  
+                        $(el).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
                     }
                     setTimeout(fadeTo0,delay,this)
                 });
             },
             function() {
-                $(this).children('.splash-details').stop().animate({opacity: 0},200).children('p').hide();
+                var fadeOutVal = 0;
+                if($(this).hasClass('splash-fade-out-partial')){
+                    var fadeOutVal = partialFadeVal;
+                }
+                $(this).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
             }
         ).click(function(){
             var hash = $(this).attr('href');
@@ -359,10 +369,9 @@ function loadHomePage() {
                     if (play === true) {
                         currentItem = item;
                         //FADE TO ZERO FOR SOME ELEMENTS, NOT FOR OTHERS
-                        var fadeOutPartial = [2,4,7,10];
                         var fadeOutVal = 0;
                         if(fadeOutPartial.indexOf(item) > -1){
-                            var fadeOutVal = 0.5;
+                            var fadeOutVal = partialFadeVal;
                         }
                         //$('#home #splash .splash-' + item + ' .splash-details').fadeIn(fadeInTime);
                         $('.splash-' + item + ' .splash-details').stop().animate({opacity: 1},fadeInTime);
@@ -389,6 +398,7 @@ function loadHomePage() {
                     };
                 })(item), i * interval);
                 */
+
                 if (i === order.length - 1) {
                     rotateQueue = setTimeout(function() {
                         rotate();
