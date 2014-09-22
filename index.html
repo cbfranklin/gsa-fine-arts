@@ -483,7 +483,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 							<ul>
 								{{#works}}
 									<li>
-										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://159.142.162.78/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{classification}}</p>
 										<p>{{displayDate}}</p>
@@ -516,7 +516,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 							<ul>
 								{{#Objects}}
 									<li>
-										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://159.142.162.78/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
 										<p>{{classification}}</p>
@@ -562,8 +562,8 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 						<h1>{{title}}</h1>
 						{{^primaryImage}}<p><em>No Photo Available at this time</em><p>{{/primaryImage}}
 						{{#primaryImage}}
-						<a target="_blank" href="http://159.142.162.78/fa/images/large/{{primaryImage}}">
-						<img class="featured" src="http://159.142.162.78/fa/images/display/{{primaryImage}}"></a>
+						<a target="_blank" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">
+						<img class="featured" src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"></a>
 						{{#socialMedia}}
 						<div class="social-media">
 							<a class="facebook" href="{{facebook}}" target="_blank"></a>
@@ -574,7 +574,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 						</div>
 						{{/socialMedia}}
 						<br>
-						<a class="click-to-enlarge" target="_blank" href="http://159.142.162.78/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
+						<a class="click-to-enlarge" target="_blank" href="http://devastoweb.wip.gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
 						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}{{/primaryImage}}
 					</div>
 					{{#hasAdditional}}
@@ -582,13 +582,13 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 							<h3>Additional Images</h3>
 							<ul>
 								<li>
-									<a data-credit="{{photoCredit}}" data-caption="{{publicCaption}}" href="http://159.142.162.78/fa/images/display/{{primaryImage}}">
-										<img src="http://159.142.162.78/fa/images/postage/{{primaryImage}}"/>
+									<a data-credit="{{photoCredit}}" data-caption="{{publicCaption}}" href="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}">
+										<img src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"/>
 									</a>
 								</li>
 								{{#additional}}
 									<li>
-										<a data-credit="{{copyright}}" href="http://159.142.162.78/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage" src="img/no-image.jpg"{{/fileName}} {{#fileName}}src="http://159.142.162.78/fa/images/postage/{{fileName}}"{{/fileName}}></a>
+										<a data-credit="{{copyright}}" href="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage" src="img/no-image.jpg"{{/fileName}} {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
 									</li>
 								{{/additional}}
 							</ul>
@@ -626,7 +626,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 					<ul>
 						{{#related}}
 							<li>
-								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://159.142.162.78/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
 							</li>
 						{{/related}}
 					</ul>
@@ -648,7 +648,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 					{{#building}}
 					<div id="building-overview" class="overview">
 						<h1>{{building}}</h1>
-						<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://159.142.162.78/fa/images/display/{{primaryImage}}"{{/primaryImage}}>
+						<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}>
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
 					</div>
@@ -658,7 +658,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://159.142.162.78/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{artist}}</p>
@@ -683,7 +683,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 				<br>
 				{{#galleries}}
 				<div>
-					<a href="#/gallery/{{id}}"><img class="featured" style="float:left" alt="{{collection}}" {{#fileName}}src="http://159.142.162.78/fa/images/display/{{fileName}}"{{/fileName}}></a>
+					<a href="#/gallery/{{id}}"><img class="featured" style="float:left" alt="{{collection}}" {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"{{/fileName}}></a>
 					<div class="description">
 						<h2><a href="#/gallery/{{id}}">{{collection}}</a></h2>
 						<p>{{notes}}</p>
@@ -714,7 +714,7 @@ Artists chosen by GSA to create projects for U.S. border crossings (also known a
 				<ul class="results results-objects">
 					{{#results}}
 						<li>
-							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://159.142.162.78/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
+							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
 							<div class="detail">
 								<h4><strong><a href="#/artwork/{{id}}">{{title}}</a></strong></h4>
 								<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
