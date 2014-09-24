@@ -191,6 +191,11 @@ function routes() {
         loadAbout();
         navHighlight('about');
     }
+	//NEW DEAL ART
+    else if (window.location.hash.indexOf('#/new-deal-art') !== -1) {
+        loadNewDealArt();
+        navHighlight('galleries');
+    }
     //DISCLAIMER
     else if (window.location.hash.indexOf('#/disclaimer') !== -1) {
         loadDisclaimer();
@@ -411,6 +416,11 @@ function loadHomePage() {
 
 function loadAbout() {
     $('#about').show();
+    loaded();
+}
+
+function loadNewDealArt() {
+    $('#new-deal-art').show();
     loaded();
 }
 
