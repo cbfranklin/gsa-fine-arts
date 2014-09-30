@@ -964,11 +964,11 @@ function loadArtwork() {
                                 return obj.textType == 'Interpretation';
                             });
                             if (interpretation.length > 0) {
-                                interpretation = interpretation[0].textEntry.replace(/<[^>]*>/gi, "");;
+                                interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         } else {
                             if (artwork.ObjTextEntries.hasOwnProperty('Interpretation')) {
-                                var interpretation = artwork.ObjTextEntries.textEntry.replace(/<[^>]*>/gi, "");;
+                                var interpretation = artwork.ObjTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         }
                     }
