@@ -793,14 +793,13 @@
 				<h1>Galleries</h1>
 				<p>Welcome to the galleries of Fine Arts. The works in these galleries have been curated using a variety of criteria, including medium, period, and theme. One gallery focuses on work that has been a part of GSA's preservation efforts.</p>
 				<br>
-				
-				<!-- HEY SCOTT! You totally did it right, but it looks like you trimmed out the beginning of the galleries template loop by mistake. I've re-added it below (bracket bracket hash galleries bracket bracket)-->
 
 				<div><a href="#/new-deal-art"><img class="featured" style="float:left" alt="Herman Cherry, Abandoned Boquette, 1939" src="http://devastoweb.wip.gsa.gov/fa/images/display/FA25822,%20Cherry.png"></a>
 				<div class="description">
 					<h2><a href="#/new-deal-art">New Deal Art</a></h2>
 					<p>Begin your exploration of the world's largest New Deal Art collection.</p>
 				</div>
+			</div>
 				{{#galleries}}
 				<div>
 					<a href="#/gallery/{{id}}"><img class="featured" style="float:left" alt="{{collection}}" {{#fileName}}src="http://devastoweb.wip.gsa.gov/fa/images/display/{{fileName}}"{{/fileName}}></a>
