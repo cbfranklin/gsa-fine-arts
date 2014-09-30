@@ -1089,7 +1089,7 @@ function loadArtwork() {
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
-                    var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/' + artwork.primaryImage;
+                    var imagePath = 'gsa.gov/fa/images/display/' + artwork.primaryImage;
                     var socialMedia = {}
                     socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
                     socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=GSAfinearts';
