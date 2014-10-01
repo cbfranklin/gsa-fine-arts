@@ -964,11 +964,11 @@ function loadArtwork() {
                                 return obj.textType == 'Interpretation';
                             });
                             if (interpretation.length > 0) {
-                                interpretation = interpretation[0].textEntry.replace(/<[^>]*>/gi, "");;
+                                interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         } else {
                             if (artwork.ObjTextEntries.hasOwnProperty('Interpretation')) {
-                                var interpretation = artwork.ObjTextEntries.textEntry.replace(/<[^>]*>/gi, "");;
+                                var interpretation = artwork.ObjTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         }
                     }
@@ -1089,7 +1089,7 @@ function loadArtwork() {
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
-                    var imagePath = 'http://devastoweb.wip.gsa.gov/fa/images/display/' + artwork.primaryImage;
+                    var imagePath = 'gsa.gov/fa/images/display/' + artwork.primaryImage;
                     var socialMedia = {}
                     socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
                     socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=GSAfinearts';
