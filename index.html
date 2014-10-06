@@ -28,7 +28,9 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			
+			<div class="print-title">
+				<h1>Fine Arts Collection</h1>
+			</div>
 			<header>
 				<div class="mobile-title">
 						<h1>FINE ARTS COLLECTION</h1>
@@ -676,6 +678,7 @@
 						{{#primaryImage}}
 						<a target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">
 						<img class="featured" src="http://gsa.gov/fa/images/display/{{primaryImage}}"></a>
+						<div class="meta">
 						{{#socialMedia}}
 						<div class="social-media">
 							<a class="facebook" href="{{facebook}}" target="_blank"></a>
@@ -689,6 +692,7 @@
 						<a class="click-to-enlarge" target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
 						{{#photoCaption}}<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{photoCaption}}</span></div>{{/photoCaption}}
 						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}
+					</div>
 						{{/primaryImage}}
 					</div>
 					{{#hasAdditional}}

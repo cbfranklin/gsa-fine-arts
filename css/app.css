@@ -76,8 +76,8 @@ header .menu{
 	border:0;
 	display:block;
 }
-.menu-trigger{
-
+.print-title{
+	display:none;
 }
 header .menu a{
 	color:#000!important;
@@ -809,4 +809,14 @@ footer .menu ul li a {
   .selectWrapper.loading{
 	background: url(../img/load-select.gif) 93% center no-repeat #efefef;
 	}
+}
+
+/* PRINT */
+@media print {
+    .leftCol,header,footer,.click-to-enlarge,.social-media{display:none;}
+    *{color:#000;border-color:#000!important;}
+    .print-title{
+    	display:block;
+    	border-bottom:1px solid #000;
+    }
 }
