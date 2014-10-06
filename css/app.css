@@ -534,6 +534,8 @@ img.featured{
 	float:left;
 	background:rgb(236,247,253);
 	margin-right:25px;
+}
+#artwork-overview img.featured{
 	cursor:pointer;
 }
 

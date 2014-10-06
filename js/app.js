@@ -1,5 +1,6 @@
 var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
     'https://hvemuseum2.gallerysystems.com/emuseum/api/',
+    //'https://ivvgsafinearts.pbs.gsa.gov/emuseum/api/',
 
     artistsCache = {
         artists: {
@@ -421,6 +422,13 @@ function loadAbout() {
 
 function loadNewDealArt() {
     $('#new-deal-art').show();
+    $('.leftCol nav').stick_in_parent({
+        parent: $('.row')
+    });
+    $('.leftCol nav h2').on('click', function() {
+        var val = $(this).attr('id').replace('nav-', '');
+        scrollToAnchor(val);
+    });
     loaded();
 }
 
@@ -583,6 +591,7 @@ function loadLocation() {
         click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
             browseByState(data.name);
+            console.log(data.name)
         },
         includeTerritories: ['PR', 'VI']
     });
@@ -978,9 +987,15 @@ function loadArtwork() {
                             if (artwork.ObjMedia[0].copyright) {
                                 artwork.photoCredit = artwork.ObjMedia[0].copyright;
                             }
+                            if (artwork.ObjMedia[0].publicCaption) {
+                                artwork.photoCaption = artwork.ObjMedia[0].publicCaption;
+                            }
                         } else {
                             if (artwork.ObjMedia.copyright) {
                                 artwork.photoCredit = artwork.ObjMedia.copyright;
+                            }
+                            if (artwork.ObjMedia.publicCaption) {
+                                artwork.photoCaption = artwork.ObjMedia.publicCaption;
                             }
                         }
                     }
@@ -1089,7 +1104,7 @@ function loadArtwork() {
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
-                    var imagePath = 'gsa.gov/fa/images/display/' + artwork.primaryImage;
+                    var imagePath = 'http://gsa.gov/fa/images/display/' + artwork.primaryImage;
                     var socialMedia = {}
                     socialMedia.facebook = 'http://www.facebook.com/sharer/sharer.php?u=' + wlh;
                     socialMedia.twitter = 'http://twitter.com/share?text=' + encodeURIComponent(artwork.title) + ' by ' + encodeURIComponent(artwork.artist) + '&url=' + wlh + '&hashtags=GSAfinearts';
@@ -1244,8 +1259,9 @@ function loadBuilding() {
                     fail("We're Sorry", 'This Building Could Not Be Found');
                 } else {
                     var building = json.results;
-
-                    building.primaryImage = formatImagePath(building.primaryImage);
+                    if(building.primaryImage){
+                        building.primaryImage = formatImagePath(building.primaryImage);
+                    }
 
                     //RELATED ARTWORK
                     if (isArray(building.Objects)) {

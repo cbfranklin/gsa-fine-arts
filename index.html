@@ -595,7 +595,7 @@
 							<ul>
 								{{#works}}
 									<li>
-										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{classification}}</p>
 										<p>{{displayDate}}</p>
@@ -687,7 +687,9 @@
 						{{/socialMedia}}
 						<br>
 						<a class="click-to-enlarge" target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
-						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}{{/primaryImage}}
+						{{#photoCaption}}<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{photoCaption}}</span></div>{{/photoCaption}}
+						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}
+						{{/primaryImage}}
 					</div>
 					{{#hasAdditional}}
 						<div id="additional-images" class="works">
@@ -709,12 +711,12 @@
 					<div id="information" class="information">
 					<h3>Information</h3>
 						<ul>
+							{{#title}}<li><strong>Title:</strong>{{title}}</li>{{/title}}
+							{{#objectNumber}}<li><strong>Object Number:</strong> {{objectNumber}}</li>{{/objectNumber}}
 							{{#artist}}<li><strong>Artist:</strong> <a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></li>{{/artist}}
 							{{#displayDate}}<li><strong>Year:</strong> {{displayDate}}</li>{{/displayDate}}
-							{{#medium}}<li><strong>Medium:</strong> {{medium}}</li>{{/medium}}
 							{{#classification}}<li><strong>Classification:</strong> {{classification}}</li>{{/classification}}
-							{{#objectNumber}}<li><strong>Object Number:</strong> {{objectNumber}}</li>{{/objectNumber}}
-
+							{{#medium}}<li><strong>Medium:</strong> {{medium}}</li>{{/medium}}
 							{{#dimensions}}<li><strong>Dimensions:</strong> {{dimensions}}</li>{{/dimensions}}
 							{{#creditLine}}<li><strong>Credits:</strong> {{creditLine}}</li>{{/creditLine}}
 							{{#ObjectSites.building}}
@@ -833,7 +835,7 @@
 				<ul class="results results-objects">
 					{{#results}}
 						<li>
-							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}></a>
+							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 							<div class="detail">
 								<h4><strong><a href="#/artwork/{{id}}">{{title}}</a></strong></h4>
 								<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>
