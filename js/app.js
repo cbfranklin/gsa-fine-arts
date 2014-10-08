@@ -1,6 +1,6 @@
 var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
-    //'https://hvemuseum2.gallerysystems.com/emuseum/api/',
-    'https://ivvgsafinearts.pbs.gsa.gov/emuseum/api/',
+    'https://hvemuseum2.gallerysystems.com/emuseum/api/',
+    //'https://ivvgsafinearts.pbs.gsa.gov/emuseum/api/',
 
     artistsCache = {
         artists: {
