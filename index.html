@@ -690,8 +690,8 @@
 						{{/socialMedia}}
 						<br>
 						<a class="click-to-enlarge" target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
-						{{#photoCaption}}<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{photoCaption}}</span></div>{{/photoCaption}}
-						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{photoCredit}}</span></div>{{/photoCredit}}
+						{{#photoCaption}}<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{{photoCaption}}}</span></div>{{/photoCaption}}
+						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>{{/photoCredit}}
 					</div>
 						{{/primaryImage}}
 					</div>
@@ -779,8 +779,8 @@
 									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
-										<p>{{artist}}</p>
 										<p>{{objectNumber}}</p>
+										<p>{{artist}}</p>
 										<p>{{displayDate}}</p>
 										<p>{{classification}}</p>
 									</div>
