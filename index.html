@@ -715,7 +715,7 @@
 					<div id="information" class="information">
 					<h3>Information</h3>
 						<ul>
-							{{#title}}<li><strong>Title:</strong>{{title}}</li>{{/title}}
+							{{#title}}<li><strong>Title: </strong>{{title}}</li>{{/title}}
 							{{#objectNumber}}<li><strong>Object Number:</strong> {{objectNumber}}</li>{{/objectNumber}}
 							{{#artist}}<li><strong>Artist:</strong> <a href="#/artist/{{#ObjectsPeople}}{{#lastName}}{{personId}}{{/lastName}}{{/ObjectsPeople}}">{{artist}}</a></li>{{/artist}}
 							{{#displayDate}}<li><strong>Year:</strong> {{displayDate}}</li>{{/displayDate}}
@@ -766,7 +766,9 @@
 					{{#building}}
 					<div id="building-overview" class="overview">
 						<h1>{{building}}</h1>
-						<img class="featured{{^primaryImage}} noImage{{/primaryImage}}"  {{#primaryImage}}src="http://gsa.gov/fa/images/display/{{primaryImage}}"{{/primaryImage}}>
+						{{#primaryImage}}
+						<img class="featured"  {{#primaryImage}}src="http://gsa.gov/fa/images/display/{{primaryImage}}">
+						{{/primaryImage}}
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
 					</div>
