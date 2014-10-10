@@ -267,6 +267,14 @@ function bindings() {
         apiRoot = $(this).attr('server');
         console.log('Changed API ROOT: ',apiRoot);
     });
+    $('.nav-search').on('click',function(){
+        $('#search input[type=text]').val('');
+        $('#search select :first-child').attr('selected','selected');
+        $('#search #city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
+    });
+    $('.social-media .print').on('click',function(){
+        window.print();
+    });
 }
 
 //NAV HIGHLIGHTER
@@ -916,7 +924,7 @@ function galleryHandler(gallery) {
     gallery.Objects.sort(function(a, b) {
         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
     });
-    gallery.Objects.sort(imagesFirst);
+    gallery.Objects = gallery.Objects.sort(imagesFirst);
 
     var totalImages = 0;
     for (i in gallery.Objects) {
@@ -1145,8 +1153,12 @@ function loadArtwork() {
                         var large = display.replace('/display', '/large')
                         $('img.featured').attr('src', display).parent('a').attr('href', large);
                         $('.click-to-enlarge').attr('href', large);
+                        //Replace Credit and Caption Notes
                         if ($(this).attr('data-credit')) {
                             $('.photo-credit span').text($(this).attr('data-credit'));
+                        }
+                        if ($(this).attr('data-caption')) {
+                            $('.photo-caption span').text($(this).attr('data-caption'));
                         }
                         $('#artwork-overview').scrollToAnchor();
                         event.preventDefault();
@@ -1284,6 +1296,7 @@ function loadBuilding() {
                         works.sort(function(a, b) {
                             return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
                         });
+                        works = works.sort(imagesFirst);
                     }
                     if (worksLength > 0) {
                         var hasWorks = true;
