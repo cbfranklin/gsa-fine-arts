@@ -1,6 +1,6 @@
 var apiRoot = //'http://159.142.125.32:8080/emuseum/api/',
-    'https://hvemuseum2.gallerysystems.com/emuseum/api/',
-    //'https://ivvgsafinearts.pbs.gsa.gov/emuseum/api/',
+    //'https://hvemuseum2.gallerysystems.com/emuseum/api/',
+    'https://ivvgsafinearts.pbs.gsa.gov/emuseum/api/',
 
     artistsCache = {
         artists: {
@@ -259,6 +259,13 @@ function bindings() {
         if($header.width() < 769){
             $('header .menu').slideToggle()
         }
+    });
+    //TEMP: switch between API servers
+    $('.use-server a').click(function(){
+        $('.use-server a').attr('style','');
+        $(this).attr('style','font-weight:bold');
+        apiRoot = $(this).attr('server');
+        console.log('Changed API ROOT: ',apiRoot);
     });
 }
 

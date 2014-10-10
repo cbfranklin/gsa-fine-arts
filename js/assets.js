@@ -117,7 +117,7 @@ function formatImagePath(str) {
 }
 //AS STRING PROTOTYPE
 String.prototype.formatImagePath = function() {
-    var match = this.match(/[^\/]*$/)[0].replace('jpg', 'png').replace('JPG', 'png');
+    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
     if (match === '') {
         return false;
     } else {
