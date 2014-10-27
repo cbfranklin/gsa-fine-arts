@@ -1215,10 +1215,10 @@ function loadArtwork() {
                         $('.click-to-enlarge').attr('href', large);
                         //Replace Credit and Caption Notes
                         if ($(this).attr('data-credit')) {
-                            $('.photo-credit span').text($(this).attr('data-credit'));
+                            $('.photo-credit span').html($(this).attr('data-credit'));
                         }
                         if ($(this).attr('data-caption')) {
-                            $('.photo-caption span').text($(this).attr('data-caption'));
+                            $('.photo-caption span').html($(this).attr('data-caption'));
                         }
                         $('#artwork-overview').scrollToAnchor();
                         event.preventDefault();
