@@ -934,7 +934,7 @@
 					<div id="building-overview" class="overview">
 						<h1>{{building}}</h1>
 						{{#primaryImage}}
-						<img class="featured"  {{#primaryImage}}src="http://gsa.gov/fa/images/display/{{primaryImage}}">
+						<img class="featured" src="http://gsa.gov/fa/images/display/{{primaryImage}}">
 						{{/primaryImage}}
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
@@ -945,7 +945,7 @@
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{objectNumber}}</p>
@@ -1008,7 +1008,7 @@
 				<ul class="results results-objects">
 					{{#results}}
 						<li>
-							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+							<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"{{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 							<div class="detail">
 								<h4><strong><a href="#/artwork/{{id}}">{{title}}</a></strong></h4>
 								<p><strong><a href="#/artist/{{artistId}}">{{artist}}</a></strong></p>

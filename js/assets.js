@@ -101,6 +101,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * @author    Brian Cherne <brian@cherne.net>
 */
 
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+
 function getDate(){
     return Math.round(new Date().getTime() / 1000);
 }

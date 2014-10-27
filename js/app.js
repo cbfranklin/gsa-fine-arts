@@ -1030,7 +1030,9 @@ function loadArtwork() {
         $.ajax({
             url: req,
             dataType: "jsonp",
-            timeout: 2500
+            timeout: 25000,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         })
             .success(function(json) {
                 artwork = json.results;
