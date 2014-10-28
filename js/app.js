@@ -264,8 +264,9 @@ function bindings() {
         $('#search select :first-child').attr('selected','selected');
         $('#search #city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
     });
-    $('.social-media .print').on('click',function(){
+    $('.social-media .print').on('click',function(e){
         window.print();
+        e.preventDefault();
     });
 }
 
