@@ -533,7 +533,9 @@ function loadSearch() {
             $.ajax({
                 url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
                 dataType: "jsonp",
-                timeout: 2500
+                timeout: 2500,
+                jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
             })
                 .success(function(json) {
                     results = json.results;
@@ -697,7 +699,9 @@ function loadLocation() {
         $.ajax({
             url: req,
             dataType: "jsonp",
-            timeout: 2500
+            timeout: 2500,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         })
             .success(function(json) {
                 var results = []
@@ -890,7 +894,9 @@ function loadGalleries() {
             url: req,
             async: true,
             dataType: "jsonp",
-            timeout: 10000
+            timeout: 10000,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         }).success(function(json) {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
@@ -959,7 +965,9 @@ function loadGallery() {
             url: req,
             async: true,
             dataType: "jsonp",
-            timeout: 10000
+            timeout: 10000,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         })
             .success(function(json) {
 
@@ -1251,7 +1259,9 @@ function loadArtist() {
         $.ajax({
             url: req,
             dataType: "jsonp",
-            timeout: 2500
+            timeout: 2500,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         })
             .success(function(json) {
                 artist = json.results;
@@ -1332,7 +1342,9 @@ function loadBuilding() {
         $.ajax({
             url: req,
             dataType: "jsonp",
-            timeout: 2500
+            timeout: 2500,
+            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
         })
             .success(function(json) {
                 building = json.results;
@@ -1408,7 +1420,9 @@ function fetchAllResults(searchType, searchParams, handler) {
         url: req,
         async: true,
         dataType: "jsonp",
-        timeout: 10000
+        timeout: 10000,
+        jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            cache: true
     })
         .success(function(json) {
             handler(json, searchType);
