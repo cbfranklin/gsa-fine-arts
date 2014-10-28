@@ -1111,3 +1111,14 @@ footer .menu ul li a {
 	color:#666;
 	font-size:.85em;
 }
+
+#in-this-gallery h5{
+	display:block;
+	background:blue;
+	color:black;
+	font-weight:bold;
+	text-align:center;
+	width:100%;
+	clear:both;
+	padding:5px;
+}
