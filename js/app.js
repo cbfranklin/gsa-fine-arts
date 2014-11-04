@@ -534,7 +534,7 @@ function loadSearch() {
                 url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
                 dataType: "jsonp",
                 timeout: 2500,
-                jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+                jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
             })
                 .success(function(json) {
@@ -700,7 +700,7 @@ function loadLocation() {
             url: req,
             dataType: "jsonp",
             timeout: 2500,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         })
             .success(function(json) {
@@ -895,7 +895,7 @@ function loadGalleries() {
             async: true,
             dataType: "jsonp",
             timeout: 10000,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         }).success(function(json) {
             galleriesCache = json.results;
@@ -966,7 +966,7 @@ function loadGallery() {
             async: true,
             dataType: "jsonp",
             timeout: 10000,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         })
             .success(function(json) {
@@ -1041,7 +1041,7 @@ function loadArtwork() {
             url: req,
             dataType: "jsonp",
             timeout: 25000,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         })
             .success(function(json) {
@@ -1260,7 +1260,7 @@ function loadArtist() {
             url: req,
             dataType: "jsonp",
             timeout: 2500,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         })
             .success(function(json) {
@@ -1343,7 +1343,7 @@ function loadBuilding() {
             url: req,
             dataType: "jsonp",
             timeout: 2500,
-            jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             cache: true
         })
             .success(function(json) {
@@ -1421,8 +1421,8 @@ function fetchAllResults(searchType, searchParams, handler) {
         async: true,
         dataType: "jsonp",
         timeout: 10000,
-        jsonpCallback: randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
+        jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+        cache: true
     })
         .success(function(json) {
             handler(json, searchType);
