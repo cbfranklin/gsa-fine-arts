@@ -1114,8 +1114,9 @@ footer .menu ul li a {
 
 #in-this-gallery h5{
 	display:block;
-	background:blue;
-	color:black;
+	background:#cfeafa;
+	color:#333333;
+	font-size: 18px;
 	font-weight:bold;
 	text-align:center;
 	width:100%;
