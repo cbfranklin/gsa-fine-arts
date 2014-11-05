@@ -107,6 +107,10 @@ function randomString(length, chars) {
     return result;
 }
 
+function randomJSONpCallback(){
+    return 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+}
+
 function getDate(){
     return Math.round(new Date().getTime() / 1000);
 }
@@ -2116,21 +2120,21 @@ Mousetrap = function(a) {
             if (options.filterChildSelector) {
                 contains = contains.parents(filterEl);
                 //containsNot = containsNot.parents(filterEl).hide();
-                containsNot = containsNot.parents(filterEl).addClass('hidden');
+                containsNot = containsNot.parents(filterEl).addClass('filter-hidden');
             }
 
             options.before.call(this, contains, containsNot);
 
             //contains.show();
-            contains.removeClass('hidden');
+            contains.removeClass('filter-hidden');
             //containsNot.hide();
-            containsNot.addClass('hidden');
+            containsNot.addClass('filter-hidden');
 
             if (val === '') {
                 //contains.show();
-                contains.removeClass('hidden');
+                contains.removeClass('filter-hidden');
                 //containsNot.show();
-                containsNot.removeClass('hidden');
+                containsNot.removeClass('filter-hidden');
             }
 
             options.after.call(this, contains, containsNot);

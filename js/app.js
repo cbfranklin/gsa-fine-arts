@@ -269,6 +269,12 @@ function bindings() {
         console.log('print')
         e.preventDefault();
     });
+    $.ajaxSetup({
+        dataType: "jsonp",
+        timeout: 2500,
+        jsonpCallback: randomJSONpCallback(),
+        cache: true
+    });
 }
 
 //NAV HIGHLIGHTER
@@ -532,10 +538,6 @@ function loadSearch() {
             var state = $(this).val();
             $.ajax({
                 url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
-                dataType: "jsonp",
-                timeout: 2500,
-                jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
             })
                 .success(function(json) {
                     results = json.results;
@@ -698,10 +700,6 @@ function loadLocation() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
-            dataType: "jsonp",
-            timeout: 2500,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         })
             .success(function(json) {
                 var results = []
@@ -793,9 +791,10 @@ function loadArtists() {
     if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists div').length === 26) {
             console.log('ARTISTS: DOM is preserved. No Action.')
-            loaded();
+            load('Refreshing artists from the Fine Arts Database', 30000)
             $('#artists').show();
             artistsReady();
+            loaded();
         } else {
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
             if(today > (artistsCache.date + refreshPeriod*86400)){
@@ -814,11 +813,29 @@ function loadArtists() {
         loadFromAPI()
     }
     function loadFromAPI(){
-        var queue = [];
-        var interval = 300;
-        for (var i = 0; i < alphaOrder.length; i++) {
-            queue[i] = setTimeout(fetchAllResults, i * interval, 'people', 'Index=' + alphaOrder[i], artistsHandler);
-        };
+        //var queue = [];
+        //var interval = 300;
+        //for (var i = 0; i < alphaOrder.length; i++) {
+        //    queue[i] = setTimeout(fetchAllResults, i * interval, 'people', 'Index=' + alphaOrder[i], artistsHandler);
+        //};
+        function repeater(i){
+            console.log(i)
+            var req = apiRoot + 'search/people?Index=' + alphaOrder[i] + '&end=1000';
+            console.log(req)
+            $.ajax({
+                url: req,
+                timeout: 10000
+            }).success(function(json){
+                console.log(json)
+                artistsHandler(json);
+                if(i < 25){
+                    repeater(i+1);
+                }
+            }).error(function(){
+                repeater(i);
+            });
+        }
+        repeater(0);
     }
 }
 
@@ -843,10 +860,10 @@ function artistsReady() {
         },
         after: function() {
             for (i = 0; i < 26; i++) {
-                if ($('#artists-index div').eq(i).find('.artist:not(.hidden)').length === 0) {
-                    $('#artists-index  div').eq(i).hide();
+                if ($('#artists-index div').eq(i).find('.artist:not(.filter-hidden)').length === 0) {
+                    $('#artists-index div').eq(i).addClass('filter-hidden')//.hide();
                 } else {
-                    $('#artists-index div').eq(i).show();
+                    $('#artists-index div').eq(i).removeClass('filter-hidden')//.show();
                 }
             }
         }
@@ -892,16 +909,12 @@ function loadGalleries() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
-            async: true,
-            dataType: "jsonp",
             timeout: 10000,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         }).success(function(json) {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
             localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
-        }) .error(function(){fail()});
+        }).error(function(){fail()});
     }
 };
 
@@ -963,11 +976,7 @@ function loadGallery() {
 
         $.ajax({
             url: req,
-            async: true,
-            dataType: "jsonp",
             timeout: 10000,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         })
             .success(function(json) {
 
@@ -1039,10 +1048,6 @@ function loadArtwork() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
-            dataType: "jsonp",
-            timeout: 25000,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         })
             .success(function(json) {
                 artwork = json.results;
@@ -1258,10 +1263,6 @@ function loadArtist() {
 
         $.ajax({
             url: req,
-            dataType: "jsonp",
-            timeout: 2500,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         })
             .success(function(json) {
                 artist = json.results;
@@ -1341,10 +1342,6 @@ function loadBuilding() {
     } else {
         $.ajax({
             url: req,
-            dataType: "jsonp",
-            timeout: 2500,
-            jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            cache: true
         })
             .success(function(json) {
                 building = json.results;
@@ -1418,22 +1415,18 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     $.ajax({
         url: req,
-        async: true,
-        dataType: "jsonp",
         timeout: 10000,
-        jsonpCallback: 'jsonp_' + randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-        cache: true
     })
-        .success(function(json) {
-            handler(json, searchType);
-        })
-        .error(function(){fail()});
+    .success(function(json) {
+        handler(json, searchType);
+    })
+    .error(function(){fail()});
 };
 
 //CACHES all artists, Saves as local storage
 function artistsHandler(json) {
-    for (var i = 0; i < json.total_results; i++) {
-        var item = json.results[i]
+    for (var i = 0; i < json.results.length; i++) {
+        var item = json.results[i];
         addValue(artistsCache.artists, item.index.toLowerCase(), item);
     };
     if(!artistsCache.status){

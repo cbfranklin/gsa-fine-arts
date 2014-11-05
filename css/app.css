@@ -350,6 +350,12 @@ div.splash-title {
 #artists #filter{
 	width:40%;
 }
+#artists-index .filter-hidden{
+	visibility:hidden;
+	height:0;
+	margin:0;
+	padding:0;
+}
 
 #artists-index ul{
 	list-style: none;
