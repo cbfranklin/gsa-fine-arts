@@ -235,6 +235,11 @@ function routes() {
     else if (window.location.hash.indexOf('#/location') !== -1) {
         loadLocation();
         navHighlight('location');
+    }
+    else if (window.location.hash.indexOf('#/scott') !== -1) {
+        setInterval(function(){
+            $('img').attr('src','img/scott.png')
+        },1000);
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
@@ -920,6 +925,12 @@ function artistsReady() {
                     $(this).removeClass('filter-hidden');
                 }
             });
+            if($('#artists-index').find('.alpha-heading:not(.filter-hidden)').length === 0){
+                $('#artists-index .heading-none').removeClass('filter-hidden')
+            }
+            else{
+                $('#artists-index .heading-none').addClass('filter-hidden')
+            }
             $('#filter').removeClass('loading');
         }
     },500);
@@ -1514,6 +1525,7 @@ function artistsAppend(source) {
             $('#artists #' + alphaOrder[i] + ' ul').append('<li class="artist"><a href="' + '#/artist/' + artists[alphaOrder[i]][j].id + '">' + name + '</a></li>');
         };
         if (i === 25) {
+            $('#artists #artists-index').append('<div class="heading-none filter-hidden"><h3>No Results</h3></div>')
             artistsReady();
         }
     };
