@@ -350,11 +350,17 @@ div.splash-title {
 #artists #filter{
 	width:40%;
 }
-#artists-index .filter-hidden{
+#artists #filter.loading{
+	background: url(../img/load-select-blue.gif) 98% center no-repeat #efefef;
+}
+#artists-index li.filter-hidden{
 	visibility:hidden;
 	height:0;
 	margin:0;
 	padding:0;
+}
+#artists-index div.filter-hidden{
+	display:none;
 }
 
 #artists-index ul{

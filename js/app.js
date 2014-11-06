@@ -436,12 +436,12 @@ function gsaHeader(){
         interval: 100,   
         timeout: 100,
       over:function () {
-        $(this).children("a.mainlk").addClass("over");
-        $(".submenu",this).css({'display' : 'block'});
+            $(this).children("a.mainlk").addClass("over");
+            $(".submenu",this).css({'display' : 'block'});
         },
       out:function () {
-        $(this).children("a.mainlk").removeClass("over");
-        $(".submenu",this).css({'display' : 'none'});
+            $(this).children("a.mainlk").removeClass("over");
+            $(".submenu",this).css({'display' : 'none'});
         }
         }
         );
@@ -843,9 +843,10 @@ function artistsReady() {
 
     $('#artists').show();
     //LIVE FILTER
-    $('#artists').liveFilter('#filter', '.artist', {
+    /*$('#artists').liveFilter('#filter', '.artist', {
         filterChildSelector: 'a',
         filter: function(el, val) {
+            console.time('filter')
             val = val.replace(/,/g, '');
             var regex = new RegExp('((?:[a-z][a-z]+)) ');
             if (regex.test(val)) {
@@ -857,6 +858,7 @@ function artistsReady() {
             } else {
                 return $(el).text().toUpperCase().indexOf(val.toUpperCase()) >= 0;
             }
+            console.timeEnd('filter')
         },
         after: function() {
             for (i = 0; i < 26; i++) {
@@ -867,7 +869,61 @@ function artistsReady() {
                 }
             }
         }
+    });*/
+
+    $('#artists-index li').each(function(){
+        $(this).attr('data-name',$(this).text());
     });
+
+    var filterRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
+
+    $('#filter').bindWithDelay('keyup',function(){
+        $('#filter').addClass('loading');
+        var val = $(this).val();
+        var filterRegex2 = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*'
+        console.log(val)
+        if (filterRegex.test(val)){
+            val = val.replace(/ +(?= )/g,'');
+            valarray = val.split(' ');
+            filterRegex2 = filterRegex2.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+            console.log(filterRegex2)
+            filterRegex2 = new RegExp(filterRegex2, 'i');
+            console.log(filterRegex2)
+            $('#artists-index .artist').each(function(){
+                if(filterRegex2.test($(this).data('name'))){
+                    $(this).removeClass('filter-hidden');
+                }
+                else{
+                    $(this).addClass('filter-hidden');
+                }
+            });
+            showHideHeadings()
+            console.log('match')
+        } else {
+            $('#artists-index .artist').each(function(){
+                if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
+                    $(this).removeClass('filter-hidden');
+                }
+                else{
+                    $(this).addClass('filter-hidden');
+                }
+            });
+            showHideHeadings()
+            console.log('no match')
+        }
+        function showHideHeadings(){
+            $('#artists-index .alpha-heading').each(function(){
+                if($(this).find('.artist:not(.filter-hidden)').length === 0){
+                    $(this).addClass('filter-hidden');
+                }
+                else{
+                    $(this).removeClass('filter-hidden');
+                }
+            });
+            $('#filter').removeClass('loading');
+        }
+    },500);
+
     loaded()
 
     //BROWSE WITH SELECT MENU
@@ -1448,7 +1504,7 @@ function artistsAppend(source) {
     $('#fail,#load').hide();
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
-        $('#artists #artists-index').show().append('<div id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><ul></ul>')
+        $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><ul></ul>')
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
                 var name = '<strong>' + artists[alphaOrder[i]][j].lastName + '</strong> ' + artists[alphaOrder[i]][j].firstName;
