@@ -1068,7 +1068,6 @@ function galleryHandler(gallery) {
     gallery.Objects = gallery.Objects.sort(function(a, b) {
         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
     });
-    gallery.Objects = gallery.Objects.sort(imagesFirst);
 
     var totalImages = 0;
     for (i in gallery.Objects) {
@@ -1259,6 +1258,17 @@ function loadArtwork() {
                         var isInCollections = true;
                     }
 
+                    //PULL ARTIST ID FROM OBJPEOPLE
+                    console.log('artist id...')
+                    var objPeople = artwork.ObjectsPeople;
+                    for(i=0; i < objPeople.length; i++){
+                        console.log(objPeople[i].role)
+                        if(objPeople[i].role === 'Artist'){
+                            var artistID = objPeople[i].personId;
+                            console.log('true')
+                        }
+                    }
+
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
                     var imagePath = 'http://gsa.gov/fa/images/display/' + artwork.primaryImage;
@@ -1275,7 +1285,8 @@ function loadArtwork() {
                         additional: additional,
                         hasAdditional: hasAdditional,
                         socialMedia: socialMedia,
-                        isInCollections: isInCollections
+                        isInCollections: isInCollections,
+                        artistID: artistID
                         //creditLine : creditLine
                     });
                     $('#artwork').html(html).show();
