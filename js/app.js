@@ -794,7 +794,7 @@ function loadResults(type) {
 //ARTIST INDEX
 function loadArtists() {
     if (localStorage['fineArtsDB_artistsCache']) {
-        if ($('#artists div').length === 26) {
+        if ($('#artists-index .alpha-heading').length === 26) {
             console.log('ARTISTS: DOM is preserved. No Action.')
             load('Refreshing artists from the Fine Arts Database', 30000)
             $('#artists').show();
@@ -1526,7 +1526,9 @@ function artistsAppend(source) {
     $('#fail,#load').hide();
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
+        console.log(alphaOrder[i])
         $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><ul></ul>')
+        console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
                 var name = '<strong>' + artists[alphaOrder[i]][j].lastName + '</strong> ' + artists[alphaOrder[i]][j].firstName;
