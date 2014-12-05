@@ -276,7 +276,7 @@ function bindings() {
     });
     $.ajaxSetup({
         dataType: "jsonp",
-        timeout: 2500,
+        timeout: 10000/*FOR JSONP TESTING*/,
         jsonpCallback: randomJSONpCallback(),
         cache: true
     });
