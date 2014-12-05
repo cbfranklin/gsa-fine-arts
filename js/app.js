@@ -276,7 +276,7 @@ function bindings() {
     });
     $.ajaxSetup({
         dataType: "jsonp",
-        timeout: 10000/*FOR JSONP TESTING*/,
+        timeout: 90000/*FOR JSONP TESTING*/,
         jsonpCallback: randomJSONpCallback(),
         cache: true
     });
@@ -829,7 +829,7 @@ function loadArtists() {
             console.log(req)
             $.ajax({
                 url: req,
-                timeout: 10000
+                timeout: 90000
             }).success(function(json){
                 console.log(json)
                 artistsHandler(json);
@@ -976,7 +976,7 @@ function loadGalleries() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
-            timeout: 10000,
+            timeout: 90000,
         }).success(function(json) {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
@@ -1043,7 +1043,7 @@ function loadGallery() {
 
         $.ajax({
             url: req,
-            timeout: 10000,
+            timeout: 90000,
         })
             .success(function(json) {
 
@@ -1493,7 +1493,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     $.ajax({
         url: req,
-        timeout: 10000,
+        timeout: 90000,
     })
     .success(function(json) {
         handler(json, searchType);
