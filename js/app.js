@@ -277,7 +277,6 @@ function bindings() {
     $.ajaxSetup({
         dataType: "jsonp",
         timeout: 90000/*FOR JSONP TESTING*/,
-        jsonpCallback: randomJSONpCallback(),
         cache: true
     });
 }
@@ -705,6 +704,7 @@ function loadLocation() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
+            jsonpCallback: randomJSONpCallback()
         })
             .success(function(json) {
                 var results = []
@@ -829,7 +829,7 @@ function loadArtists() {
             console.log(req)
             $.ajax({
                 url: req,
-                timeout: 90000
+                jsonpCallback: randomJSONpCallback()
             }).success(function(json){
                 console.log(json)
                 artistsHandler(json);
@@ -976,7 +976,7 @@ function loadGalleries() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
-            timeout: 90000,
+            jsonpCallback: randomJSONpCallback()
         }).success(function(json) {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
@@ -1043,7 +1043,7 @@ function loadGallery() {
 
         $.ajax({
             url: req,
-            timeout: 90000,
+            jsonpCallback: randomJSONpCallback()
         })
             .success(function(json) {
 
@@ -1114,6 +1114,7 @@ function loadArtwork() {
         console.log('JSON request: ' + req)
         $.ajax({
             url: req,
+            jsonpCallback: randomJSONpCallback()
         })
             .success(function(json) {
                 artwork = json.results;
@@ -1341,6 +1342,7 @@ function loadArtist() {
 
         $.ajax({
             url: req,
+            jsonpCallback: randomJSONpCallback()
         })
             .success(function(json) {
                 artist = json.results;
@@ -1420,6 +1422,7 @@ function loadBuilding() {
     } else {
         $.ajax({
             url: req,
+            jsonpCallback: randomJSONpCallback()
         })
             .success(function(json) {
                 building = json.results;
@@ -1493,7 +1496,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     $.ajax({
         url: req,
-        timeout: 90000,
+        jsonpCallback: randomJSONpCallback()
     })
     .success(function(json) {
         handler(json, searchType);
@@ -1666,7 +1669,7 @@ function load(message,timeout) {
         $load.text(message)
     }
     if(!timeout){
-        var timeout = 15000;
+        var timeout = 90000;
     }
     $fail.hide();
     $section.hide();
