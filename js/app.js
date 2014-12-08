@@ -276,7 +276,8 @@ function bindings() {
     });
     $.ajaxSetup({
         dataType: "jsonp",
-        timeout: 90000/*FOR JSONP TESTING*/,
+        timeout: 90000,
+        timeout: 120000/*FOR JSONP TESTING*/,
         cache: true
     });
 }
@@ -1496,7 +1497,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     $.ajax({
         url: req,
-        jsonpCallback: randomJSONpCallback()
+        jsonpCallback: randomJSONpCallback(),
     })
     .success(function(json) {
         handler(json, searchType);
