@@ -921,7 +921,7 @@ function artistsReady() {
                 showHideHeadings()
                 //console.log('match')
             } else {
-                if(val === ''){
+                if(val.replace('/ /g','') === ''){
                     $('#artists-index .artist').removeClass('filter-hidden');
                     console.log('zero')
                     showHideHeadings()
