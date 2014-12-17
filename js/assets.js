@@ -387,7 +387,14 @@ function isArray(obj) {
   };
 
 })( jQuery );
-
+//DELAY, NO BIND
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
 //BINDWITHDELAY
 
 (function($) {

@@ -882,65 +882,88 @@ function artistsReady() {
     });
 
     var firstRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
-    var secondRegex = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*';
-    var thirdRegex = '[\\s\\S]*({{second}}+)[\\s\\S]*({{first}}+)[\\w]*';
+    //partials
+    //var secondRegex = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*';
+    //var thirdRegex = '[\\s\\S]*({{second}}+)[\\s\\S]*({{first}}+)[\\w]*';
+    //beginnings only
+    var secondRegex = '\\b{{input}}';
+    var thirdRegex = '\\s*(\\b{{first}}[a-z]*)\\s(\\b{{second}}[a-z]*)\\s*';
+    var fourthRegex = '\\s*(\\b{{second}}[a-z]*)\\s(\\b{{first}}[a-z]*)\\s*';
 
-    $('#filter').bindWithDelay('keyup',function(){
-        $('#filter').addClass('loading');
-        var val = $(this).val().toLowerCase();
-        var filterRegex = firstRegex;
-        var filterRegex2 = secondRegex;
-        var filterRegex3 = thirdRegex;
-        console.log(val)
-        if (filterRegex.test(val)){
-            val = val.replace(/ +(?= )/g,'');
-            valarray = val.split(' ');
-            filterRegex2 = filterRegex2.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-            filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-            //console.log(filterRegex2,filterRegex3)
-            filterRegex2 = new RegExp(filterRegex2, 'i');
-            filterRegex3 = new RegExp(filterRegex3, 'i');
-            //console.log(filterRegex2,filterRegex3)
-            $('#artists-index .artist').each(function(){
-                if(filterRegex2.test($(this).data('name')) || filterRegex3.test($(this).data('name'))){
-                    $(this).removeClass('filter-hidden');
+    //$('#filter').bindWithDelay('keyup',function(){
+    $('#filter').on('keyup',function(){
+        delay(runFilter,500);
+        function runFilter(){
+            $('#filter').addClass('loading');
+            var val = $('#filter').val().toLowerCase();
+            var filterRegex = firstRegex;
+            var filterRegex2 = secondRegex;
+            var filterRegex3 = thirdRegex;
+            var filterRegex4 = fourthRegex;
+            //console.log(val)
+            if (filterRegex.test(val)){
+                val = val.replace(/ +(?= )/g,'');
+                valarray = val.split(' ');
+                filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+                filterRegex4 = filterRegex4.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+                //console.log(filterRegex3,filterRegex4)
+                filterRegex3 = new RegExp(filterRegex3, 'i');
+                filterRegex4 = new RegExp(filterRegex4, 'i');
+                //console.log(filterRegex3,filterRegex4)
+                $('#artists-index .artist').each(function(){
+                    if(filterRegex3.test($(this).data('name')) || filterRegex4.test($(this).data('name'))){
+                        $(this).removeClass('filter-hidden');
+                    }
+                    else{
+                        $(this).addClass('filter-hidden');
+                    }
+                });
+                showHideHeadings()
+                //console.log('match')
+            } else {
+                if(val === ''){
+                    $('#artists-index .artist').removeClass('filter-hidden');
+                    console.log('zero')
+                    showHideHeadings()
                 }
                 else{
-                    $(this).addClass('filter-hidden');
+                    console.log(filterRegex2,typeof filterRegex2)
+                    filterRegex2 = filterRegex2.replace(/\{\{input\}\}/g,val.replace(/ /g,''));
+                    console.log(filterRegex2,typeof filterRegex2)
+                    filterRegex2 = new RegExp(filterRegex2);
+                    console.log(filterRegex2,typeof filterRegex2)
+                    $('#artists-index .artist').each(function(){
+                        //if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
+                        if(filterRegex2.test($(this).data('name'))){
+                            $(this).removeClass('filter-hidden');
+                        }
+                        else{
+                            $(this).addClass('filter-hidden');
+                        }
+                    });
+                    showHideHeadings()
                 }
-            });
-            showHideHeadings()
-            console.log('match')
-        } else {
-            $('#artists-index .artist').each(function(){
-                if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
-                    $(this).removeClass('filter-hidden');
-                }
-                else{
-                    $(this).addClass('filter-hidden');
-                }
-            });
-            showHideHeadings()
-            console.log('no match')
-        }
-        function showHideHeadings(){
-            $('#artists-index .alpha-heading').each(function(){
-                if($(this).find('.artist:not(.filter-hidden)').length === 0){
-                    $(this).addClass('filter-hidden');
-                }
-                else{
-                    $(this).removeClass('filter-hidden');
-                }
-            });
-            if($('#artists-index').find('.alpha-heading:not(.filter-hidden)').length === 0){
-                $('#artists-index .heading-none').removeClass('filter-hidden')
             }
-            else{
-                $('#artists-index .heading-none').addClass('filter-hidden')
+            function showHideHeadings(){
+                $('#artists-index .alpha-heading').each(function(){
+                    if($(this).find('.artist:not(.filter-hidden)').length === 0){
+                        $(this).addClass('filter-hidden');
+                    }
+                    else{
+                        $(this).removeClass('filter-hidden');
+                    }
+                });
+                if($('#artists-index').find('.alpha-heading:not(.filter-hidden)').length === 0){
+                    $('#artists-index .heading-none').removeClass('filter-hidden')
+                }
+                else{
+                    $('#artists-index .heading-none').addClass('filter-hidden')
+                }
+                $('#filter').removeClass('loading');
             }
-            $('#filter').removeClass('loading');
         }
-    },500);
+    //},500);
+    });
 
     loaded()
 
