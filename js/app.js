@@ -702,7 +702,7 @@ function loadLocation() {
         $('#' + state).css('fill', 'red');
         $('#location #results-location').html('').hide();
         var req = apiRoot + 'search/buildings?State=' + state + '&end=1000'
-        //console.log('JSON request: ' + req)
+        console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -1003,7 +1003,7 @@ function loadGalleries() {
     }
     function loadFromAPI(){
         var req = apiRoot + 'collections/all';
-        //console.log('JSON request: ' + req)
+        console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -1069,7 +1069,7 @@ function loadGallery() {
     function jsonTime(){
         var req = apiRoot + 'collections/all';
 
-        //console.log('JSON request: ' + req)
+        console.log('JSON request: ' + req)
 
         $.ajax({
             url: req,
@@ -1141,7 +1141,7 @@ function loadArtwork() {
     if (isNaN(parseInt(objID))) {
         fail('This Request is Not Valid.', 'Artwork ID must be a number, and should look like this: #/artwork/3606.')
     } else {
-        //console.log('JSON request: ' + req)
+        console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -1368,7 +1368,7 @@ function loadArtist() {
         fail('This Request is Not Valid.', 'Artist ID must be a number, and should look like this: #/artist/3606.')
     } else {
 
-        //console.log('JSON request: ' + req)
+        console.log('JSON request: ' + req)
 
         $.ajax({
             url: req,
@@ -1445,7 +1445,7 @@ function loadBuilding() {
 
     var req = apiRoot + 'id/buildings/' + buildingID;
 
-    //console.log('JSON request: ' + req)
+    console.log('JSON request: ' + req)
 
     if (isNaN(parseInt(buildingID))) {
         fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
@@ -1522,7 +1522,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     var req = apiRoot + 'search/' + searchType + '?' + searchParams + '&end=1000';
 
-    //console.log('JSON request: ' + req)
+    console.log('JSON request: ' + req)
 
     $.ajax({
         url: req,
