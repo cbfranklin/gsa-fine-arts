@@ -923,15 +923,15 @@ function artistsReady() {
             } else {
                 if(val.replace('/ /g','') === ''){
                     $('#artists-index .artist').removeClass('filter-hidden');
-                    console.log('zero')
+                    //console.log('zero')
                     showHideHeadings()
                 }
                 else{
-                    console.log(filterRegex2,typeof filterRegex2)
+                    //console.log(filterRegex2,typeof filterRegex2)
                     filterRegex2 = filterRegex2.replace(/\{\{input\}\}/g,val.replace(/ /g,''));
-                    console.log(filterRegex2,typeof filterRegex2)
+                    //console.log(filterRegex2,typeof filterRegex2)
                     filterRegex2 = new RegExp(filterRegex2);
-                    console.log(filterRegex2,typeof filterRegex2)
+                    //console.log(filterRegex2,typeof filterRegex2)
                     $('#artists-index .artist').each(function(){
                         //if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
                         if(filterRegex2.test($(this).data('name'))){
