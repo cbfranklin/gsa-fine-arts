@@ -878,14 +878,14 @@ function artistsReady() {
     });*/
 
     $('#artists-index li').each(function(){
-        $(this).attr('data-name',$(this).text());
+        $(this).data('name',$(this).text().toLowerCase());
     });
 
     var filterRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
 
     $('#filter').bindWithDelay('keyup',function(){
         $('#filter').addClass('loading');
-        var val = $(this).val();
+        var val = $(this).val().toLowerCase();
         var filterRegex2 = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*'
         console.log(val)
         if (filterRegex.test(val)){
