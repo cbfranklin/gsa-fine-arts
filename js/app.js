@@ -881,22 +881,28 @@ function artistsReady() {
         $(this).data('name',$(this).text().toLowerCase());
     });
 
-    var filterRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
+    var firstRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
+    var secondRegex = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*';
+    var thirdRegex = '[\\s\\S]*({{second}}+)[\\s\\S]*({{first}}+)[\\w]*';
 
     $('#filter').bindWithDelay('keyup',function(){
         $('#filter').addClass('loading');
         var val = $(this).val().toLowerCase();
-        var filterRegex2 = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*'
+        var filterRegex = firstRegex;
+        var filterRegex2 = secondRegex;
+        var filterRegex3 = thirdRegex;
         console.log(val)
         if (filterRegex.test(val)){
             val = val.replace(/ +(?= )/g,'');
             valarray = val.split(' ');
             filterRegex2 = filterRegex2.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-            console.log(filterRegex2)
+            filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+            //console.log(filterRegex2,filterRegex3)
             filterRegex2 = new RegExp(filterRegex2, 'i');
-            console.log(filterRegex2)
+            filterRegex3 = new RegExp(filterRegex3, 'i');
+            //console.log(filterRegex2,filterRegex3)
             $('#artists-index .artist').each(function(){
-                if(filterRegex2.test($(this).data('name'))){
+                if(filterRegex2.test($(this).data('name')) || filterRegex3.test($(this).data('name'))){
                     $(this).removeClass('filter-hidden');
                 }
                 else{
