@@ -142,7 +142,7 @@ $(function() {
 });
 
 function helloDevs() {
-    console.log(
+    //console.log(
         ' _______________________________________ \n' +
         '|                                       |\n' +
         "|       All JSON requests to GSA's      |\n" +
@@ -271,7 +271,7 @@ function bindings() {
     });
     $('body').on('click','.social-media .print',function(e){
         window.print();
-        console.log('print')
+        //console.log('print')
         e.preventDefault();
     });
     $.ajaxSetup({
@@ -300,7 +300,7 @@ function loadHomePage() {
     $('#splash > div').on('click',function(){
         var hash = $(this).attr('href');
         window.location.hash = hash;
-        console.log(hash)
+        //console.log(hash)
     });
 
     loaded();
@@ -411,7 +411,7 @@ function loadHomePage() {
                         fadeOutQueue.push(fadeOut);
                     }
                     /*else {
-                        console.log('FADE suppressed ITEM # ' + item);
+                        //console.log('FADE suppressed ITEM # ' + item);
                     }*/
                 }
 
@@ -675,7 +675,7 @@ function loadLocation() {
         click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
             browseByState(data.name);
-            console.log(data.name)
+            //console.log(data.name)
         },
         includeTerritories: ['PR', 'VI']
     });
@@ -702,7 +702,7 @@ function loadLocation() {
         $('#' + state).css('fill', 'red');
         $('#location #results-location').html('').hide();
         var req = apiRoot + 'search/buildings?State=' + state + '&end=1000'
-        console.log('JSON request: ' + req)
+        //console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -713,7 +713,7 @@ function loadLocation() {
                     results = results.concat(json.results)
                 }
                 else{
-                    console.log('is not Array')
+                    //console.log('is not Array')
                     results.push(json.results);
                 }
                 if (json.total_results === 0 || json === undefined) {
@@ -755,7 +755,7 @@ function loadLocation() {
                     locations.sort(function(a, b) {
                         return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
                     });
-                    console.log(results)
+                    //console.log(results)
                     var state = states[results[0].state.toLowerCase()].titleCase();
 
                     var template = $('#templates .results-location').html();
@@ -796,7 +796,7 @@ function loadResults(type) {
 function loadArtists() {
     if (localStorage['fineArtsDB_artistsCache']) {
         if ($('#artists-index .alpha-heading').length === 26) {
-            console.log('ARTISTS: DOM is preserved. No Action.')
+            //console.log('ARTISTS: DOM is preserved. No Action.')
             load('Refreshing artists from the Fine Arts Database', 30000)
             $('#artists').show();
             artistsReady();
@@ -804,18 +804,18 @@ function loadArtists() {
         } else {
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
             if(today > (artistsCache.date + refreshPeriod*86400)){
-                console.log('ARTISTS: Old artistsCache, refreshing from API.')
+                //console.log('ARTISTS: Old artistsCache, refreshing from API.')
                 load('Refreshing artists from the Fine Arts Database', 30000)
                 loadFromAPI()
                 return;
             }
             artistsAppend(artistsCache);
-            console.log('ARTISTS: artistsCache exists in localStorage.')
+            //console.log('ARTISTS: artistsCache exists in localStorage.')
             artistsReady();
         }
     } else {
         load('Loading artists from the Fine Arts Database', 30000)
-        console.log('ARTISTS: No artistsCache, pulling from API.')
+        //console.log('ARTISTS: No artistsCache, pulling from API.')
         loadFromAPI()
     }
     function loadFromAPI(){
@@ -825,14 +825,14 @@ function loadArtists() {
         //    queue[i] = setTimeout(fetchAllResults, i * interval, 'people', 'Index=' + alphaOrder[i], artistsHandler);
         //};
         function repeater(i){
-            console.log(i)
+            //console.log(i)
             var req = apiRoot + 'search/people?Index=' + alphaOrder[i] + '&end=1000';
-            console.log(req)
+            //console.log(req)
             $.ajax({
                 url: req,
                 jsonpCallback: randomJSONpCallback()
             }).success(function(json){
-                console.log(json)
+                //console.log(json)
                 artistsHandler(json);
                 if(i < 25){
                     repeater(i+1);
@@ -900,16 +900,16 @@ function artistsReady() {
             var filterRegex2 = secondRegex;
             var filterRegex3 = thirdRegex;
             var filterRegex4 = fourthRegex;
-            //console.log(val)
+            ////console.log(val)
             if (filterRegex.test(val)){
                 val = val.replace(/ +(?= )/g,'');
                 valarray = val.split(' ');
                 filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
                 filterRegex4 = filterRegex4.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-                //console.log(filterRegex3,filterRegex4)
+                ////console.log(filterRegex3,filterRegex4)
                 filterRegex3 = new RegExp(filterRegex3, 'i');
                 filterRegex4 = new RegExp(filterRegex4, 'i');
-                //console.log(filterRegex3,filterRegex4)
+                ////console.log(filterRegex3,filterRegex4)
                 $('#artists-index .artist').each(function(){
                     if(filterRegex3.test($(this).data('name')) || filterRegex4.test($(this).data('name'))){
                         $(this).removeClass('filter-hidden');
@@ -919,19 +919,19 @@ function artistsReady() {
                     }
                 });
                 showHideHeadings()
-                //console.log('match')
+                ////console.log('match')
             } else {
                 if(val.replace('/ /g','') === ''){
                     $('#artists-index .artist').removeClass('filter-hidden');
-                    //console.log('zero')
+                    ////console.log('zero')
                     showHideHeadings()
                 }
                 else{
-                    //console.log(filterRegex2,typeof filterRegex2)
+                    ////console.log(filterRegex2,typeof filterRegex2)
                     filterRegex2 = filterRegex2.replace(/\{\{input\}\}/g,val.replace(/ /g,''));
-                    //console.log(filterRegex2,typeof filterRegex2)
+                    ////console.log(filterRegex2,typeof filterRegex2)
                     filterRegex2 = new RegExp(filterRegex2);
-                    //console.log(filterRegex2,typeof filterRegex2)
+                    ////console.log(filterRegex2,typeof filterRegex2)
                     $('#artists-index .artist').each(function(){
                         //if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
                         if(filterRegex2.test($(this).data('name'))){
@@ -989,7 +989,7 @@ function loadGalleries() {
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
             if(today > 1409685913/*(galleriesCache.date + refreshPeriod*86400)*/){
-                console.log('ARTISTS: Old artistsCache, refreshing from API.')
+                //console.log('ARTISTS: Old artistsCache, refreshing from API.')
                 load('Refreshing galleries from the Fine Arts Database');
                 loadFromAPI();
                 return;
@@ -1003,7 +1003,7 @@ function loadGalleries() {
     }
     function loadFromAPI(){
         var req = apiRoot + 'collections/all';
-        console.log('JSON request: ' + req)
+        //console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -1069,7 +1069,7 @@ function loadGallery() {
     function jsonTime(){
         var req = apiRoot + 'collections/all';
 
-        console.log('JSON request: ' + req)
+        //console.log('JSON request: ' + req)
 
         $.ajax({
             url: req,
@@ -1141,7 +1141,7 @@ function loadArtwork() {
     if (isNaN(parseInt(objID))) {
         fail('This Request is Not Valid.', 'Artwork ID must be a number, and should look like this: #/artwork/3606.')
     } else {
-        console.log('JSON request: ' + req)
+        //console.log('JSON request: ' + req)
         $.ajax({
             url: req,
             jsonpCallback: randomJSONpCallback()
@@ -1290,13 +1290,13 @@ function loadArtwork() {
                     }
 
                     //PULL ARTIST ID FROM OBJPEOPLE
-                    console.log('artist id...')
+                    //console.log('artist id...')
                     var objPeople = artwork.ObjectsPeople;
                     for(i=0; i < objPeople.length; i++){
-                        console.log(objPeople[i].role)
+                        //console.log(objPeople[i].role)
                         if(objPeople[i].role === 'Artist'){
                             var artistID = objPeople[i].personId;
-                            console.log('true')
+                            //console.log('true')
                         }
                     }
 
@@ -1368,7 +1368,7 @@ function loadArtist() {
         fail('This Request is Not Valid.', 'Artist ID must be a number, and should look like this: #/artist/3606.')
     } else {
 
-        console.log('JSON request: ' + req)
+        //console.log('JSON request: ' + req)
 
         $.ajax({
             url: req,
@@ -1445,7 +1445,7 @@ function loadBuilding() {
 
     var req = apiRoot + 'id/buildings/' + buildingID;
 
-    console.log('JSON request: ' + req)
+    //console.log('JSON request: ' + req)
 
     if (isNaN(parseInt(buildingID))) {
         fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
@@ -1522,7 +1522,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     var req = apiRoot + 'search/' + searchType + '?' + searchParams + '&end=1000';
 
-    console.log('JSON request: ' + req)
+    //console.log('JSON request: ' + req)
 
     $.ajax({
         url: req,
@@ -1545,7 +1545,7 @@ function artistsHandler(json) {
     }
     artistsCache.status.push(json.results[0].index);
     if (artistsCache.status.length === 26) {
-        console.log('DONE')
+        //console.log('DONE')
         artistsCache.date = getDate();
         delete artistsCache.status;
         artistsAppend(artistsCache);
@@ -1559,9 +1559,9 @@ function artistsAppend(source) {
     $('#fail,#load').hide();
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
-        console.log(alphaOrder[i])
+        //console.log(alphaOrder[i])
         $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><ul></ul>')
-        console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
+        //console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
                 var name = '<strong>' + artists[alphaOrder[i]][j].lastName + '</strong> ' + artists[alphaOrder[i]][j].firstName;
@@ -1585,7 +1585,7 @@ function cacheResults(item) {
 
 //APPENDS search results
 function appendResults(json, type) {
-    console.log(type)
+    //console.log(type)
     if (json.results && json.results.length !== 0) {
         if (isArray(json.results)) {
             var results = json.results;
@@ -1716,7 +1716,7 @@ function loaded() {
 
 //ERROR REPORT
 function fail(message, description) {
-    console.log('fail',message,description)
+    //console.log('fail',message,description)
     if (message === undefined) {
         var message = "We're Sorry";
     }
