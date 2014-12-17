@@ -142,7 +142,7 @@ $(function() {
 });
 
 function helloDevs() {
-    //console.log(
+console.log(
         ' _______________________________________ \n' +
         '|                                       |\n' +
         "|       All JSON requests to GSA's      |\n" +
