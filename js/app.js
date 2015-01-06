@@ -328,7 +328,7 @@ function loadHomePage() {
         function setSplashDimensions(){
             var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
             console.log('splashHeight: ',splashHeight)
-            var lowerLimit = 760 - $('header').height();
+            var lowerLimit = 680 - $('header').height();
             if(splashHeight < lowerLimit){
                 splashHeight = lowerLimit;
             }
