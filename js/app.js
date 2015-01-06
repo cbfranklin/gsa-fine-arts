@@ -321,6 +321,14 @@ function loadHomePage() {
             fadeOutPartial = [2,4,7,10],
             partialFadeVal = 0.33;
 
+        var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+        var splashWidth = splashHeight/1.1;
+
+        $('#splash').css({
+            'height':splashHeight+'px',
+            'width':splashWidth+'px'
+        });
+
         rotate();
 
         $("#home #splash").hover(
@@ -1168,7 +1176,7 @@ function loadArtwork() {
                             }
                         }
                     }
-
+                    //sets photo caption and credit to first item in obj media, not that of the main object
                     if (artwork.ObjMedia) {
                         if (isArray(artwork.ObjMedia)) {
                             if (artwork.ObjMedia[0].copyright) {
