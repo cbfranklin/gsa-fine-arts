@@ -332,7 +332,7 @@ function loadHomePage() {
             $('#splash').css({
                 'height':splashHeight+'px',
                 //'width':splashWidth+'px'
-                'width':'900px'
+                'width':'990px'
             });
         }
 
