@@ -799,6 +799,7 @@ h3 .label .glyphicon{
 footer .menu ul {
     text-align: center;
     padding:0;
+    margin:0;
 }
 footer .menu ul li {
     list-style: none;
