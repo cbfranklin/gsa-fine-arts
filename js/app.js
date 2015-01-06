@@ -321,13 +321,19 @@ function loadHomePage() {
             fadeOutPartial = [2,4,7,10],
             partialFadeVal = 0.33;
 
-        var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
-        var splashWidth = splashHeight/1.1;
+        setSplashDimensions();
 
-        $('#splash').css({
-            'height':splashHeight+'px',
-            'width':splashWidth+'px'
-        });
+        $(window).on('resize',setSplashDimensions);
+
+        function setSplashDimensions(){
+            var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+            var splashWidth = splashHeight/1.1;
+
+            $('#splash').css({
+                'height':splashHeight+'px',
+                'width':splashWidth+'px'
+            });
+        }
 
         rotate();
 
