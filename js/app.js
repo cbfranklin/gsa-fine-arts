@@ -327,11 +327,12 @@ function loadHomePage() {
 
         function setSplashDimensions(){
             var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
-            var splashWidth = splashHeight/1.1;
+            //var splashWidth = splashHeight/1.1;
 
             $('#splash').css({
                 'height':splashHeight+'px',
-                'width':splashWidth+'px'
+                //'width':splashWidth+'px'
+                'width':'900px'
             });
         }
 
