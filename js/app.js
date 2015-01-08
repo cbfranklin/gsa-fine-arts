@@ -326,19 +326,23 @@ function loadHomePage() {
         $(window).on('resize',setSplashDimensions);
 
         function setSplashDimensions(){
-            var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
-            console.log('splashHeight: ',splashHeight)
-            var lowerLimit = 658 - $('header').height() - $('footer').height() - $('#gsa-footer').height() - 40;
-            if(splashHeight < lowerLimit){
-                splashHeight = lowerLimit;
-            }
-            //var splashWidth = splashHeight/1.1;
+            if($(window).width() > 479){
+                var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+                console.log('splashHeight: ',splashHeight)
+                var lowerLimit = 840 - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+                if(splashHeight < lowerLimit){
+                    splashHeight = lowerLimit;
+                }
+                //var splashWidth = splashHeight/1.1;
 
-            $('#splash').css({
-                'height':splashHeight+'px',
-                //'width':splashWidth+'px'
-                'width':'990px'
-            });
+                $('#splash').css({
+                    'height':splashHeight+'px',
+                    //'width':splashWidth+'px'
+                    'width':'990px'
+                });
+            }else{
+                $('.splash *').attr('style','')
+            }
         }
 
         rotate();
