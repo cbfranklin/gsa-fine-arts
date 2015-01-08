@@ -916,10 +916,12 @@ function artistsReady() {
 
     //$('#filter').bindWithDelay('keyup',function(){
     $('#filter').on('keyup',function(){
+
         delay(runFilter,500);
+
         function runFilter(){
             $('#filter').addClass('loading');
-            var val = $('#filter').val().toLowerCase();
+            var val = $('#filter').val().toLowerCase().replace(/[^a-zA-Z\d\s:]|[0-9\d:]/g,'');
             var filterRegex = firstRegex;
             var filterRegex2 = secondRegex;
             var filterRegex3 = thirdRegex;
