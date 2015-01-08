@@ -329,7 +329,7 @@ function loadHomePage() {
             if($(window).width() > 479){
                 var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
                 console.log('splashHeight: ',splashHeight)
-                var lowerLimit = 840 - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+                var lowerLimit = 820 - $('header').height() - $('footer').height() - $('#gsa-footer').height();
                 if(splashHeight < lowerLimit){
                     splashHeight = lowerLimit;
                 }
