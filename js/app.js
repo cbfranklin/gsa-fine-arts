@@ -921,6 +921,7 @@ function artistsReady() {
 
         function runFilter(){
             $('#filter').addClass('loading');
+            $('#artists-index').addClass('filter-hidden');
             var val = $('#filter').val().toLowerCase().replace(/[^a-zA-Z\d\s:]|[0-9\d:]/g,'');
             var filterRegex = firstRegex;
             var filterRegex2 = secondRegex;
@@ -987,6 +988,7 @@ function artistsReady() {
                 }
                 $('#filter').removeClass('loading');
             }
+        $('#artists-index').removeClass('filter-hidden');
         }
     //},500);
     });

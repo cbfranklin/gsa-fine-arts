@@ -359,13 +359,13 @@ div.splash-title {
 #artists #filter.loading{
 	background: url(../img/load-select-blue.gif) 98% center no-repeat #efefef;
 }
-#artists-index li.filter-hidden{
+.filter-hidden{
 	visibility:hidden;
 	height:0;
 	margin:0;
 	padding:0;
 }
-#artists-index div.filter-hidden{
+.filter-hidden{
 	display:none;
 }
 
