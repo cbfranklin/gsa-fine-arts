@@ -1142,3 +1142,8 @@ footer .menu ul li a {
 	clear:both;
 	padding:5px;
 }
+
+.photo-caption span:empty:after,
+.photo-credit span:empty:after{
+	content:'none';
+}

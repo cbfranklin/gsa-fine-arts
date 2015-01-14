@@ -1199,7 +1199,7 @@ function loadArtwork() {
                         }
                     }
                     //sets photo caption and credit to first item in obj media, not that of the main object
-                    if (artwork.ObjMedia) {
+                    /*if (artwork.ObjMedia) {
                         if (isArray(artwork.ObjMedia)) {
                             if (artwork.ObjMedia[0].copyright) {
                                 artwork.photoCredit = artwork.ObjMedia[0].copyright;
@@ -1215,7 +1215,7 @@ function loadArtwork() {
                                 artwork.photoCaption = artwork.ObjMedia.publicCaption;
                             }
                         }
-                    }
+                    }*/
 
                     //RELATED ARTWORK
                     var artistRelated = [],
@@ -1368,14 +1368,16 @@ function loadArtwork() {
                     //SWAP FEATURED IMAGE AREA ON CLICK
                     $('#additional-images a').on('click', function(event) {
                         var display = $(this).attr('href');
-                        var large = display.replace('/display', '/large')
+                        var large = display.replace('/display', '/large');
                         $('img.featured').attr('src', display).parent('a').attr('href', large);
                         $('.click-to-enlarge').attr('href', large);
                         //Replace Credit and Caption Notes
                         if ($(this).attr('data-credit')) {
+                            console.log($(this).attr('data-credit'))
                             $('.photo-credit span').html($(this).attr('data-credit'));
                         }
                         if ($(this).attr('data-caption')) {
+                            console.log($(this).attr('data-caption'))
                             $('.photo-caption span').html($(this).attr('data-caption'));
                         }
                         $('#artwork-overview').scrollToAnchor();
@@ -1441,6 +1443,9 @@ function loadArtist() {
                     works.sort(function(a, b) {
                         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
                     });
+
+                    works = works.sort(imagesFirst);
+                    console.log('im finished')
                     for (i in works) {
                         if (works[i].primaryImage) {
                             works[i].primaryImage = formatImagePath(works[i].primaryImage);

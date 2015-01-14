@@ -845,7 +845,7 @@
 						{{^primaryImage}}<p><em>No Photo Available at this time</em><p>{{/primaryImage}}
 						{{#primaryImage}}
 						<a target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">
-						<img class="featured" src="http://gsa.gov/fa/images/display/{{primaryImage}}"></a>
+						<img class="featured" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" src="http://gsa.gov/fa/images/display/{{primaryImage}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" ></a>
 						<div class="meta">
 						{{#socialMedia}}
 						<div class="social-media">
@@ -858,8 +858,12 @@
 						{{/socialMedia}}
 						<br>
 						<a class="click-to-enlarge" target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
-						{{#photoCaption}}<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{{photoCaption}}}</span></div>{{/photoCaption}}
-						{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>{{/photoCredit}}
+						
+						<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{{photoCaption}}}</span></div>
+						
+						
+						<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>
+						
 					</div>
 						{{/primaryImage}}
 					</div>
@@ -869,12 +873,13 @@
 							<ul>
 								<li>
 									<a data-credit="{{photoCredit}}" data-caption="{{publicCaption}}" href="http://gsa.gov/fa/images/display/{{primaryImage}}">
-										<img src="http://gsa.gov/fa/images/postage/{{primaryImage}}"/>
+										<img title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" src="http://gsa.gov/fa/images/postage/{{primaryImage}}"/>
 									</a>
 								</li>
 								{{#additional}}
 									<li>
-										<a data-credit="{{photoCredit}}" data-caption="{{publicCaption}}" href="http://gsa.gov/fa/images/display/{{fileName}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage" src="img/no-image.jpg"{{/fileName}} {{#fileName}}src="http://gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
+										<a data-credit="{{photoCredit}}" data-caption="{{publicCaption}}" href="http://gsa.gov/fa/images/display/{{fileName}}">
+											<img title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^fileName}}class="noImage" src="img/no-image.jpg"{{/fileName}} {{#fileName}}src="http://gsa.gov/fa/images/postage/{{fileName}}"{{/fileName}}></a>
 									</li>
 								{{/additional}}
 							</ul>
@@ -901,18 +906,18 @@
 					</div>
 				{{/artwork}}
 
-					{{#interpretation}}
+					<!--{{#interpretation}}
 					<hr>
 					<strong>Work Insights:</strong>
 					<div class="interpretation">{{{interpretation}}}</div>
-					{{/interpretation}}
+					{{/interpretation}}-->
 				{{#hasRelated}}
 				<div id="also-of-interest" class="works">
 					<h3>Also of Interest</h3>
 					<ul>
 						{{#related}}
 							<li>
-								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}}></a>
+								<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" alt="No Image Available" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/postage/{{primaryImage}}"{{/primaryImage}} title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" ></a>
 							</li>
 						{{/related}}
 					</ul>
@@ -935,7 +940,7 @@
 					<div id="building-overview" class="overview">
 						<h1>{{building}}</h1>
 						{{#primaryImage}}
-						<img class="featured" src="http://gsa.gov/fa/images/display/{{primaryImage}}">
+						<img class="featured" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"  alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" src="http://gsa.gov/fa/images/display/{{primaryImage}}">
 						{{/primaryImage}}
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
@@ -946,7 +951,7 @@
 						<ul>
 							{{#works}}
 								<li>
-									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" alt="No Image Available" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 									<div>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
 										<p>{{objectNumber}}</p>
