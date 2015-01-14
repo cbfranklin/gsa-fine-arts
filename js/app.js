@@ -1330,7 +1330,7 @@ function loadArtwork() {
                         }
                     }
 
-                    additional.sort(function(){
+                    additional.sort(function(a,b){
                         return a.rank - b.rank;
                     })
 
