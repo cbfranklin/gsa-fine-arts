@@ -1509,8 +1509,8 @@ function loadBuilding() {
                     }
                     var worksLength = works.length;
                     if (worksLength > 1) {
-                        works.sort(function(a, b) {
-                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                        works = works.sort(function(a, b) {
+                            return b.title.toLowerCase().localeCompare(a.title.toLowerCase());
                         });
                         works = works.sort(imagesFirst);
                     }
