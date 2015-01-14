@@ -1328,6 +1328,10 @@ function loadArtwork() {
                         }
                     }
 
+                    additional.sort(function(){
+                        return a.rank - b.rank;
+                    })
+
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
                     var imagePath = 'http://gsa.gov/fa/images/display/' + artwork.primaryImage;
