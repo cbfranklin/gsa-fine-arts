@@ -1127,6 +1127,8 @@ function galleryHandler(gallery) {
         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
     });
 
+    gallery.Objects = gallery.Objects.sort(imagesFirst);
+
     var totalImages = 0;
     for (i in gallery.Objects) {
         if (gallery.Objects[i].primaryImage) {
