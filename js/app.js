@@ -1329,10 +1329,11 @@ function loadArtwork() {
                             //console.log('true')
                         }
                     }
-
-                    additional.sort(function(a,b){
-                        return a.rank - b.rank;
-                    })
+                    if(additional){
+                        additional.sort(function(a,b){
+                            return a.rank - b.rank;
+                        })
+                    }
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
