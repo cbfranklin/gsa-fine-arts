@@ -157,6 +157,12 @@ String.prototype.formatImagePath = function() {
     }
 }
 
+//REMOVE QUOTES
+String.prototype.removeQuotes = function() {
+    var noQuotes = this.replace(/\"/g,'').replace(/\'/g,'');
+    return noQuotes;
+}
+
 
 
 //CAPITALIZE
@@ -315,6 +321,10 @@ jQuery.fn.extend({
 //DETECT IMAGE IN OBJECT
 function hasImage(obj) {
     return obj.hasOwnProperty('primaryImage')
+}
+//DETECT IMAGE IN OBJECT
+function hasntImage(obj) {
+    return !obj.hasOwnProperty('primaryImage')
 }
 
 //POLYFILL FOR ARRAY.PROTOTYPE.FILTER

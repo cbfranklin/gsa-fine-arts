@@ -1441,12 +1441,22 @@ function loadArtist() {
                         var works = [];
                         works.push(work);
                     }
-                    works.sort(function(a, b) {
+
+                    var worksNoImage = works.filter(hasntImage);
+
+                    works = works.filter(hasImage);
+
+                    works = works.sort(function(a, b) {
                         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
                     });
 
-                    works = works.sort(imagesFirst);
-                    console.log('im finished')
+                    worksNoImage = worksNoImage.sort(function(a, b) {
+                        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                    });
+
+                    works = works.concat(worksNoImage);
+
+
                     for (i in works) {
                         if (works[i].primaryImage) {
                             works[i].primaryImage = formatImagePath(works[i].primaryImage);
@@ -1516,7 +1526,7 @@ function loadBuilding() {
                     var worksLength = works.length;
                     if (worksLength > 1) {
                         works = works.sort(function(a, b) {
-                            return b.title.toLowerCase().localeCompare(a.title.toLowerCase());
+                            return b.title.removeQuotes().toLowerCase().localeCompare(a.title.removeQuotes().toLowerCase());
                         });
                         works = works.sort(imagesFirst);
                     }
