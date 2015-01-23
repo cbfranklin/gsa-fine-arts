@@ -1588,6 +1588,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
 //CACHES all artists, Saves as local storage
 function artistsHandler(json) {
+    artistsCache = {}
     for (var i = 0; i < json.results.length; i++) {
         var item = json.results[i];
         addValue(artistsCache.artists, item.index.toLowerCase(), item);
