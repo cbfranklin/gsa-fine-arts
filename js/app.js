@@ -826,6 +826,7 @@ function loadArtists() {
             artistsReady();
             loaded();
         } else {
+            $('#artists-index').html('')
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
             if(today > (artistsCache.date + refreshPeriod*86400)){
                 //console.log('ARTISTS: Old artistsCache, refreshing from API.')
@@ -838,6 +839,7 @@ function loadArtists() {
             artistsReady();
         }
     } else {
+        $('#artists-index').html('')
         load('Loading artists from the Fine Arts Database', 30000)
         //console.log('ARTISTS: No artistsCache, pulling from API.')
         loadFromAPI()
