@@ -1,6 +1,6 @@
 var apiRoot = 'https://gsafinearts.pbs.gsa.gov/emuseum/api/',
 
-    artistsCache = {
+    artistsCacheTemplate = {
         artists: {
             "a": [],
             "b": [],
@@ -32,6 +32,8 @@ var apiRoot = 'https://gsafinearts.pbs.gsa.gov/emuseum/api/',
         "status": [],
         "date": null
     },
+
+    artistsCache = artistsCacheTemplate,
 
     galleriesCache = {
         "galleries": null,
@@ -826,10 +828,12 @@ function loadArtists() {
             artistsReady();
             loaded();
         } else {
+            $('#artists-index').html('')
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
             if(today > (artistsCache.date + refreshPeriod*86400)){
                 //console.log('ARTISTS: Old artistsCache, refreshing from API.')
                 load('Refreshing artists from the Fine Arts Database', 30000)
+                artistCache = artistsCacheTemplate;
                 loadFromAPI()
                 return;
             }
@@ -838,6 +842,7 @@ function loadArtists() {
             artistsReady();
         }
     } else {
+        $('#artists-index').html('')
         load('Loading artists from the Fine Arts Database', 30000)
         //console.log('ARTISTS: No artistsCache, pulling from API.')
         loadFromAPI()
