@@ -135,6 +135,12 @@ $(function() {
     gsaHeader();
     bindings();
     routes();
+
+    /* TEMP: CLEAR ALL CACHES */
+    localStorage['fineArtsDB_artistsCache'] = '';
+    localStorage['fineArtsDB_galleriesCache'] = '';
+
+
     $(window).hashchange(function() {
         $fail.hide();
         $section.hide();
