@@ -1553,13 +1553,21 @@ function loadBuilding() {
                             }
                         }
                     }
+                    var photoCredit = 'none';
+                    //PHOTO CREDIT
+                    for(i in building.SiteMedia){
+                        if(building.SiteMedia[i].primaryDisplay == 1){
+                            photoCredit = building.SiteMedia[i].copyright;
+                        }
+                    }
 
                     var template = $('#templates .building').html();
                     var html = Mustache.to_html(template, {
                         building: building,
                         works: works,
                         hasWorks: hasWorks,
-                        worksLength: worksLength
+                        worksLength: worksLength,
+                        photoCredit: photoCredit
                     });
                     $('#building').html(html).show();
 
