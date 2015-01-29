@@ -826,13 +826,16 @@ function loadResults(type) {
 
 //ARTIST INDEX
 function loadArtists() {
+    //localStorage is populated
     if (localStorage['fineArtsDB_artistsCache']) {
+        //DOM is populated
         if ($('#artists-index .alpha-heading').length === 26) {
             //console.log('ARTISTS: DOM is preserved. No Action.')
             load('Refreshing artists from the Fine Arts Database', 30000)
             $('#artists').show();
             artistsReady();
             loaded();
+        //DOM is not populated
         } else {
             $('#artists-index').html('')
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
@@ -847,6 +850,7 @@ function loadArtists() {
             //console.log('ARTISTS: artistsCache exists in localStorage.')
             artistsReady();
         }
+    //localStorage is not populated
     } else {
         $('#artists-index').html('')
         load('Loading artists from the Fine Arts Database', 30000)
