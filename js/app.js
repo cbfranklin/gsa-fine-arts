@@ -1553,12 +1553,22 @@ function loadBuilding() {
                             }
                         }
                     }
-                    var photoCredit = 'none';
                     //PHOTO CREDIT
-                    for(i in building.SiteMedia){
-                        if(building.SiteMedia[i].primaryDisplay == 1){
-                            photoCredit = building.SiteMedia[i].copyright;
+                    var photoCredit = null;
+                    if(building.SiteMedia){
+                        if(isArray(building.SiteMedia)){
+                            for(i in building.SiteMedia){
+                                console.log(building.SiteMedia[i].copyright)
+                                if(building.SiteMedia[i].primaryDisplay == 1){
+                                    photoCredit = building.SiteMedia[i].copyright;
+                                }
+                            }
                         }
+                        else{
+                            if(building.SiteMedia.primaryDisplay == 1){
+                                photoCredit = building.SiteMedia.copyright;
+                            }
+                        }                 
                     }
 
                     var template = $('#templates .building').html();

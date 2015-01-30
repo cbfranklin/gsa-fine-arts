@@ -949,7 +949,7 @@
 						{{/primaryImage}}
 						<p>{{address}}</p>
 						<p>{{city}}, {{state}} {{zipCode}}</p>
-                    	<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>
+                    	{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>{{/photoCredit}}
 					</div>
 					{{/building}}
 					<div id="artwork-in-this-building" class="works">
