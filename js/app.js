@@ -1350,6 +1350,26 @@ function loadArtwork() {
                         })
                     }
 
+                    //PHOTOCAPTION is CREDITLINE
+                    var photoCaption = artwork.creditLine;
+                    //and PHOTOCREDIT is COPYRIGHT
+                    var photoCredit = null;
+                    if(artwork.ObjMedia){
+                        if(isArray(artwork.ObjMedia)){
+                            for(i in artwork.ObjMedia){
+                                console.log(artwork.ObjMedia[i].copyright)
+                                if(artwork.ObjMedia[i].primaryDisplay == 1){
+                                    photoCredit = artwork.ObjMedia[i].copyright;
+                                }
+                            }
+                        }
+                        else{
+                            if(artwork.ObjMedia.primaryDisplay == 1){
+                                photoCredit = artwork.ObjMedia.copyright;
+                            }
+                        }                 
+                    }
+
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
                     var imagePath = 'http://gsa.gov/fa/images/display/' + artwork.primaryImage;
@@ -1367,8 +1387,9 @@ function loadArtwork() {
                         hasAdditional: hasAdditional,
                         socialMedia: socialMedia,
                         isInCollections: isInCollections,
-                        artistID: artistID
-                        //creditLine : creditLine
+                        artistID: artistID,
+                        photoCredit: photoCredit,
+                        photoCaption: photoCaption
                     });
                     $('#artwork').html(html).show();
 
@@ -1390,11 +1411,17 @@ function loadArtwork() {
                         //Replace Credit and Caption Notes
                         if ($(this).attr('data-credit')) {
                             console.log($(this).attr('data-credit'))
-                            $('.photo-credit span').html($(this).attr('data-credit'));
+                            $('.photo-credit span').html($(this).attr('data-credit')).parent().show();
+                        }
+                        else{
+                            $('.photo-credit').hide();
                         }
                         if ($(this).attr('data-caption')) {
                             console.log($(this).attr('data-caption'))
-                            $('.photo-caption span').html($(this).attr('data-caption'));
+                            $('.photo-caption span').html($(this).attr('data-caption')).parent().show();
+                        }
+                        else{
+                            $('.photo-caption').hide()
                         }
                         $('#artwork-overview').scrollToAnchor();
                         event.preventDefault();
