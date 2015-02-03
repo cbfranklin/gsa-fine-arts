@@ -864,10 +864,10 @@
 						<br>
 						<a class="click-to-enlarge" target="_blank" href="http://gsa.gov/fa/images/large/{{primaryImage}}">Click Image to Enlarge</a>
 						
-						<div class="photo-caption"><br><strong>Photo Caption: </strong><span>{{{photoCaption}}}</span></div>
+						<div {{^photoCaption}}style="display:none"{{/photoCaption}} class="photo-caption"><br><strong>Photo Caption: </strong><span>{{{photoCaption}}}</span></div>
 						
 						
-						<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>
+						<div {{^photoCredit}}style="display:none"{{/photoCredit}} class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>
 						
 					</div>
 						{{/primaryImage}}

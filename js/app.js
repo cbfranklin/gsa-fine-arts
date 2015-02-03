@@ -1350,16 +1350,20 @@ function loadArtwork() {
                         })
                     }
 
-                    //PHOTOCAPTION is CREDITLINE
-                    var photoCaption = artwork.creditLine;
+                    //PHOTOCAPTION is PUBLICCAPTION
+                    var photoCaption = null;
                     //and PHOTOCREDIT is COPYRIGHT
                     var photoCredit = null;
                     if(artwork.ObjMedia){
                         if(isArray(artwork.ObjMedia)){
                             for(i in artwork.ObjMedia){
-                                console.log(artwork.ObjMedia[i].copyright)
                                 if(artwork.ObjMedia[i].primaryDisplay == 1){
-                                    photoCredit = artwork.ObjMedia[i].copyright;
+                                    if(artwork.ObjMedia[i].copyright){
+                                        photoCredit = artwork.ObjMedia[i].copyright;
+                                    }
+                                    if(artwork.ObjMedia[i].publicCaption){
+                                        photoCaption = artwork.ObjMedia[i].publicCaption;
+                                    }
                                 }
                             }
                         }
