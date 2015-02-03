@@ -1572,9 +1572,11 @@ function loadBuilding() {
                     var worksLength = works.length;
                     if (worksLength > 1) {
                         works = works.sort(function(a, b) {
-                            return b.title.removeQuotes().toLowerCase().localeCompare(a.title.removeQuotes().toLowerCase());
+                            b.title = b.title.removeQuotes().toLowerCase()
+                            a.title = a.title.removeQuotes().toLowerCase()
+                            return b.title.localeCompare(a.title);
                         });
-                        works = works.sort(imagesFirst);
+                        //works = works.sort(imagesFirst);
                     }
                     if (worksLength > 0) {
                         var hasWorks = true;
