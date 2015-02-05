@@ -1138,11 +1138,6 @@ function galleryHandler(gallery) {
         gallery.Objects = [];
         gallery.Objects.push(obj)
     }
-    gallery.Objects = gallery.Objects.sort(function(a, b) {
-        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-    });
-
-    gallery.Objects = gallery.Objects.sort(imagesFirst);
 
     var totalImages = 0;
     for (i in gallery.Objects) {
@@ -1154,12 +1149,17 @@ function galleryHandler(gallery) {
 
     var total = gallery.Objects.length;
 
+    var galleryObjects = gallery.Objects.sort(function(a, b) {
+        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+    });
+
 
     var template = $('#templates .gallery').html();
     var html = Mustache.to_html(template, {
         gallery: gallery,
         total: total,
-        totalImages: totalImages
+        totalImages: totalImages,
+        galleryObjects: galleryObjects
     });
     $('#gallery').html(html).show();
     $('.leftCol nav h2').on('click', function() {
@@ -1571,10 +1571,15 @@ function loadBuilding() {
                     }
                     var worksLength = works.length;
                     if (worksLength > 1) {
-                        works = works.sort(function(a, b) {
+                        /*works = works.sort(function(a, b) {
                             b.title = b.title.removeQuotes().toLowerCase()
                             a.title = a.title.removeQuotes().toLowerCase()
                             return b.title.localeCompare(a.title);
+                        });*/
+                        works = works.sort(function(a, b) {
+                            if (a.title && b.title) {
+                                return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                            }
                         });
                         //works = works.sort(imagesFirst);
                     }

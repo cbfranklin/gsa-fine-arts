@@ -802,7 +802,7 @@
 						<div id="in-this-gallery" class="works">
 							<h3>Works In This Gallery<span style="float:left" title="Number of results" class="label label-default">{{total}}</span></h3>
 							<ul>
-								{{#Objects}}
+								{{#galleryObjects}}
 									<li>
 										<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
 										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
@@ -810,7 +810,7 @@
 										<p>{{classification}}</p>
 										<p>{{displayDate}}</p>
 									</li>
-								{{/Objects}}
+								{{/galleryObjects}}
 							</ul>
 						</div>
 					{{/gallery}}
