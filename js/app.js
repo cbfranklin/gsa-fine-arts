@@ -1149,9 +1149,21 @@ function galleryHandler(gallery) {
 
     var total = gallery.Objects.length;
 
-    var galleryObjects = gallery.Objects.sort(function(a, b) {
+    var works = gallery.Objects
+
+    var worksNoImage = works.filter(hasntImage);
+
+    works = works.filter(hasImage);
+
+    works = works.sort(function(a, b) {
         return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
     });
+
+    worksNoImage = worksNoImage.sort(function(a, b) {
+        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+    });
+
+    works = works.concat(worksNoImage);
 
 
     var template = $('#templates .gallery').html();
@@ -1159,7 +1171,7 @@ function galleryHandler(gallery) {
         gallery: gallery,
         total: total,
         totalImages: totalImages,
-        galleryObjects: galleryObjects
+        galleryObjects: works
     });
     $('#gallery').html(html).show();
     $('.leftCol nav h2').on('click', function() {
@@ -1576,12 +1588,20 @@ function loadBuilding() {
                             a.title = a.title.removeQuotes().toLowerCase()
                             return b.title.localeCompare(a.title);
                         });*/
+
+                        var worksNoImage = works.filter(hasntImage);
+
+                        works = works.filter(hasImage);
+
                         works = works.sort(function(a, b) {
-                            if (a.title && b.title) {
-                                return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-                            }
+                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
                         });
-                        //works = works.sort(imagesFirst);
+
+                        worksNoImage = worksNoImage.sort(function(a, b) {
+                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                        });
+
+                        works = works.concat(worksNoImage);
                     }
                     if (worksLength > 0) {
                         var hasWorks = true;
