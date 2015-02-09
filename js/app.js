@@ -329,28 +329,18 @@ function loadHomePage() {
             fadeOutPartial = [2,4,7,10],
             partialFadeVal = 0.33;
 
-        setSplashDimensions();
+
 
         $(window).on('resize',setSplashDimensions);
 
         function setSplashDimensions(){
-            if($(window).width() > 479){
-                var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
-                console.log('splashHeight: ',splashHeight)
-                var lowerLimit = 795 - $('header').height() - $('footer').height() - $('#gsa-footer').height();
-                if(splashHeight < lowerLimit){
-                    splashHeight = lowerLimit;
-                }
-                //var splashWidth = splashHeight/1.1;
+            var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
+            var splashWidth = splashHeight/1.1;
 
-                $('#splash').css({
-                    'height':splashHeight+'px',
-                    //'width':splashWidth+'px'
-                    'width':'990px'
-                });
-            }else{
-                $('.splash *').attr('style','')
-            }
+            $('#splash').css({
+                'height':splashHeight+'px',
+                'width':'990px'
+            });
         }
 
         rotate();
@@ -1225,24 +1215,6 @@ function loadArtwork() {
                             }
                         }
                     }
-                    //sets photo caption and credit to first item in obj media, not that of the main object
-                    /*if (artwork.ObjMedia) {
-                        if (isArray(artwork.ObjMedia)) {
-                            if (artwork.ObjMedia[0].copyright) {
-                                artwork.photoCredit = artwork.ObjMedia[0].copyright;
-                            }
-                            if (artwork.ObjMedia[0].publicCaption) {
-                                artwork.photoCaption = artwork.ObjMedia[0].publicCaption;
-                            }
-                        } else {
-                            if (artwork.ObjMedia.copyright) {
-                                artwork.photoCredit = artwork.ObjMedia.copyright;
-                            }
-                            if (artwork.ObjMedia.publicCaption) {
-                                artwork.photoCaption = artwork.ObjMedia.publicCaption;
-                            }
-                        }
-                    }*/
 
                     //RELATED ARTWORK
                     var artistRelated = [],
