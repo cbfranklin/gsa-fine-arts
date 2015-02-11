@@ -660,6 +660,7 @@ function loadSearch() {
 };
 
 function loadLocation() {
+
     $('#location').show();
     //reset
     $('#state').val('');
@@ -698,11 +699,24 @@ function loadLocation() {
         },
         click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
-            browseByState(data.name);
+            //browseByState(data.name);
+            if(Modernizr.history){
+                history.pushState({}, '', '/location/'+data.name)
+            }
+            else{
+                window.location.hash = '/location/'+data.name;
+            }
             //console.log(data.name)
         },
         includeTerritories: ['PR', 'VI']
     });
+
+    //LOCATION STATE
+    var hash = window.location.hash.split('/');
+    if(hash[2]){
+       var hashState = hash[2].toUpperCase();
+       browseByState(hashState)
+    }
 
     $('#location').on('change', '#state', function() {
         $("#map > svg > path").each(function() {
@@ -712,7 +726,13 @@ function loadLocation() {
         var state = $(this).val();
         if (state !== '') {
             $('#' + state).css('fill', 'red');
-            browseByState(state);
+            //browseByState(state);
+            if(Modernizr.history){
+                history.pushState({}, '', '/location/'+state)
+            }
+            else{
+                window.location.hash = '/location/'+state;
+            }
         } else {
             $('#results-location').html('').hide()
         }
@@ -794,7 +814,7 @@ function loadLocation() {
                     $('.results-location-header').sticky();
                 }
                 $('#location .selectWrapper').removeClass('loading')
-                scrollToAnchor('results-location');
+                scrollToAnchor('results-location', 0, 0);
             })
             .error(function(textStatus, error) {
                 var html = '<h3>Buildings<span style="float:right" class="label label-default label-danger">0</span></h3><h4>Server Error: No Buildings Found</h4>';
