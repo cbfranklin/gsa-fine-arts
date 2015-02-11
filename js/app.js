@@ -253,7 +253,6 @@ function routes() {
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
-    scrollToAnchor('wrapper', 0, 0)
 }
 
 //CLICKS
@@ -669,7 +668,7 @@ function loadLocation() {
     });
     $('#results-location').html('').hide()
 
-    loaded();
+    loaded(false);
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
     $('#map').css({
@@ -814,7 +813,7 @@ function loadLocation() {
                     $('.results-location-header').sticky();
                 }
                 $('#location .selectWrapper').removeClass('loading')
-                scrollToAnchor('results-location', 0, 0);
+                scrollToAnchor('results-location');
             })
             .error(function(textStatus, error) {
                 var html = '<h3>Buildings<span style="float:right" class="label label-default label-danger">0</span></h3><h4>Server Error: No Buildings Found</h4>';
@@ -1952,9 +1951,12 @@ function load(message,timeout) {
     loadTimeout = setTimeout(fail, timeout);
 }
 
-function loaded() {
+function loaded(scroll) {
     clearTimeout(loadTimeout);
     $load.hide().text('');
+    if(scroll != false){
+        scrollToAnchor('wrapper', 0, 0)
+    }
 }
 
 
