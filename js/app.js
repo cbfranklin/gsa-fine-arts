@@ -668,7 +668,6 @@ function loadLocation() {
     });
     $('#results-location').html('').hide()
 
-    loaded(false);
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
     $('#map').css({
@@ -715,6 +714,10 @@ function loadLocation() {
     if(hash[2]){
        var hashState = hash[2].toUpperCase();
        browseByState(hashState)
+       loaded(false);
+    }
+    else{
+        loaded();
     }
 
     $('#location').on('change', '#state', function() {
