@@ -332,9 +332,9 @@ function loadHomePage() {
 
 
 
-        $(window).on('resize',setSplashDimensions);
+        //$(window).on('resize',setSplashDimensions);
 
-        function setSplashDimensions(){
+        /*function setSplashDimensions(){
             var splashHeight = $(window).height() - $('header').height() - $('footer').height() - $('#gsa-footer').height();
             var splashWidth = splashHeight/1.1;
 
@@ -342,7 +342,7 @@ function loadHomePage() {
                 'height':splashHeight+'px',
                 'width':'990px'
             });
-        }
+        }*/
 
         rotate();
 
