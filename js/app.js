@@ -216,6 +216,8 @@ function routes() {
         navHighlight('artists');
     } else if (window.location.hash.indexOf('#/building/') !== -1) {
         loadBuilding();
+    } else if (window.location.hash.indexOf('#/loan/') !== -1) {
+        loadLoan();
     } else if (window.location.hash.indexOf('#/gallery') !== -1) {
         loadGallery();
         navHighlight('galleries');
@@ -251,7 +253,6 @@ function routes() {
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
-    scrollToAnchor('wrapper', 0, 0)
 }
 
 //CLICKS
@@ -658,6 +659,7 @@ function loadSearch() {
 };
 
 function loadLocation() {
+
     $('#location').show();
     //reset
     $('#state').val('');
@@ -666,7 +668,6 @@ function loadLocation() {
     });
     $('#results-location').html('').hide()
 
-    loaded();
     var mapWidth = $('#location').width();
     var mapHeight = mapWidth * 0.75;
     $('#map').css({
@@ -696,11 +697,28 @@ function loadLocation() {
         },
         click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
-            browseByState(data.name);
+            //browseByState(data.name);
+            if(Modernizr.history){
+                history.pushState({}, '', '/location/'+data.name)
+            }
+            else{
+                window.location.hash = '/location/'+data.name;
+            }
             //console.log(data.name)
         },
         includeTerritories: ['PR', 'VI']
     });
+
+    //LOCATION STATE
+    var hash = window.location.hash.split('/');
+    if(hash[2]){
+       var hashState = hash[2].toUpperCase();
+       browseByState(hashState)
+       loaded(false);
+    }
+    else{
+        loaded();
+    }
 
     $('#location').on('change', '#state', function() {
         $("#map > svg > path").each(function() {
@@ -710,7 +728,13 @@ function loadLocation() {
         var state = $(this).val();
         if (state !== '') {
             $('#' + state).css('fill', 'red');
-            browseByState(state);
+            //browseByState(state);
+            if(Modernizr.history){
+                history.pushState({}, '', '/location/'+state)
+            }
+            else{
+                window.location.hash = '/location/'+state;
+            }
         } else {
             $('#results-location').html('').hide()
         }
@@ -1626,6 +1650,116 @@ function loadBuilding() {
     }
 }
 
+//LOAN DETAIL
+function loadLoan() {
+
+    var hash = window.location.hash.split('/');
+
+    var buildingID = hash[2];
+
+    var req = apiRoot + 'id/loans/' + buildingID;
+
+    console.log('JSON request: ' + req)
+
+    if (isNaN(parseInt(buildingID))) {
+        fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
+    } else {
+        $.ajax({
+            url: req,
+            jsonpCallback: randomJSONpCallback()
+        })
+            .success(function(json) {
+                building = json.results;
+                if (json.total_results === 0) {
+                    fail("We're Sorry", 'This Building Could Not Be Found');
+                } else {
+                    var building = json.results;
+                    if(building.primaryImage){
+                        building.primaryImage = formatImagePath(building.primaryImage);
+                    }
+
+                    //RELATED ARTWORK
+                    if (isArray(building.Objects)) {
+                        var works = building.Objects;
+                    } else {
+                        var works = [];
+                        if (building.Objects) {
+                            works.push(building.Objects);
+                        }
+                    }
+                    var worksLength = works.length;
+                    if (worksLength > 1) {
+                        /*works = works.sort(function(a, b) {
+                            b.title = b.title.removeQuotes().toLowerCase()
+                            a.title = a.title.removeQuotes().toLowerCase()
+                            return b.title.localeCompare(a.title);
+                        });*/
+
+                        var worksNoImage = works.filter(hasntImage);
+
+                        works = works.filter(hasImage);
+
+                        works = works.sort(function(a, b) {
+                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                        });
+
+                        worksNoImage = worksNoImage.sort(function(a, b) {
+                            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+                        });
+
+                        works = works.concat(worksNoImage);
+                    }
+                    if (worksLength > 0) {
+                        var hasWorks = true;
+                        for (i in works) {
+                            if (works[i].primaryImage) {
+                                works[i].primaryImage = formatImagePath(works[i].primaryImage);
+                            }
+                        }
+                    }
+                    //PHOTO CREDIT
+                    var photoCredit = null;
+                    if(building.SiteMedia){
+                        if(isArray(building.SiteMedia)){
+                            for(i in building.SiteMedia){
+                                console.log(building.SiteMedia[i].copyright)
+                                if(building.SiteMedia[i].primaryDisplay == 1){
+                                    photoCredit = building.SiteMedia[i].copyright;
+                                }
+                            }
+                        }
+                        else{
+                            if(building.SiteMedia.primaryDisplay == 1){
+                                photoCredit = building.SiteMedia.copyright;
+                            }
+                        }                 
+                    }
+
+                    var template = $('#templates .loan').html();
+                    var html = Mustache.to_html(template, {
+                        building: building,
+                        works: works,
+                        hasWorks: hasWorks,
+                        worksLength: worksLength,
+                        photoCredit: photoCredit
+                    });
+                    $('#building').html(html).show();
+
+                    $('.leftCol nav').stick_in_parent({
+                        parent: $('.row')
+                    });
+                    $('.leftCol nav h2').on('click', function() {
+                        var val = $(this).attr('id').replace('nav-', '');
+                        scrollToAnchor(val);
+                    });
+
+                    loaded();
+                }
+            })
+            .error(function(){fail()});
+    }
+}
+
 
 
 //ROUTE HELPERS
@@ -1820,9 +1954,12 @@ function load(message,timeout) {
     loadTimeout = setTimeout(fail, timeout);
 }
 
-function loaded() {
+function loaded(scroll) {
     clearTimeout(loadTimeout);
     $load.hide().text('');
+    if(scroll != false){
+        scrollToAnchor('wrapper', 0, 0)
+    }
 }
 
 

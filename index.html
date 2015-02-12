@@ -11,6 +11,7 @@
 		<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
 		
 		<!--<script src="js/jquery-1.11.1.min.js"></script>-->
+		<script src="modernizr.custom.js"></script>
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="bootstrap3/js/bootstrap.min.js"></script>
 		<script src="js/assets.js" type="text/javascript"></script>
@@ -906,6 +907,9 @@
 							{{#ObjectSites.building}}
 							<li><strong>Location:</strong> <a href="#/building/{{ObjectSites.siteId}}">{{ObjectSites.building}}</a></li>
 							{{/ObjectSites.building}}
+							{{#Loans.borrower}}
+							<li><strong>Location:</strong> <a href="#/loan/{{Loans.id}}">{{Loans.borrower}}</a></li>
+							{{/Loans.borrower}}
 							{{#isInCollections}}
 							<li class="galleries"><strong>Galleries:</strong> {{#Collections}}<a href="#/gallery/{{id}}">{{collection}}</a>{{/Collections}}</li>
 							{{/isInCollections}}
@@ -974,6 +978,48 @@
 						{{^hasWorks}}<h4>No Artwork Found in this Building</h4>{{/hasWorks}}
 				</div>
 				</div>
+			</script>
+
+			<script class="loan" type="text/template">
+			<div class="row">
+				<div class="leftCol col-md-3">
+					<nav>
+						<h2 id="nav-building-overview">Loan Overview</h2>
+						{{#hasWorks}}<h2 id="nav-artwork-in-this-building">Artwork In This Building</h2>{{/hasWorks}}
+					</nav>
+				</div>
+				<div class="rightCol col-md-9">
+					{{#building}}
+					<div id="building-overview" class="overview">
+						<h1>{{borrower}}</h1>
+						{{#primaryImage}}
+						<img class="featured" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}"  alt="{{buildingName}}" src="http://gsa.gov/fa/images/display/{{primaryImage}}">
+						{{/primaryImage}}
+						{{#address}}<p>{{address}}</p>{{/address}}
+						<p>{{city}}, {{state}} {{zipCode}}</p>
+			        	{{#photoCredit}}<div class="photo-credit"><br><strong>Photo Credit: </strong><span>{{{photoCredit}}}</span></div>{{/photoCredit}}
+					</div>
+					{{/building}}
+					<div id="artwork-in-this-building" class="works">
+					{{#hasWorks}}<h3><span title="Number of results" style="float:left" class="label label-default">{{worksLength}}</span>Artwork in this Building</h3>
+						<ul>
+							{{#works}}
+								<li>
+									<a href="#/artwork/{{id}}"><img alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}{{#buildingName}}, {{buildingName}}{{/buildingName}}" alt="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" {{^primaryImage}}class="noImage" alt="No Image Available" src="img/no-image.jpg"{{/primaryImage}} {{#primaryImage}}src="http://gsa.gov/fa/images/preview/{{primaryImage}}"{{/primaryImage}}></a>
+									<div>
+										<h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
+										<p>{{objectNumber}}</p>
+										<p>{{artist}}</p>
+										<p>{{displayDate}}</p>
+										<p>{{classification}}</p>
+									</div>
+								</li>
+							{{/works}}
+						</ul>
+						{{/hasWorks}}
+						{{^hasWorks}}<h4>No Artwork Found in this Building</h4>{{/hasWorks}}
+				</div>
+			</div>
 			</script>
 			
 			<!-- INDEXES -->
