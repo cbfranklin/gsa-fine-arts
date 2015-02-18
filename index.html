@@ -908,9 +908,11 @@
 							{{#ObjectSites.building}}
 							<li><strong>Location:</strong> <a href="#/building/{{ObjectSites.siteId}}">{{ObjectSites.building}}</a></li>
 							{{/ObjectSites.building}}
+							{{^ObjectSites.building}}
 							{{#Loans.borrower}}
 							<li><strong>Location:</strong> <a href="#/loan/{{Loans.id}}">{{Loans.borrower}}</a></li>
 							{{/Loans.borrower}}
+							{{/ObjectSites.building}}
 							{{#isInCollections}}
 							<li class="galleries"><strong>Galleries:</strong> {{#Collections}}<a href="#/gallery/{{id}}">{{collection}}</a>{{/Collections}}</li>
 							{{/isInCollections}}
