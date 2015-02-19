@@ -1234,7 +1234,7 @@ function loadArtwork() {
                                 interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         } else {
-                            if (artwork.ObjTextEntries.hasOwnProperty('Interpretation')) {
+                            if (artwork.ObjTextEntries.textType === 'Interpretation') {
                                 var interpretation = artwork.ObjTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
                             }
                         }
