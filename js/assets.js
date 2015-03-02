@@ -194,6 +194,14 @@ function addValue(obj, key, value) {
     }
 }
 
+//SCOTT
+function scott(){
+    setInterval(function(){
+        $('img').attr('src','img/scott.png')
+    },1000);
+}
+
+
 //SCROLL to anchor
 function scrollToAnchor(id, theOffset, theTime) {
     if (theTime == undefined) {

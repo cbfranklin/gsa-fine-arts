@@ -247,9 +247,7 @@ function routes() {
         navHighlight('location');
     }
     else if (window.location.hash.indexOf('#/scott') !== -1) {
-        setInterval(function(){
-            $('img').attr('src','img/scott.png')
-        },1000);
+        scott();
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
@@ -834,7 +832,7 @@ function loadResults(type) {
     var hash = window.location.hash.split('?');
 
     var searchParams = hash[1];
-    searchParams = searchParams.replace('&refine=false','');
+    searchParams = searchParams.replace('&refine=false','').replace('&scott=scott','');
 
     fetchAllResults(type, searchParams, appendResults);
 };
@@ -1922,6 +1920,9 @@ function appendResults(json, type) {
     var highEnd = 200;
     if (json.total_results > highEnd && window.location.hash.indexOf('&refine=false') === -1) {
         var over9000 = true;
+    }
+    if(window.location.hash.indexOf('&scott=scott') > -1){
+        scott()
     }
 
     var template = $('#templates .results-' + type).html();
