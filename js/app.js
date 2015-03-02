@@ -833,7 +833,8 @@ function loadResults(type) {
 
     var hash = window.location.hash.split('?');
 
-    var searchParams = hash[1].replace('&refine=false','');
+    var searchParams = hash[1];
+    searchParams = searchParams.replace('&refine=false','');
 
     fetchAllResults(type, searchParams, appendResults);
 };
