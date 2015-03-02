@@ -833,7 +833,7 @@ function loadResults(type) {
 
     var hash = window.location.hash.split('?');
 
-    var searchParams = hash[1];
+    var searchParams = hash[1].replace('&refine=false','');
 
     fetchAllResults(type, searchParams, appendResults);
 };
@@ -1919,7 +1919,7 @@ function appendResults(json, type) {
     }
 
     var highEnd = 200;
-    if (json.total_results > highEnd) {
+    if (json.total_results > highEnd && window.location.hash.indexOf('&refine=false') === -1) {
         var over9000 = true;
     }
 
