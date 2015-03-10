@@ -1924,11 +1924,12 @@ function appendResults(json, type) {
     if(window.location.hash.indexOf('&scott=scott') > -1){
         scott()
     }
+    var totalResults = results.length;
 
     var template = $('#templates .results-' + type).html();
     var html = Mustache.to_html(template, {
         results: results,
-        total: json.total_results,
+        total: totalResults,
         over9000: over9000,
         highEnd: highEnd,
         yourQuery: yourQuery
