@@ -1766,7 +1766,10 @@ function loadLoan() {
 //FETCHES all results for a search query, then routes them
 function fetchAllResults(searchType, searchParams, handler) {
 
-    var req = apiRoot + 'search/' + searchType + '?' + searchParams + '&end=1000';
+    var req = apiRoot + 'search/' + searchType + '?' + searchParams;
+    if(req.indexOf('&end') === -1){
+        req += '&end=1000'
+    }
 
     console.log('JSON request: ' + req)
 
@@ -1918,13 +1921,15 @@ function appendResults(json, type) {
     }
 
     var highEnd = 200;
-    if (json.total_results > highEnd && window.location.hash.indexOf('&refine=false') === -1) {
+
+    var totalResults = results.length;
+
+    if (totalResults > highEnd && window.location.hash.indexOf('&refine=false') === -1) {
         var over9000 = true;
     }
     if(window.location.hash.indexOf('&scott=scott') > -1){
         scott()
     }
-    var totalResults = results.length;
 
     var template = $('#templates .results-' + type).html();
     var html = Mustache.to_html(template, {
