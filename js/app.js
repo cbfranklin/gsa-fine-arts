@@ -178,6 +178,9 @@ function ie() {
 //ROUTING
 function routes() {
     navHighlight();
+    if(typeof ga !== "undefined"){
+        reportGA();
+    }
     //HOME PAGE
     if (window.location.hash === '' ||
         window.location.hash === '#' ||

@@ -113,7 +113,15 @@ Examples:
     $(window).bindWithDelay("resize", { optional: "eventData" }, callback, 1000);
     $(window).bindWithDelay("resize", callback, 1000, true);
 */
-
+function reportGA(){
+    if (window.location.hash === '#' ||
+        window.location.hash === '#/') {
+        ga('send', 'pageview', '/finearts-test/');
+    }
+    else{
+        ga('send', 'pageview', '/finearts-test/'+window.location.hash);
+    }
+}
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
