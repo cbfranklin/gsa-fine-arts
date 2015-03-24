@@ -118,7 +118,9 @@ var apiRoot = 'https://gsafinearts.pbs.gsa.gov/emuseum/api/',
     $header,
     loadTimeout,
     refreshPeriod/*IN DAYS*/=7,
-    today = getDate();
+    today = getDate(),
+    gaDimensions = {},
+    gaCrumb = '/finearts-test/';
 
 $(function() {
     $load = $('#load');

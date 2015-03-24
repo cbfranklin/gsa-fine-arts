@@ -116,10 +116,10 @@ Examples:
 function reportGA(){
     if (window.location.hash === '#' ||
         window.location.hash === '#/') {
-        ga('send', 'pageview', '/finearts-test/');
+        ga('send', 'pageview', gaCrumb);
     }
     else{
-        ga('send', 'pageview', '/finearts-test/'+window.location.hash);
+        ga('send', 'pageview', gaCrumb+window.location.hash);
     }
 }
 function randomString(length, chars) {
