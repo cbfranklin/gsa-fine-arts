@@ -1567,13 +1567,31 @@ function loadBuilding() {
                         }                 
                     }
 
+                    //TEXT TYPE INTERPRETATION
+                    if (building.SiteTextEntries) {
+                        if (isArray(building.SiteTextEntries)) {
+                            var interpretation = building.SiteTextEntries.filter(function(obj) {
+                                return obj.textType == 'Interpretation';
+                            });
+                            if (interpretation.length > 0) {
+                                interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                            }
+                        } else {
+                            if (building.SiteTextEntries.textType === 'Interpretation') {
+                                var interpretation = building.SiteTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                            }
+                        }
+                    }
+
+
                     var template = $('#templates .building').html();
                     var html = Mustache.to_html(template, {
                         building: building,
                         works: works,
                         hasWorks: hasWorks,
                         worksLength: worksLength,
-                        photoCredit: photoCredit
+                        photoCredit: photoCredit,
+                        interpretation: interpretation
                     });
                     $('#building').html(html).show();
 
