@@ -567,7 +567,7 @@ img.noImage.featured{
 	}
 }
 @media (max-width: 768px){
-	#gsa-header,#gsa-footer,#banner{
+	#gsa-header,#gsa-footer,#banner,#header{
 		display:none;
 	}
 	.crumb{
