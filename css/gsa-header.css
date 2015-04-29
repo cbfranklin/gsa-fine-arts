@@ -36,6 +36,9 @@
       list-style: none;
     }
 }
+#header ul {
+	list-style: none;
+}
 #superheader{
   width:100%;
   font: 13px/16px Helvetica,Verdana,Arial,Garuda,sans-serif;
