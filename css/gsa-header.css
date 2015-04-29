@@ -1,222 +1,310 @@
-#superheader { 
-	position: relative;
-	height:140px;
-	*height: 136px;
-	/*width: 990px;*/
-	margin-left: 0px;
+/* skip nav */
+#skip-to-content-destination a.skip-content {
+  color:#060;
+  height:1px;
+  left:-1000px;
+  overflow:hidden;
+  position:absolute;
+  text-align:left;
+  top:-1000px;
+  width:1px;
+  z-index:9000;
 }
-#superheader > a > img{
-	margin-left:0;
+
+#skip-to-content-destination a.skip-content:active,#skip-to-content-destination a.skip-content:focus {
+  background-color:#D9E6DF;
+  height:auto;
+  left:0;
+  overflow:auto;
+  padding:5px;
+  text-align:center;
+  text-decoration:none;
+  top:0;
+  width:100%;
+  z-index:9000;
 }
+
+#header {
+  height:140px;
+  *height:136px;
+  width:990px;
+  margin-left:0;
+    > a > img {
+      margin-bottom: 13px;
+    }
+    li {
+      list-style: none;
+    }
+}
+#superheader{
+  width:100%;
+  font: 13px/16px Helvetica,Verdana,Arial,Garuda,sans-serif;
+}
+
 #GSAsearchHeader {
-	float:right !important;
-	text-align:right;
-	margin-top: -40px;
+  float:right!important;
+  text-align:right;
+  margin-top:15px;
 }
+
+#GSAsearchHeader label {
+  display:none;
+}
+
 #searchButton {
-	position: relative; 
-	top:6px;
-	/* ie7 */
-	*top: 3px;
-	/* !ie7 */
+  position:relative;
+  top:6px;
+  /* ie7 */
+  *top:3px;
+  /* !ie7 */
 }
+
 #searchBox {
-	height:18px;
+  height:18px;
 }
+
 #GSAloginHeader {
-	float: right;
-	margin-top: 7px;
-	position: absolute;
-	top: 0;
-	right: 0;
+  float:right;
+  margin-top:7px;
 }
+
 #GSAloginHeader li {
-	float:left;
-	font-size:11px;
-	padding:0 5px;
-	list-style: none;
+  float:left;
+  font-size:.85em;
+  padding:0 5px;
 }
+
+/***************** Navigation *****************/
+/* Gray - GSA.gov ONLY */
 #gray {
-	background: url("http://gsablogs.gsa.gov/gsablog/wp-content/themes/gsablogofthefuture/assets/img/overlay.png") repeat-x;
-	display:none;
-	z-index: 980;
-	width:100%;
-	height:100%;
-	position:fixed;
-	top: 0;
-	left: 0;
-	}
+  background:url(http://gsa.gov/resources/images/overlay.png) repeat-x;
+  display:none;
+  z-index:980;
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+}
+
 #topnav {
-	width:100%;
-	height: 55px;
-	margin: 10px 0 0 0;
-	*margin: 0;
-	padding: 0;
-	clear:both;
-	background: url(http://gsa.gov/resources/images/header_bg.gif);
-	position: relative;
-	z-index:990;
-	}
+  width:100%;
+  height:55px;
+  margin:10px 0 0;
+  *margin:0;
+  padding:0;
+  clear:both;
+  background:url(http://gsa.gov/resources/images/header_bg.gif);
+  position:relative;
+  z-index:990;
+    ul {
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+}
+
 #topnav ul,#topnav ul li {
-	float:left;
-	margin: 0;
-	}
+  float:left;
+}
+
 #topnav ul li a {
-	display:block;
-    font-family: Geneva, Verdana, sans-serif;
+  display:block;
+  font-family:Geneva,Verdana,sans-serif;
 }
-#topnav .mainlk { 
-	cursor: default;
-	height: 55px;
-	}
+
+#topnav .mainlk {
+  cursor:default;
+  height:55px;
+}
+
 #topnav a.mainlk {
-	text-indent: -9999px;
+  text-indent:-9999px;
 }
+
 #topnav #lkhome .mainlk {
-	width: 90px;
-	}
+  width:90px;
+}
+
 #topnav #gsa_offers a.mainlk {
-	width: 187px;
-	background: url(http://gsa.gov/resources/images/gsa_offers.gif);
-	}
-#topnav #gsa_offers a.mainlk:hover, #topnav #gsa_offers a.mainlk.over {
-	background: url(http://gsa.gov/resources/images/gsa_offers_hover.gif);
-	}
-#topnav #business_gsa .mainlk{
-	width: 255px;
-	background: url(http://gsa.gov/resources/images/business_gsa.gif);
-	}
-#topnav #business_gsa a.mainlk:hover, #topnav #business_gsa a.mainlk.over {
-	background: url(http://gsa.gov/resources/images/business_gsa_hover.gif);
-	}
-#topnav #learn_more .mainlk{
-	width: 177px;
-	background: url(http://gsa.gov/resources/images/learn_more.gif);
-	}
-#topnav #learn_more a.mainlk:hover, #topnav #learn_more a.mainlk.over {
-	background: url(http://gsa.gov/resources/images/learn_more_hover.gif);
-	}
-#topnav #lkstore .mainlk{
-	width: 141px;
-	}
+  width:187px;
+  background:url(http://gsa.gov/resources/images/gsa_offers.gif);
+}
+
+#topnav #gsa_offers a.mainlk:hover,#topnav #gsa_offers a.mainlk.over {
+  background:url(http://gsa.gov/resources/images/gsa_offers_hover.gif);
+}
+
+#topnav #business_gsa .mainlk {
+  width:255px;
+  background:url(http://gsa.gov/resources/images/business_gsa.gif);
+}
+
+#topnav #business_gsa a.mainlk:hover,#topnav #business_gsa a.mainlk.over {
+  background:url(http://gsa.gov/resources/images/business_gsa_hover.gif);
+}
+
+#topnav #learn_more .mainlk {
+  width:177px;
+  background:url(http://gsa.gov/resources/images/learn_more.gif);
+}
+
+#topnav #learn_more a.mainlk:hover,#topnav #learn_more a.mainlk.over {
+  background:url(http://gsa.gov/resources/images/learn_more_hover.gif);
+}
+
 #topnav #blogs .mainlk {
-	width: 177px;
-	background: url(http://gsa.gov/resources/images/blogs.gif);
+  width:177px;
+  background:url(http://gsa.gov/resources/images/blogs.gif);
 }
-#topnav #blogs a.mainlk:hover, #topnav #blogs a.mainlk.over {
-	background: url(http://gsa.gov/resources/images/blogs_hover.gif);
+
+#topnav #blogs a.mainlk:hover,#topnav #blogs a.mainlk.over {
+  background:url(http://gsa.gov/resources/images/blogs_hover.gif);
 }
+
+#topnav #lkstore .mainlk {
+  width:141px;
+}
+
 #topnav li .submenu {
-	position:absolute;
-    width: 750px;
-    background:#FFFFFF;
-	display:none;
-    overflow:hidden;
-    border-top:1px solid #CCCCCC;
-    padding:15px;
-	}
+  position:absolute;
+  width:750px;
+  background:#FFF;
+  display:none;
+  overflow:hidden;
+  border-top:1px solid #CCC;
+  padding:15px;
+}
+
 #topnav #business_gsa .submenu {
-	width: 490px;
-	}
+  width:490px;
+}
+
 #topnav #learn_more .submenu {
-	width: 512px;
-	}
+  width:512px;
+}
+
 #topnav .submenu {
-	margin-left: 0;
-	}
+  margin-left:0;
+}
+
 #topnav li .submenu a {
-	color:#323E95;
-	}
+  color:#323E95;
+}
+
 #topnav li .submenu a:hover {
-	text-decoration: underline;
-	}
+  text-decoration:underline;
+}
+
 #topnav li .submenu ul {
-    padding:0 10px;
-	}
+  padding:0 10px;
+}
+
 #topnav #gsa_offers .submenu ul {
-	width: 230px;
-	}
+  width:230px;
+}
+
 #topnav #business_gsa .submenu ul {
-	width: 225px;
-	}
+  width:225px;
+}
+
 #topnav #learn_more .submenu ul {
-	width: 150px;
-	}
+  width:150px;
+}
+
 #topnav li .submenu ul li {
-	width: 100%;
-	}
+  width:100%;
+}
+
 #topnav li .submenu h2 {
-	margin:0;
-    padding-top: 5px;
-    width:100%;
-	background: url(http://gsa.gov/resources/images/double_line.gif) repeat-x 0 0;
-	font-weight: bold;
-	}
+  margin:0;
+  padding-top:5px;
+  width:100%;
+  background:url(http://gsa.gov/resources/images/double_line.gif) repeat-x 0 0;
+  font-weight:700;
+  font-size: 1em!important;
+}
+
 #topnav li .submenu h2 a {
-	line-height:25px;
-    height:25px;
-	color: #232a63;
-	}
+  line-height:25px;
+  height:25px;
+  color:#232a63;
+}
+
 #topnav li .submenu li a {
-	line-height: 15px;
-	font-size: 11px;
-	margin-bottom: 5px;
-}
-#topnav ul{
-	list-style: none;
+  line-height:15px;
+  font-size:.85em;
+  margin-bottom:5px;
 }
 
-#menu {
-	background: none repeat scroll 0 0 #BBC8E8;
-	font:normal 0.85em helvetica,arial,sans-serif;
-	color: #282E8C;
-    margin: 0px;
-    padding: 0 1.5%;
-	width: 97%;
-    display: block;
-    font-size:11px;
-    height:24px;
-    float:left;
+/* ***************************Breadcrumb Styles *********************************/
+#breadcrumb {
+  color:#282E8C;
+  background:#bbc8e8;
+  font-size:.85em;
+  padding:5px 0 5px 14px;
+  margin:0 0 15px;
 }
-#menu ul {
-	text-transform: none;
-	position: relative;
-	z-index: 300;
-	margin: 0;
-	padding: 0;
 
+#breadcrumb a:link,#breadcrumb a:visited,#breadcrumb a:hover {
+  text-decoration:underline;
 }
-#menu ul li {
-	margin: 0 2px;
-	float: left;
-	position: relative;
-	list-style-type: none;
-	padding: 0;
-}
-#menu ul li a {
-	-moz-text-shadow: none;
-	-webkit-text-shadow: none;
-	-opera-text-shadow: none;
-	text-shadow: none;
-	color: #000099;
-	text-decoration: underline;
-	padding: 2px 0;
-	margin: 0;
-	display: block;
-	border-bottom: none
-}
-#menu ul li.current-page-item a {
-	color: #000099;
-	text-decoration: none;
-}
-#menu ul li.current-page-item, #menu ul li.sep {
-	padding: 2px 0;
-}
-#menu ul li a:hover {
-	background: none;
-	text-decoration: underline;
-	color: #000099;
-}
-#banner a{color:#000099; text-decoration:none;}
 
-#banner a:hover{text-decoration: underline; color:#000099;}
+
+/****************************Footer Styles *********************************/
+#footer {
+  background:url(http://gsa.gov/resources/images/doubleline_hdr.gif) repeat-x 0 0;
+  padding:11px;
+  margin-top:9px;
+  clear:both;
+  text-align:center;
+}
+
+#footer a {
+  color:#666;
+  font-size:.8em;
+}
+
+#footer a:hover {
+  text-decoration:underline;
+}
+
+#footer ul#footer_navigation li {
+  background:none;
+  display:inline;
+  border-right:1px #666 solid;
+  padding:0 10px 2px;
+}
+
+#footer ul#footer_navigation li.last {
+  border-right:none;
+}
+
+#footer img {
+  margin-right:7px;
+}
+
+#footer td {
+  font-size:.8em;
+  color:#666;
+}
+
+#footer span a:link,#footer span a:visited {
+  padding:0 5px;
+}
+
+#footer span.footerLarge a:link,#footer span.footerLarge a:visited {
+  color:#FFF!important;
+  text-decoration:none!important;
+}
+
+#footer_icon {
+  margin-top:12px;
+}
+
+#footer_icon span {
+  position:relative;
+  top:-5px;
+  margin-right:11px;
+  color:#666;
+  font-size:.85em;
+}
