@@ -1326,7 +1326,9 @@ function loadArtwork() {
                         }                 
                     }
                     //add line breaks for HTML
-                    artwork.creditLine = artwork.creditLine.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+                    if(artwork.creditLine){
+                        artwork.creditLine = artwork.creditLine.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+                    }
 
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
