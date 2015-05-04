@@ -642,7 +642,7 @@ img.noImage.featured{
 		display:block;
 		float:left;
 	}
-	.wrapper{
+	#wrapper{
 		padding-left:15px;
 		padding-right:15px;
 	}
