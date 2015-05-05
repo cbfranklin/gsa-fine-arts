@@ -609,8 +609,8 @@ img.noImage.featured{
 	.menu-trigger:before {
 		content:'\2630';
 		position:absolute;
-		left:20px;
-		top:2px;
+		left:10px;
+		top:0px;
 		font-size:26px;
 	}
 	#emuseum-header .menu{
@@ -679,9 +679,16 @@ img.noImage.featured{
 	}
 	h1{
 		font-size:22px;
+		margin-top:10px;
 	}
 	h1 small{
 		font-size:16px;
+	}
+	.starmark-mobile{
+		width:60px;
+	}
+	.mobile-title{
+		min-height:60px;
 	}
 }
 .leftCol{
