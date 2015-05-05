@@ -690,6 +690,9 @@ img.noImage.featured{
 	.mobile-title{
 		min-height:60px;
 	}
+	.works li{
+		width:300px;
+	}
 }
 .leftCol{
 	/*width:25%;
@@ -719,7 +722,7 @@ img.noImage.featured{
 	font-weight:normal;
 }
 #search input[type=text]{
-	width:80%;
+	width:75%;
 }
 #search button{
 	margin-left:20%;
