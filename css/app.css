@@ -579,7 +579,6 @@ img.noImage.featured{
 		display:block;
 		min-height:100px;
 		width:100%;
-		text-align: center;
 		color: rgb(102,167,197);
 		background: rgb(185,221,239);
 	}
@@ -647,6 +646,12 @@ img.noImage.featured{
 		padding-left:15px;
 		padding-right:15px;
 	}
+	.starmark-mobile{
+		float:left;
+		width:90px;
+		height:auto;
+		padding-right:20px;
+	}
 }
 @media (max-width: 480px){
 	#search > div{
@@ -671,6 +676,12 @@ img.noImage.featured{
 	}
 	.splash-details h4{
 		display:none;
+	}
+	h1{
+		font-size:22px;
+	}
+	h1 small{
+		font-size:16px;
 	}
 }
 .leftCol{
