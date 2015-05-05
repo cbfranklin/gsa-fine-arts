@@ -59,7 +59,7 @@
         </div>
         <header id="emuseum-header">
             <div class="mobile-title">
-                <img class="starmark-mobile" src="img/starmark.jpg"/>
+                <img class="starmark-mobile" src="img/starmark.jpg" />
                 <h1>FINE ARTS COLLECTION</h1>
                 <!--<p>AMERICA'S ART FROM THE NATION'S LANDLORD</p>-->
             </div>
@@ -896,7 +896,9 @@
                 <div class="rightCol col-md-9">
                     {{#artwork}}
                     <div class="overview row" id="artwork-overview">
-                        <h1>{{title}}</h1> {{^primaryImage}}
+                        <div class="col-sm-12">
+                            <h1>{{title}}</h1>
+                        </div> {{^primaryImage}}
                         <div class="col-sm-12">{{/primaryImage}} {{#primaryImage}}
                             <div class="col-sm-8">{{/primaryImage}} {{^primaryImage}}
                                 <p><em>No Photo Available at this time</em>
