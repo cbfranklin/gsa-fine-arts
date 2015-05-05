@@ -619,6 +619,7 @@ img.noImage.featured{
 		background:rgb(212,242,252);
 		display:none;
 		box-shadow:0 0 20px rgb(153,193,207) inset;
+		width:100%;
 	}
 	#emuseum-header .menu a{
 		color:#000;
@@ -667,6 +668,9 @@ img.noImage.featured{
 	.splash-text-flex h4{
 		line-height:1em;
 		font-size:18px;
+	}
+	.splash-details h4{
+		display:none;
 	}
 }
 .leftCol{
