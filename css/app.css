@@ -520,11 +520,6 @@ input[type=text]{
 	margin:0;
 	line-height:1.2em;
 }
-#artwork .interpretation{
-	clear:both;
-	padding:10px 0 0 0;
-	overflow:hidden;
-}
 
 img{
 	position:relative;

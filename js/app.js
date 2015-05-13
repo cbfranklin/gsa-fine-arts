@@ -1329,6 +1329,10 @@ function loadArtwork() {
                         artwork.creditLine = artwork.creditLine.replace(/(?:\r\n|\r|\n)/g, '<br/>');
                     }
 
+                    //temp
+                    console.log(artwork)
+                    console.log(artwork.artistId)
+
                     //SOCIAL MEDIA
                     var wlh = encodeURIComponent(window.location.href);
                     var imagePath = 'http://gsa.gov/fa/images/display/' + artwork.primaryImage;
