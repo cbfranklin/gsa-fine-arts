@@ -950,7 +950,7 @@
                                 {{#title}}
                                 <li><strong>Title: </strong>{{title}}</li>{{/title}} {{#objectNumber}}
                                 <li><strong>Object Number:</strong> {{objectNumber}}</li>{{/objectNumber}} {{#artist}}
-                                <li><strong>Artist:</strong> <a href="#/artist/{{artistID}}">{{artist}}</a></li>{{/artist}} {{#displayDate}}
+                                <li><strong>Artist:</strong> <a href="#/artist/{{artistId}}">{{artist}}</a></li>{{/artist}} {{#displayDate}}
                                 <li><strong>Year:</strong> {{displayDate}}</li>{{/displayDate}} {{#classification}}
                                 <li><strong>Classification:</strong> {{classification}}</li>{{/classification}} {{#medium}}
                                 <li><strong>Medium:</strong> {{medium}}</li>{{/medium}} {{#dimensions}}
@@ -967,7 +967,7 @@
                         {{/artwork}} {{#interpretation}}
                         <hr>
                         <!--<strong>Work Insights:</strong>-->
-                        <div class="interpretation">{{{interpretation}}}</div>
+                        <div class="interpretation col-sm-12">{{{interpretation}}}</div>
                         {{/interpretation}} {{#hasRelated}}
                         <div id="also-of-interest" class="works">
                             <h3>Also of Interest</h3>
