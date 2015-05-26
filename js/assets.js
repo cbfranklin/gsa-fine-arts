@@ -210,7 +210,7 @@ function scott(){
 }
 
 
-//SCROLL to anchor
+//SCROLL to anchor & set focus
 function scrollToAnchor(id, theOffset, theTime) {
     if (theTime == undefined) {
         var theTime = 500
@@ -222,6 +222,7 @@ function scrollToAnchor(id, theOffset, theTime) {
     $('html,body').animate({
         scrollTop: theID.offset().top + theOffset
     }, theTime);
+    theID.attr('tabindex',-1).focus();
 }
 //AS JQUERY FUNCTION
 jQuery.fn.extend({
