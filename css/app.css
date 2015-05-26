@@ -151,7 +151,7 @@ section {
     margin: 0 auto;
 }
 
-#home #splash > div {
+#home #splash > a {
     color: white;
     border: 1px solid white;
     position: absolute;
@@ -163,13 +163,13 @@ div.splash-title {
     cursor: default;
 }
 
-#home #splash > div h3,
-#splash > div h4 {
+#home #splash > a h3,
+#splash > a h4 {
     margin: 0 0 5px 0;
     padding: 0;
 }
 
-#home #splash > div h3 {
+#home #splash > a h3 {
     font-weight: normal;
     margin-bottom: 10px;
     border: none;
@@ -177,7 +177,7 @@ div.splash-title {
     font-family: 'open-sans-condensed-bold';
 }
 
-#home #splash > div h4 {
+#home #splash > a h4 {
     line-height: 1.3em;
 }
 
@@ -243,7 +243,7 @@ div.splash-title {
     height: 100%;
 }
 
-#home #splash > div p {
+#home #splash > a p {
     font-size: 12px;
 }
 
@@ -853,13 +853,13 @@ footer .menu ul li a {
         display: none;
     }
     #home #splash,
-    #home #splash > div {
+    #home #splash > a {
         overflow: hidden;
     }
     #home #splash {
         height: auto;
     }
-    #home #splash > div {
+    #home #splash > a {
         width: 100%;
         height: 120px;
         position: relative;

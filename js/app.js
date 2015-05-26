@@ -295,6 +295,12 @@ function bindings() {
         timeout: 120000/*FOR JSONP TESTING*/,
         cache: true
     });
+
+    $('.skip-content').on('click',function(e){
+        $("#main-content").focus();
+        $(this).blur();
+        e.preventDefault();
+    })
 }
 
 //NAV HIGHLIGHTER
@@ -312,7 +318,7 @@ function loadHomePage() {
         animateSplash();
     }
 
-    $('#splash > div').on('click',function(){
+    $('#splash > a').on('click',function(){
         var hash = $(this).attr('href');
         window.location.hash = hash;
         //console.log(hash)
@@ -387,7 +393,7 @@ function loadHomePage() {
             }
         );
 
-        $('#home #splash > div').hover(
+        $('#home #splash > a').hover(
             function() {
                 //BRING UP ITEM DETAILS, HIDE ALL OTHERS
                 $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
@@ -410,10 +416,23 @@ function loadHomePage() {
                 }
                 $(this).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
             }
-        ).click(function(){
-            var hash = $(this).attr('href');
-            window.location.hash = hash;
-        });
+        );
+
+        $('#home #splash > a').focus(function(){
+            //BRING UP ITEM DETAILS, HIDE ALL OTHERS
+                $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
+                $(this).siblings().each(function(i){
+                    var delay = i*25;
+                    var fadeOutVal = 0;
+                    if($(this).hasClass('splash-fade-out-partial')){
+                        var fadeOutVal = partialFadeVal;
+                    }
+                    var fadeTo0 = function(el){
+                        $(el).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
+                    }
+                    setTimeout(fadeTo0,delay,this)
+                });
+        })
 
         function rotate() {
             for (var i = 0; i < order.length; i++) {

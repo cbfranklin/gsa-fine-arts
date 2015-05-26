@@ -92,13 +92,13 @@
                 </div>
                 <div class="clear"><img src="http://gsa.gov/resources/images/transparent.gif" height="1" alt=""></div>
                 <!--<div id="GSAsearchHeader">
-			<form accept-charset="UTF-8" action="http://search.gsa.gov/search" id="search_form" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
-				<input id="affiliate" name="affiliate" type="hidden" value="gsa.gov">
-				<label for="query">Enter Search Term(s):</label>
-				<input autocomplete="off" class="usagov-search-autocomplete ui-autocomplete-input" id="query" name="query" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-				<input name="commit" type="submit" value="Search">
-			</form>
-		</div>-->
+            <form accept-charset="UTF-8" action="http://search.gsa.gov/search" id="search_form" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+                <input id="affiliate" name="affiliate" type="hidden" value="gsa.gov">
+                <label for="query">Enter Search Term(s):</label>
+                <input autocomplete="off" class="usagov-search-autocomplete ui-autocomplete-input" id="query" name="query" type="text" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                <input name="commit" type="submit" value="Search">
+            </form>
+        </div>-->
                 <!-- top navigation -->
                 <div id="topnav">
                     <ul>
@@ -244,235 +244,151 @@
                 <a class="nav-about" href="#/about">About the Collection</a>
             </div>
         </header>
-        <div id="fail"></div>
-        <!-- HOME PAGE -->
-        <section id="home">
-            <div id="splash">
-                <div href="#/gallery/404" class="splash-1 splash-large">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-1.jpg" alt="Alexander Calder, Flamingo, 1974" title="Alexander Calder, Flamingo, 1974" />
-                    </div>
-                    <div class="splash-details splash-light-on-dark">
-                        <h3>Highlights</h3>
-                        <h4>Browse some of the most well known works in the collection</h4>
+        <div id="main-content" tabindex="-1">
+            <div id="fail"></div>
+            <!-- HOME PAGE -->
+            <section id="home">
+                <div id="splash">
+                    <a href="#/gallery/404" class="splash-1 splash-large">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-1.jpg" alt="Alexander Calder, Flamingo, 1974" title="Alexander Calder, Flamingo, 1974" />
+                        </div>
+                        <div class="splash-details splash-light-on-dark">
+                            <h3>Highlights</h3>
+                            <h4>Browse some of the most well known works in the collection</h4>
+                        </div>
+                    </a>
+                    <a href="#/artists" class="splash-2 splash-small splash-mediumlight splash-text splash-fade-out-partial">
+                        <div class="splash-mask"></div>
+                        <div class="splash-details splash-section">
+                            <img src="img/splash/splash-2-artists.png" alt="image with ARTISTS in text" />
+                        </div>
+                    </a>
+                    <a href="#/gallery/425" class="splash-3 splash-small">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-3.jpg" alt="Doris Lee, Country Post, 1938" />
+                        </div>
+                        <div class="splash-details splash-dark-on-light">
+                            <h3>This Just In</h3>
+                            <h4>News about the Fine Arts Collection</h4>
+                        </div>
+                    </a>
+                    <a href="#/galleries" class="splash-4 splash-medium splash-light splash-text splash-fade-out-partial">
+                        <div class="splash-mask"></div>
+                        <div class="splash-details splash-section">
+                            <img src="img/splash/splash-4-galleries.png" alt="image with text - GALLERIES">
+                        </div>
+                    </a>
+                    <a href="#/about" class="splash-5 splash-medium splash-dark splash-title">
+                        <div class="splash-mask">
+                            <!--<img src="img/splash/vertical-fit/splash-5-alt.jpg" alt="Image with text - FINE ARTS COLLECTION, America's Art From the Nation's Landlord"/>-->
+                            <img src="img/splash/splash-5-title.png" alt="Image with text - FINE ARTS COLLECTION, America's Art From the Nation's Landlord" />
+                        </div>
+                        <div class="splash-details splash-light-on-dark splash-text splash-text-flex">
+                            <h4>GSA is responsible for thousands of federally commissioned artworks. <strong>Learn more about the Art in Architecture/Fine Arts Division ></strong></h4>
+                        </div>
+                    </a>
+                    <a href="#/gallery/439" class="splash-6 splash-large">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-6.jpg" alt="Odili Donald Odita, Infinite Horizon, 2013" />
+                        </div>
+                        <div class="splash-details splash-dark-on-light">
+                            <h3>Recent Installations</h3>
+                            <h4>Browse the newest additions to the collection</h4>
+                        </div>
+                    </a>
+                    <a href="#/location" class="splash-7 splash-small splash-mediumlight splash-text  splash-fade-out-partial">
+                        <div class="splash-mask"></div>
+                        <div class="splash-details splash-section">
+                            <img src="img/splash/splash-7-locations.png" alt="image with text - LOCATIONS" />
+                        </div>
+                    </a>
+                    <a href="#/gallery/420" class="splash-8 splash-small">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-8.jpg" alt="Do Ho Suh, Screen at FDA, 2011" />
+                        </div>
+                        <div class="splash-details splash-light-on-dark">
+                            <h3>Out of Sight!</h3>
+                            <h4>Browse works at some of our more secure locations</h4>
+                        </div>
+                    </a>
+                    <a href="#/new-deal-art" class="splash-9 splash-medium">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-9.jpg" alt="Paul Rohland, Dogwood and Azalea, 1938" />
+                        </div>
+                        <div class="splash-details splash-dark-on-light">
+                            <h3>New Deal Art</h3>
+                            <h4>Learn about one of the most extensive public art programs in the history of the United States</h4>
+                        </div>
+                    </a>
+                    <a href="#/search" class="splash-10 splash-small splash-dark splash-text splash-fade-out-partial">
+                        <div class="splash-mask"></div>
+                        <div class="splash-details splash-section">
+                            <img src="img/splash/splash-10-search.png" alt="image with text - SEARCH">
+                        </div>
+                    </a>
+                    <a href="#/gallery/427" class="splash-11 splash-small">
+                        <div class="splash-mask">
+                            <img src="img/splash/splash-11.jpg" alt="Man in mask restoring Calder's Flamingo" />
+                        </div>
+                        <div class="splash-details splash-light-on-dark">
+                            <h3>Conservation</h3>
+                            <h4>Preserving America's artwork for the future</h4>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            <!-- OVERVIEWS -->
+            <section id="artist"></section>
+            <section id="artwork"></section>
+            <section id="building"></section>
+            <section id="gallery"></section>
+            <!-- INDEXES -->
+            <section id="galleries"></section>
+            <section id="artists">
+                <div id="artists-search">
+                    <div class="search">
+                        <h1>Artist Index</h1>
+                        <input id="filter" type="text" placeholder="Enter Artist's Name" />
+                        <!--<div id="selectAlphaWrapper" class="selectWrapper">
+                        <select>
+                            <option selected disabled>By Last Name</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                            <option value="e">E</option>
+                            <option value="f">F</option>
+                            <option value="g">G</option>
+                            <option value="h">H</option>
+                            <option value="i">I</option>
+                            <option value="j">J</option>
+                            <option value="k">K</option>
+                            <option value="l">L</option>
+                            <option value="m">M</option>
+                            <option value="n">N</option>
+                            <option value="o">O</option>
+                            <option value="p">P</option>
+                            <option value="q">Q</option>
+                            <option value="r">R</option>
+                            <option value="s">S</option>
+                            <option value="t">T</option>
+                            <option value="u">U</option>
+                            <option value="v">V</option>
+                            <option value="w">W</option>
+                            <option value="x">X</option>
+                            <option value="y">Y</option>
+                            <option value="z">Z</option>
+                        </select>
+                        </div>-->
                     </div>
                 </div>
-                <div href="#/artists" class="splash-2 splash-small splash-mediumlight splash-text splash-fade-out-partial">
-                    <div class="splash-mask"></div>
-                    <div class="splash-details splash-section">
-                        <img src="img/splash/splash-2-artists.png" alt="image with ARTISTS in text" />
-                    </div>
-                </div>
-                <div href="#/gallery/425" class="splash-3 splash-small">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-3.jpg" alt="Doris Lee, Country Post, 1938" />
-                    </div>
-                    <div class="splash-details splash-dark-on-light">
-                        <h3>This Just In</h3>
-                        <h4>News about the Fine Arts Collection</h4>
-                    </div>
-                </div>
-                <div href="#/galleries" class="splash-4 splash-medium splash-light splash-text splash-fade-out-partial">
-                    <div class="splash-mask"></div>
-                    <div class="splash-details splash-section">
-                        <img src="img/splash/splash-4-galleries.png" alt="image with text - GALLERIES">
-                    </div>
-                </div>
-                <div href="#/about" class="splash-5 splash-medium splash-dark splash-title">
-                    <div class="splash-mask">
-                        <!--<img src="img/splash/vertical-fit/splash-5-alt.jpg" alt="Image with text - FINE ARTS COLLECTION, America's Art From the Nation's Landlord"/>-->
-                        <img src="img/splash/splash-5-title.png" alt="Image with text - FINE ARTS COLLECTION, America's Art From the Nation's Landlord" />
-                    </div>
-                    <div class="splash-details splash-light-on-dark splash-text splash-text-flex">
-                        <h4>GSA is responsible for thousands of federally commissioned artworks. <strong>Learn more about the Art in Architecture/Fine Arts Division ></strong></h4>
-                    </div>
-                </div>
-                <div href="#/gallery/439" class="splash-6 splash-large">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-6.jpg" alt="Odili Donald Odita, Infinite Horizon, 2013" />
-                    </div>
-                    <div class="splash-details splash-dark-on-light">
-                        <h3>Recent Installations</h3>
-                        <h4>Browse the newest additions to the collection</h4>
-                    </div>
-                </div>
-                <div href="#/location" class="splash-7 splash-small splash-mediumlight splash-text  splash-fade-out-partial">
-                    <div class="splash-mask"></div>
-                    <div class="splash-details splash-section">
-                        <img src="img/splash/splash-7-locations.png" alt="image with text - LOCATIONS" />
-                    </div>
-                </div>
-                <div href="#/gallery/420" class="splash-8 splash-small">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-8.jpg" alt="Do Ho Suh, Screen at FDA, 2011" />
-                    </div>
-                    <div class="splash-details splash-light-on-dark">
-                        <h3>Out of Sight!</h3>
-                        <h4>Browse works at some of our more secure locations</h4>
-                    </div>
-                </div>
-                <div href="#/new-deal-art" class="splash-9 splash-medium">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-9.jpg" alt="Paul Rohland, Dogwood and Azalea, 1938" />
-                    </div>
-                    <div class="splash-details splash-dark-on-light">
-                        <h3>New Deal Art</h3>
-                        <h4>Learn about one of the most extensive public art programs in the history of the United States</h4>
-                    </div>
-                </div>
-                <div href="#/search" class="splash-10 splash-small splash-dark splash-text splash-fade-out-partial">
-                    <div class="splash-mask"></div>
-                    <div class="splash-details splash-section">
-                        <img src="img/splash/splash-10-search.png" alt="image with text - SEARCH">
-                    </div>
-                </div>
-                <div href="#/gallery/427" class="splash-11 splash-small">
-                    <div class="splash-mask">
-                        <img src="img/splash/splash-11.jpg" alt="Man in mask restoring Calder's Flamingo" />
-                    </div>
-                    <div class="splash-details splash-light-on-dark">
-                        <h3>Conservation</h3>
-                        <h4>Preserving America's artwork for the future</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- OVERVIEWS -->
-        <section id="artist"></section>
-        <section id="artwork"></section>
-        <section id="building"></section>
-        <section id="gallery"></section>
-        <!-- INDEXES -->
-        <section id="galleries"></section>
-        <section id="artists">
-            <div id="artists-search">
-                <div class="search">
-                    <h1>Artist Index</h1>
-                    <input id="filter" type="text" placeholder="Enter Artist's Name" />
-                    <!--<div id="selectAlphaWrapper" class="selectWrapper">
-						<select>
-							<option selected disabled>By Last Name</option>
-							<option value="a">A</option>
-							<option value="b">B</option>
-							<option value="c">C</option>
-							<option value="d">D</option>
-							<option value="e">E</option>
-							<option value="f">F</option>
-							<option value="g">G</option>
-							<option value="h">H</option>
-							<option value="i">I</option>
-							<option value="j">J</option>
-							<option value="k">K</option>
-							<option value="l">L</option>
-							<option value="m">M</option>
-							<option value="n">N</option>
-							<option value="o">O</option>
-							<option value="p">P</option>
-							<option value="q">Q</option>
-							<option value="r">R</option>
-							<option value="s">S</option>
-							<option value="t">T</option>
-							<option value="u">U</option>
-							<option value="v">V</option>
-							<option value="w">W</option>
-							<option value="x">X</option>
-							<option value="y">Y</option>
-							<option value="z">Z</option>
-						</select>
-						</div>-->
-                </div>
-            </div>
-            <div id="artists-index"></div>
-        </section>
-        <!-- LOCATION -->
-        <section id="location">
-            <h1>Browse by Location</h1>
-            <br>
-            <div class="selectWrapper">
-                <select id="state">
-                    <option value="">Select a State</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="PR">Puerto Rico</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VI">Virgin Islands</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                </select>
-            </div>
-            <div id="map"></div>
-            <div id="results-location">
-            </div>
-        </section>
-        <!-- SEARCH -->
-        <section id="search">
-            <h1>Search the Fine Arts Collection</h1>
-            <div id="search-for-artwork">
-                <h3>Search for Artwork</h3>
-                <label for="keywords-artwork">Search Terms:</label>
-                <input id="keywords-artwork" type="text">
+                <div id="artists-index"></div>
+            </section>
+            <!-- LOCATION -->
+            <section id="location">
+                <h1>Browse by Location</h1>
                 <br>
-                <button type="button" class="btn btn-primary">SEARCH</button>
-            </div>
-            <div id="search-for-artist">
-                <h3>Search for Artist</h3>
-                <label for="keywords-artist">Search Terms:</label>
-                <input id="keywords-artist" type="text">
-                <br>
-                <button type="button" class="btn btn-primary">SEARCH</button>
-            </div>
-            <div id="search-for-buildings">
-                <h3>Search by Location</h3>
-                <label for="">Building Name:</label>
-                <input id="building-name" type="text">
-                <br>
-                <label for="">State:</label>
                 <div class="selectWrapper">
                     <select id="state">
                         <option value="">Select a State</option>
@@ -523,6 +439,7 @@
                         <option value="TX">Texas</option>
                         <option value="UT">Utah</option>
                         <option value="VT">Vermont</option>
+                        <option value="VI">Virgin Islands</option>
                         <option value="VA">Virginia</option>
                         <option value="WA">Washington</option>
                         <option value="WV">West Virginia</option>
@@ -530,232 +447,316 @@
                         <option value="WY">Wyoming</option>
                     </select>
                 </div>
-                <br>
-                <label for="">City:</label>
-                <div class="selectWrapper disabled">
-                    <select id="city" disabled>
-                        <option value="">Select a State First</option>
-                    </select>
+                <div id="map"></div>
+                <div id="results-location">
                 </div>
-                <br>
-                <button type="button" class="btn btn-primary">SEARCH</button>
-            </div>
-        </section>
-        <!-- ABOUT -->
-        <section id="about">
-            <h1>About the Collection</h1>
-            <div style="width: 145px; float: left; margin-top: 5px; margin-right: 15px; margin-bottom: 0px;">
-                <a href="#/artwork/23673"><img src="img/about/Ahearn_Torres_ AA307_08_CH2007.png" /></a>
-                <p style="font-size: .9em; text-align: left;"><strong><em>Homage to Medicare and Medicaid</em><br />
-				Ahearn &amp; Torres<br />
-				1997</strong></p>
-            </div>
-            <div style="width: 100%;">
-                <div style="width: 180px; float: right; margin-left: 20px; margin-top: 0px;">
-                    <h3><strong>Email Us</strong></h3>
-                    <p>We welcome your feedback, questions and interest in our Collection. Email us at: <a href=mailto: fineartscollection@gsa.gov>fineartscollection@gsa.gov</a></p>
+            </section>
+            <!-- SEARCH -->
+            <section id="search">
+                <h1>Search the Fine Arts Collection</h1>
+                <div id="search-for-artwork">
+                    <h3>Search for Artwork</h3>
+                    <label for="keywords-artwork">Search Terms:</label>
+                    <input id="keywords-artwork" type="text">
+                    <br>
+                    <button type="button" class="btn btn-primary">SEARCH</button>
                 </div>
-                <p>The Fine Arts Collection is one of the nation's oldest and largest public art collections. It consists of mural and easel paintings, sculptures, architectural and environmental artworks, as well as prints and other works on paper dating from the 1850s to the present. These civic artworks are displayed in federal buildings and courthouses nationwide. In addition, more than 23,000 easel paintings, prints, and small-scale sculptures created during the New Deal are on long-term loan to museums and other non-profit institutions across the United States. Maintained by GSA as a part of America's national and cultural heritage, the Fine Arts Collection also serves as a reminder of the important tradition of individual creative expression.</p>
-            </div>
-            <p>From its inception to the present, the Fine Arts Collection has two distinct characteristics: the artworks are commissioned to adorn and enhance civic architecture and they are paid for with taxpayers' funds. Therefore, these artworks belong to the American people, and are held in public trust for current and future generations.</p>
-            <div style="float: right; margin-left: 15px; margin-bottom: 15px; margin-top: -10px;">
-                <a href="#/artwork/12188"><img src="img/about/FA16900_ Unknown.png" /></a>
-                <p style="font-size: .9em; text-align: left;"><strong><em>Beside the Lake</em><br />
-				Unknown<br />
-				1935-1942</strong></p>
-            </div>
-            <p>The Fine Arts Collection traces its origins to the mid-nineteenth century, during a time (from 1852 until 1939) when the Department of the Treasury's Office of the Supervising Architect administered the construction of federal buildings. The earliest works in the collection date to the 1850s, when Auguste de Frasse was commissioned to create bas reliefs for the Marble Hall of the new U.S. Custom House in New Orleans, Louisiana. Following the devastation of the American Civil War, the country embarked on a period of tremendous growth and increased wealth in the 1880s. The artists and architects who designed the next generation of public buildings had been inspired by the Beaux-Arts monuments they had seen while studying abroad. The numerous custom houses, courthouses, post offices, and federal buildings constructed at the turn of the twentieth century include paintings, sculptures, and architectural ornamentation that reflect those artists' renewed interest in classicism and their use of symbolic and allegorical figures to represent the activities of the government.</p>
-            <div style="float: left; margin-right: 15px; margin-bottom: 15px; margin-top: 10px;">
-                <a href="#/artwork/11246"><img src="img/about/FA14039_Grambs.png" /></a>
-                <p style="font-size: .9em; text-align: left;"><strong><em>Girl with Blue Hair</em><br />
-				Blanche Mary Grambs<br />
-				1939</strong></p>
-            </div>
-            <p>During the New Deal era of the 1930s, the growth of the federal government led once again to an extensive building campaign. To adorn these buildings, provide employment, and make art available to communities large and small, the government administered four separate public art programs: the Public Works of Art Project (PWAP), the Federal Art Project (FAP), the Treasury Relief Art Project (TRAP), and the Section of Fine Arts. From 1934 to 1943, these programs proved unprecedented in both their size and scope. By their close, the projects had generated hundreds of thousands of civic artworks.</p>
-            <p>GSA assumed responsibility for the design and construction of federal buildings when it was established in 1949. Through the 1950s, the commissioning of artwork for new federal buildings was overseen by GSA's Public Buildings Service (PBS), in cooperation with the U.S. Commission of Fine Arts in Washington, D.C. The PBS consulted with the Commission on the recommendation of painters and sculptors for the "decoration" of federal buildings.</p>
-            <div style="float: right; margin-left: 15px; margin-bottom: 15px; margin-top: -15px;">
-                <a href="#/artwork/23976"><img src="img/about/Non_Sign23.png" /></a>
-                <p style="font-size: .9em; text-align: left;"><strong><em>Non-Sign II</em><br />
-				Lead Pencil Studio<br />
-				2010</strong></p>
-            </div>
-            <p>GSA's Art in Architecture Program, which continues today, was first established in 1963, based on the recommendation of President John F. Kennedy's Ad Hoc Committee on Federal Office Space. The committee's report contained the Guiding Principles for Federal Architecture, which state that "where appropriate, fine art should be incorporated into the designs of federal buildings with emphasis on the work of living American artists."</p>
-            <p>To accomplish this, GSA reserves at least one-half of one percent of the estimated construction cost of each new federal building or major renovation project to commission art. These newly commissioned artworks, created by both established and emerging American artists, are diverse in style and media. They include paintings and sculptures, as well as landscape- and electronic-based artworks, textiles, ceramics, stained glass, and photography.</p>
-            <p>Together, these thousands of historical and contemporary artworks that are displayed and maintained as part of the Fine Arts Collection chronicle the rich and complex history of the United States, enhance the experiences of citizens interacting with their government, and constitute an enduring and irreplaceable cultural legacy for the nation.</p>
-            <p style="margin-top: 20px; margin-left: 25px;"><strong>Photo Credits:</strong><span style="font-size: .8em;"><br />
-				<em>Homage to Medicare and Medicaid </em> - copyright Carol M. Highsmith Photography;<br />
-				<em>Beside the Lake</em> - copyright University of Michigan Museum of Art;<br />
-				<em>Girl with Blue Hair</em> - copyright University of Michigan Museum of Art;<br />
-				<em>Non-Sign II</em> - copyright Lead Pencil Studio.<br />
-				</p>
-			</section>
-			<section id="new-deal-art">
-				<!-- this is some markup from another gallery for use as a template -->
-				<div class="row">
-				<div class="leftCol col-md-3">
-					<nav class="">
-						<h2 id="nav-gallery-overview">Gallery Overview</h2>
-						<h2 id="nav-in-this-gallery">In This Gallery</h2>
-					</nav>
-				</div>
-				<div class="rightCol col-md-9">
-						<div id="gallery-overview" class="overview">
-							<h1>New Deal Art</h1>
-							<p><img src="img/new_deal_gallery/Haines_R_FA428_01.jpg" /></p>
-							<p>New Deal art was produced under four separate federal programs that operated from 1933 to 1943. The artists who worked for these programs created thousands of paintings, sculptures, and works on paper.</p>
-							<p>The four programs were:</p>
-								<ul>
-									<li><strong>Public Works of Art Project (PWAP)</strong>, 1933-1934. The PWAP was a work-relief program.  Artists were on government payrolls and received weekly salaries.</li>
-									<li><strong>The Section of Fine Arts (The Section)</strong>, 1934-1943.  Originally called the Section of Painting and Sculpture, the Section of Fine Arts awarded commissions to artists through competitions. This program's primary objective was to obtain the highest quality artwork for installation into public buildings.</li>
-									<li><strong>Treasury Relief Art Project (TRAP)</strong>, 1935-1938.  TRAP employed artists to create paintings and sculptures for existing federal buildings.</li>
-									<li><strong>Works Progress Administration, Federal Art Project (WPA/FAP)</strong>, 1935-1943. The Federal Art Project, later named the Work Projects Administration Art Program, was the largest of the New Deal art programs in both its scope and the number of artists employed.</li>
-								</ul>
-							<p>The artists working for these New Deal programs employed a range of visual styles, although most of the artworks they produced would fit into the American Scene or Social Realist schools.  The WPA/FAP also cultivated stylistically experimental works that greatly influenced the subsequent development of art in America.  The subjects selected for New Deal artworks were often place-based, frequently depicted historical events, or else represented some aspect of modern life. For example, an artwork might picture Revolutionary War hero Ethan Allen forging cannon balls, while another would celebrate the recent construction of an electric power plant in rural Montana.  Despite many of the artists' interest in contemporary society, they tended to avoid pointed depictions of the hardships and grittiness of the Depression.</p>
-							<p>In 1934, the federal government began loaning or allocating the available artworks created under the New Deal art programs to public agencies and nonprofit institutions throughout the nation. Stewardship of these artworks became the responsibility of the General Services Administration when it was established in 1949. Today, GSA remains the federal agency responsible for inventorying these loaned artworks. This is an ongoing project, which now encompasses more than 23,000 artworks.</p>
-						</div>
+                <div id="search-for-artist">
+                    <h3>Search for Artist</h3>
+                    <label for="keywords-artist">Search Terms:</label>
+                    <input id="keywords-artist" type="text">
+                    <br>
+                    <button type="button" class="btn btn-primary">SEARCH</button>
+                </div>
+                <div id="search-for-buildings">
+                    <h3>Search by Location</h3>
+                    <label for="">Building Name:</label>
+                    <input id="building-name" type="text">
+                    <br>
+                    <label for="">State:</label>
+                    <div class="selectWrapper">
+                        <select id="state">
+                            <option value="">Select a State</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+                    <br>
+                    <label for="">City:</label>
+                    <div class="selectWrapper disabled">
+                        <select id="city" disabled>
+                            <option value="">Select a State First</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary">SEARCH</button>
+                </div>
+            </section>
+            <!-- ABOUT -->
+            <section id="about">
+                <h1>About the Collection</h1>
+                <div style="width: 145px; float: left; margin-top: 5px; margin-right: 15px; margin-bottom: 0px;">
+                    <a href="#/artwork/23673"><img src="img/about/Ahearn_Torres_ AA307_08_CH2007.png" /></a>
+                    <p style="font-size: .9em; text-align: left;"><strong><em>Homage to Medicare and Medicaid</em><br />
+                Ahearn &amp; Torres<br />
+                1997</strong></p>
+                </div>
+                <div style="width: 100%;">
+                    <div style="width: 180px; float: right; margin-left: 20px; margin-top: 0px;">
+                        <h3><strong>Email Us</strong></h3>
+                        <p>We welcome your feedback, questions and interest in our Collection. Email us at: <a href=mailto: fineartscollection@gsa.gov>fineartscollection@gsa.gov</a></p>
+                    </div>
+                    <p>The Fine Arts Collection is one of the nation's oldest and largest public art collections. It consists of mural and easel paintings, sculptures, architectural and environmental artworks, as well as prints and other works on paper dating from the 1850s to the present. These civic artworks are displayed in federal buildings and courthouses nationwide. In addition, more than 23,000 easel paintings, prints, and small-scale sculptures created during the New Deal are on long-term loan to museums and other non-profit institutions across the United States. Maintained by GSA as a part of America's national and cultural heritage, the Fine Arts Collection also serves as a reminder of the important tradition of individual creative expression.</p>
+                </div>
+                <p>From its inception to the present, the Fine Arts Collection has two distinct characteristics: the artworks are commissioned to adorn and enhance civic architecture and they are paid for with taxpayers' funds. Therefore, these artworks belong to the American people, and are held in public trust for current and future generations.</p>
+                <div style="float: right; margin-left: 15px; margin-bottom: 15px; margin-top: -10px;">
+                    <a href="#/artwork/12188"><img src="img/about/FA16900_ Unknown.png" /></a>
+                    <p style="font-size: .9em; text-align: left;"><strong><em>Beside the Lake</em><br />
+                Unknown<br />
+                1935-1942</strong></p>
+                </div>
+                <p>The Fine Arts Collection traces its origins to the mid-nineteenth century, during a time (from 1852 until 1939) when the Department of the Treasury's Office of the Supervising Architect administered the construction of federal buildings. The earliest works in the collection date to the 1850s, when Auguste de Frasse was commissioned to create bas reliefs for the Marble Hall of the new U.S. Custom House in New Orleans, Louisiana. Following the devastation of the American Civil War, the country embarked on a period of tremendous growth and increased wealth in the 1880s. The artists and architects who designed the next generation of public buildings had been inspired by the Beaux-Arts monuments they had seen while studying abroad. The numerous custom houses, courthouses, post offices, and federal buildings constructed at the turn of the twentieth century include paintings, sculptures, and architectural ornamentation that reflect those artists' renewed interest in classicism and their use of symbolic and allegorical figures to represent the activities of the government.</p>
+                <div style="float: left; margin-right: 15px; margin-bottom: 15px; margin-top: 10px;">
+                    <a href="#/artwork/11246"><img src="img/about/FA14039_Grambs.png" /></a>
+                    <p style="font-size: .9em; text-align: left;"><strong><em>Girl with Blue Hair</em><br />
+                Blanche Mary Grambs<br />
+                1939</strong></p>
+                </div>
+                <p>During the New Deal era of the 1930s, the growth of the federal government led once again to an extensive building campaign. To adorn these buildings, provide employment, and make art available to communities large and small, the government administered four separate public art programs: the Public Works of Art Project (PWAP), the Federal Art Project (FAP), the Treasury Relief Art Project (TRAP), and the Section of Fine Arts. From 1934 to 1943, these programs proved unprecedented in both their size and scope. By their close, the projects had generated hundreds of thousands of civic artworks.</p>
+                <p>GSA assumed responsibility for the design and construction of federal buildings when it was established in 1949. Through the 1950s, the commissioning of artwork for new federal buildings was overseen by GSA's Public Buildings Service (PBS), in cooperation with the U.S. Commission of Fine Arts in Washington, D.C. The PBS consulted with the Commission on the recommendation of painters and sculptors for the "decoration" of federal buildings.</p>
+                <div style="float: right; margin-left: 15px; margin-bottom: 15px; margin-top: -15px;">
+                    <a href="#/artwork/23976"><img src="img/about/Non_Sign23.png" /></a>
+                    <p style="font-size: .9em; text-align: left;"><strong><em>Non-Sign II</em><br />
+                Lead Pencil Studio<br />
+                2010</strong></p>
+                </div>
+                <p>GSA's Art in Architecture Program, which continues today, was first established in 1963, based on the recommendation of President John F. Kennedy's Ad Hoc Committee on Federal Office Space. The committee's report contained the Guiding Principles for Federal Architecture, which state that "where appropriate, fine art should be incorporated into the designs of federal buildings with emphasis on the work of living American artists."</p>
+                <p>To accomplish this, GSA reserves at least one-half of one percent of the estimated construction cost of each new federal building or major renovation project to commission art. These newly commissioned artworks, created by both established and emerging American artists, are diverse in style and media. They include paintings and sculptures, as well as landscape- and electronic-based artworks, textiles, ceramics, stained glass, and photography.</p>
+                <p>Together, these thousands of historical and contemporary artworks that are displayed and maintained as part of the Fine Arts Collection chronicle the rich and complex history of the United States, enhance the experiences of citizens interacting with their government, and constitute an enduring and irreplaceable cultural legacy for the nation.</p>
+                <p style="margin-top: 20px; margin-left: 25px;"><strong>Photo Credits:</strong><span style="font-size: .8em;"><br />
+                <em>Homage to Medicare and Medicaid </em> - copyright Carol M. Highsmith Photography;<br />
+                <em>Beside the Lake</em> - copyright University of Michigan Museum of Art;<br />
+                <em>Girl with Blue Hair</em> - copyright University of Michigan Museum of Art;<br />
+                <em>Non-Sign II</em> - copyright Lead Pencil Studio.<br />
+                </p>
+            </section>
+            <section id="new-deal-art">
+                <!-- this is some markup from another gallery for use as a template -->
+                <div class="row">
+                <div class="leftCol col-md-3">
+                    <nav class="">
+                        <h2 id="nav-gallery-overview">Gallery Overview</h2>
+                        <h2 id="nav-in-this-gallery">In This Gallery</h2>
+                    </nav>
+                </div>
+                <div class="rightCol col-md-9">
+                        <div id="gallery-overview" class="overview">
+                            <h1>New Deal Art</h1>
+                            <p><img src="img/new_deal_gallery/Haines_R_FA428_01.jpg" /></p>
+                            <p>New Deal art was produced under four separate federal programs that operated from 1933 to 1943. The artists who worked for these programs created thousands of paintings, sculptures, and works on paper.</p>
+                            <p>The four programs were:</p>
+                                <ul>
+                                    <li><strong>Public Works of Art Project (PWAP)</strong>, 1933-1934. The PWAP was a work-relief program.  Artists were on government payrolls and received weekly salaries.</li>
+                                    <li><strong>The Section of Fine Arts (The Section)</strong>, 1934-1943.  Originally called the Section of Painting and Sculpture, the Section of Fine Arts awarded commissions to artists through competitions. This program's primary objective was to obtain the highest quality artwork for installation into public buildings.</li>
+                                    <li><strong>Treasury Relief Art Project (TRAP)</strong>, 1935-1938.  TRAP employed artists to create paintings and sculptures for existing federal buildings.</li>
+                                    <li><strong>Works Progress Administration, Federal Art Project (WPA/FAP)</strong>, 1935-1943. The Federal Art Project, later named the Work Projects Administration Art Program, was the largest of the New Deal art programs in both its scope and the number of artists employed.</li>
+                                </ul>
+                            <p>The artists working for these New Deal programs employed a range of visual styles, although most of the artworks they produced would fit into the American Scene or Social Realist schools.  The WPA/FAP also cultivated stylistically experimental works that greatly influenced the subsequent development of art in America.  The subjects selected for New Deal artworks were often place-based, frequently depicted historical events, or else represented some aspect of modern life. For example, an artwork might picture Revolutionary War hero Ethan Allen forging cannon balls, while another would celebrate the recent construction of an electric power plant in rural Montana.  Despite many of the artists' interest in contemporary society, they tended to avoid pointed depictions of the hardships and grittiness of the Depression.</p>
+                            <p>In 1934, the federal government began loaning or allocating the available artworks created under the New Deal art programs to public agencies and nonprofit institutions throughout the nation. Stewardship of these artworks became the responsibility of the General Services Administration when it was established in 1949. Today, GSA remains the federal agency responsible for inventorying these loaned artworks. This is an ongoing project, which now encompasses more than 23,000 artworks.</p>
+                        </div>
 
-						<div id="in-this-gallery" class="works">
-							<h3>Works In This Gallery<span style="float:left" title="Number of results" class="label label-default">9</span></h3>
-                <h5>PAINTINGS - MURALS</h5>
-                <ul>
+                        <div id="in-this-gallery" class="works">
+                            <h3>Works In This Gallery<span style="float:left" title="Number of results" class="label label-default">9</span></h3>
+                    <h5>PAINTINGS - MURALS</h5>
+                    <ul>
+                        <li>
+                            <a href="#/artwork/561"><img alt="The Two Rivers, Peter Blume, Painting" src="http://gsa.gov/fa/images/preview/Blume,P.FA382.02.CH2009.png"></a>
+                            <h4><a href="#/artwork/561">The Two Rivers</a></h4>
+                            <p><strong><a href="#/artist/1022">Peter Blume</a></strong></p>
+                            <p>FA328</p>
+                            <p>Painting, Mural</p>
+                            <p>1943</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/362"><img alt="Pittsburgh Panorama, Stuyvesant Van Veen, Painting" src="http://gsa.gov/fa/images/preview/VANVEEN_FA474.CH2007.png"></a>
+                            <h4><a href="#/artwork/362">Pittsburgh Panorama</a></h4>
+                            <p><strong><a href="#/artist/2597">Stuyvesant Van Veen</a></strong></p>
+                            <p>FA474</p>
+                            <p>Painting, Mural</p>
+                            <p>1937</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/542"><img alt="An Incident in Contemporary American Life, Mitchell Jamieson, Painting" src="http://gsa.gov/fa/images/preview/Mitchell_FA526_CHS.png"></a>
+                            <h4><a href="#/artwork/542">An Incident in Contemporary American Life</a></h4>
+                            <p><strong><a href="#/artist/76">Mitchell Jamieson</a></strong></p>
+                            <p>FA526</p>
+                            <p>Painting, Mural</p>
+                            <p>1943</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/986"><img alt="General Store and Post Office, Doris Lee, Painting" src="http://gsa.gov/fa/images/preview/Lee,D.FA574-A.CH2011.png"></a>
+                            <h4><a href="#/artwork/986">General Store and Post Office </a></h4>
+                            <p><strong><a href="#/artist/1770">Doris Lee</a></strong></p>
+                            <p>FA574-A</p>
+                            <p>Painting, Mural</p>
+                            <p>1938</p>
+                        </li>
+                    </ul>
+                    <h5>PAINTINGS</h5>
                     <li>
-                        <a href="#/artwork/561"><img alt="The Two Rivers, Peter Blume, Painting" src="http://gsa.gov/fa/images/preview/Blume,P.FA382.02.CH2009.png"></a>
-                        <h4><a href="#/artwork/561">The Two Rivers</a></h4>
-                        <p><strong><a href="#/artist/1022">Peter Blume</a></strong></p>
-                        <p>FA328</p>
-                        <p>Painting, Mural</p>
-                        <p>1943</p>
+                        <a href="#/artwork/23972"><img alt="Four Phases of Labor, Virginia Pitman, Painting" src="http://gsa.gov/fa/images/preview/FA22340, Pitman-after conservation (jhr).png"></a>
+                        <h4><a href="#/artwork/23972">Four Phases of Labor</a></h4>
+                        <p><strong><a href="#/artist/2962">Virginia Pitman</a></strong></p>
+                        <p>FA22340</p>
+                        <p>Painting</p>
+                        <p>1935- 1942</p>
                     </li>
                     <li>
-                        <a href="#/artwork/362"><img alt="Pittsburgh Panorama, Stuyvesant Van Veen, Painting" src="http://gsa.gov/fa/images/preview/VANVEEN_FA474.CH2007.png"></a>
-                        <h4><a href="#/artwork/362">Pittsburgh Panorama</a></h4>
-                        <p><strong><a href="#/artist/2597">Stuyvesant Van Veen</a></strong></p>
-                        <p>FA474</p>
-                        <p>Painting, Mural</p>
+                        <a href="#/artwork/22238"><img alt="The Circus, Otto Banz Botto, Painting" src="http://gsa.gov/fa/images/preview/FA23198, Botto (CH).png"></a>
+                        <h4><a href="#/artwork/22238">The Circus</a></h4>
+                        <p><strong><a href="#/artist/3256">Otto Banz Botto</a></strong></p>
+                        <p>FA23198</p>
+                        <p>Painting</p>
+                        <p>1935</p>
+                    </li>
+                    <li>
+                        <a href="#/artwork/24014"><img alt="The Accident, Adrian Troy, Painting" src="http://gsa.gov/fa/images/preview/Troy_FA23791_1.png"></a>
+                        <h4><a href="#/artwork/24014">The Accident</a></h4>
+                        <p><strong><a href="#/artist/2506">Adrian Troy</a></strong></p>
+                        <p>FA23791</p>
+                        <p>Painting</p>
+                        <p>1936</p>
+                    </li>
+                    <li>
+                        <a href="#/artwork/24714"><img alt="Harbor Scene at Night, Charles Reiffel, Painting" src="http://gsa.gov/fa/images/preview/FA24899, Reiffel.png"></a>
+                        <h4><a href="#/artwork/24714">Harbor Scene at Night</a></h4>
+                        <p><strong><a href="#/artist/2248">Charles Reiffel</a></strong></p>
+                        <p>FA24899</p>
+                        <p>Painting</p>
                         <p>1937</p>
                     </li>
-                    <li>
-                        <a href="#/artwork/542"><img alt="An Incident in Contemporary American Life, Mitchell Jamieson, Painting" src="http://gsa.gov/fa/images/preview/Mitchell_FA526_CHS.png"></a>
-                        <h4><a href="#/artwork/542">An Incident in Contemporary American Life</a></h4>
-                        <p><strong><a href="#/artist/76">Mitchell Jamieson</a></strong></p>
-                        <p>FA526</p>
-                        <p>Painting, Mural</p>
-                        <p>1943</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/986"><img alt="General Store and Post Office, Doris Lee, Painting" src="http://gsa.gov/fa/images/preview/Lee,D.FA574-A.CH2011.png"></a>
-                        <h4><a href="#/artwork/986">General Store and Post Office </a></h4>
-                        <p><strong><a href="#/artist/1770">Doris Lee</a></strong></p>
-                        <p>FA574-A</p>
-                        <p>Painting, Mural</p>
-                        <p>1938</p>
-                    </li>
-                </ul>
-                <h5>PAINTINGS</h5>
-                <li>
-                    <a href="#/artwork/23972"><img alt="Four Phases of Labor, Virginia Pitman, Painting" src="http://gsa.gov/fa/images/preview/FA22340, Pitman-after conservation (jhr).png"></a>
-                    <h4><a href="#/artwork/23972">Four Phases of Labor</a></h4>
-                    <p><strong><a href="#/artist/2962">Virginia Pitman</a></strong></p>
-                    <p>FA22340</p>
-                    <p>Painting</p>
-                    <p>1935- 1942</p>
-                </li>
-                <li>
-                    <a href="#/artwork/22238"><img alt="The Circus, Otto Banz Botto, Painting" src="http://gsa.gov/fa/images/preview/FA23198, Botto (CH).png"></a>
-                    <h4><a href="#/artwork/22238">The Circus</a></h4>
-                    <p><strong><a href="#/artist/3256">Otto Banz Botto</a></strong></p>
-                    <p>FA23198</p>
-                    <p>Painting</p>
-                    <p>1935</p>
-                </li>
-                <li>
-                    <a href="#/artwork/24014"><img alt="The Accident, Adrian Troy, Painting" src="http://gsa.gov/fa/images/preview/Troy_FA23791_1.png"></a>
-                    <h4><a href="#/artwork/24014">The Accident</a></h4>
-                    <p><strong><a href="#/artist/2506">Adrian Troy</a></strong></p>
-                    <p>FA23791</p>
-                    <p>Painting</p>
-                    <p>1936</p>
-                </li>
-                <li>
-                    <a href="#/artwork/24714"><img alt="Harbor Scene at Night, Charles Reiffel, Painting" src="http://gsa.gov/fa/images/preview/FA24899, Reiffel.png"></a>
-                    <h4><a href="#/artwork/24714">Harbor Scene at Night</a></h4>
-                    <p><strong><a href="#/artist/2248">Charles Reiffel</a></strong></p>
-                    <p>FA24899</p>
-                    <p>Painting</p>
-                    <p>1937</p>
-                </li>
-                </ul>
-                <h5>PRINTS</h5>
-                <ul>
-                    <li>
-                        <a href="#/artwork/10831"><img alt="Girl Sewing, Bernard P. Schardt, Print" src="http://gsa.gov/fa/images/preview/FA14110, Schardt.png"></a>
-                        <h4><a href="#/artwork/10831">Girl Sewing</a></h4>
-                        <p><strong><a href="#/artist/2325">Bernard P. Schardt</a></strong></p>
-                        <p>FA14031</p>
-                        <p>Print</p>
-                        <p>1935- 1942</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/11241"><img alt=" Roof Scene, Isami Doi, Print" src="http://gsa.gov/fa/images/preview/FA14031, Doi.png"></a>
-                        <h4><a href="#/artwork/11241">Roof Scene</a></h4>
-                        <p><strong><a href="#/artist/1210">Isami Doi</a></strong></p>
-                        <p>FA14031</p>
-                        <p>1935-1942</p>
-                        <p>Print</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/11468"><img alt="Sonora Way, Charles Frederick Surendorf, Print" src="http://gsa.gov/fa/images/preview/FA14127, Surendorf.png"></a>
-                        <h4><a href="#/artwork/11468">Sonora Way</a></h4>
-                        <p><strong><a href="#/artist/2336">Charles Frederick Surendorf</a></strong></p>
-                        <p>FA14127</p>
-                        <p>Print</p>
-                        <p>1939</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/12601"><img alt="Worker with Mallet, Moses Oley, Print" src="http://gsa.gov/fa/images/preview/FA14086, Oley.png"></a>
-                        <h4><a href="#/artwork/12601">Worker with Mallet</a></h4>
-                        <p><strong><a href="#/artist/2156">Moses Oley</a></strong></p>
-                        <p>FA14086</p>
-                        <p>Print</p>
-                        <p>1938</p>
-                    </li>
-                </ul>
-                <h5>SCULPTURE</h5>
-                <ul>
-                    <li>
-                        <a href="#/artwork/716"><img alt="Michael Lantz, Man Controlling Trade, Sculpture" src="http://gsa.gov/fa/images/preview/Lantz_FA554-A_McKay-LodgeAfterTreatment.png"></a>
-                        <h4><a href="#/artwork/716">Man Controlling Trade</a></h4>
-                        <p><strong><a href="#/artist/1820">Michael Lantz</a></strong></p>
-                        <p>FA554-A</p>
-                        <p>Sculpture</p>
-                        <p>1942</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/1070"><img alt="Young American Man, Henry Kreis, Sculpture" src="http://gsa.gov/fa/images/preview/KREIS_FA894-A.01.CH2007.png"></a>
-                        <h4><a href="#/artwork/1070">Young American Man</a></h4>
-                        <p><strong><a href="#/artist/1702">Henry Kreis</a></strong></p>
-                        <p>FA894-A</p>
-                        <p>Sculpture</p>
-                        <p>1939</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/1793"><img alt="Justice, Donald DeLue, Sculpture" src="http://gsa.gov/fa/images/preview/DeLue_FA1717-C.01.CH2007.png"></a>
-                        <h4><a href="#/artwork/1793">Justice</a></h4>
-                        <p><strong><a href="#/artist/1189">Donald DeLue</a></strong></p>
-                        <p>FA1717-C</p>
-                        <p>Sculpture</p>
-                        <p>1941</p>
-                    </li>
-                    <li>
-                        <a href="#/artwork/24670"><img alt="Scrub Woman, Gustave Hildebrand, Sculpture" src="http://gsa.gov/fa/images/preview/Hildebrand,G.FA24856.01.CH2011.png"></a>
-                        <h4><a href="#/artwork/24670">Scrub Woman</a></h4>
-                        <p><strong><a href="#/artist/6814">Gustave Hildebrand</a></strong></p>
-                        <p>FA2856</p>
-                        <p>Sculpture</p>
-                        <p>1935- 1942</p>
-                    </li>
-                </ul>
-    </div>
+                    </ul>
+                    <h5>PRINTS</h5>
+                    <ul>
+                        <li>
+                            <a href="#/artwork/10831"><img alt="Girl Sewing, Bernard P. Schardt, Print" src="http://gsa.gov/fa/images/preview/FA14110, Schardt.png"></a>
+                            <h4><a href="#/artwork/10831">Girl Sewing</a></h4>
+                            <p><strong><a href="#/artist/2325">Bernard P. Schardt</a></strong></p>
+                            <p>FA14031</p>
+                            <p>Print</p>
+                            <p>1935- 1942</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/11241"><img alt=" Roof Scene, Isami Doi, Print" src="http://gsa.gov/fa/images/preview/FA14031, Doi.png"></a>
+                            <h4><a href="#/artwork/11241">Roof Scene</a></h4>
+                            <p><strong><a href="#/artist/1210">Isami Doi</a></strong></p>
+                            <p>FA14031</p>
+                            <p>1935-1942</p>
+                            <p>Print</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/11468"><img alt="Sonora Way, Charles Frederick Surendorf, Print" src="http://gsa.gov/fa/images/preview/FA14127, Surendorf.png"></a>
+                            <h4><a href="#/artwork/11468">Sonora Way</a></h4>
+                            <p><strong><a href="#/artist/2336">Charles Frederick Surendorf</a></strong></p>
+                            <p>FA14127</p>
+                            <p>Print</p>
+                            <p>1939</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/12601"><img alt="Worker with Mallet, Moses Oley, Print" src="http://gsa.gov/fa/images/preview/FA14086, Oley.png"></a>
+                            <h4><a href="#/artwork/12601">Worker with Mallet</a></h4>
+                            <p><strong><a href="#/artist/2156">Moses Oley</a></strong></p>
+                            <p>FA14086</p>
+                            <p>Print</p>
+                            <p>1938</p>
+                        </li>
+                    </ul>
+                    <h5>SCULPTURE</h5>
+                    <ul>
+                        <li>
+                            <a href="#/artwork/716"><img alt="Michael Lantz, Man Controlling Trade, Sculpture" src="http://gsa.gov/fa/images/preview/Lantz_FA554-A_McKay-LodgeAfterTreatment.png"></a>
+                            <h4><a href="#/artwork/716">Man Controlling Trade</a></h4>
+                            <p><strong><a href="#/artist/1820">Michael Lantz</a></strong></p>
+                            <p>FA554-A</p>
+                            <p>Sculpture</p>
+                            <p>1942</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/1070"><img alt="Young American Man, Henry Kreis, Sculpture" src="http://gsa.gov/fa/images/preview/KREIS_FA894-A.01.CH2007.png"></a>
+                            <h4><a href="#/artwork/1070">Young American Man</a></h4>
+                            <p><strong><a href="#/artist/1702">Henry Kreis</a></strong></p>
+                            <p>FA894-A</p>
+                            <p>Sculpture</p>
+                            <p>1939</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/1793"><img alt="Justice, Donald DeLue, Sculpture" src="http://gsa.gov/fa/images/preview/DeLue_FA1717-C.01.CH2007.png"></a>
+                            <h4><a href="#/artwork/1793">Justice</a></h4>
+                            <p><strong><a href="#/artist/1189">Donald DeLue</a></strong></p>
+                            <p>FA1717-C</p>
+                            <p>Sculpture</p>
+                            <p>1941</p>
+                        </li>
+                        <li>
+                            <a href="#/artwork/24670"><img alt="Scrub Woman, Gustave Hildebrand, Sculpture" src="http://gsa.gov/fa/images/preview/Hildebrand,G.FA24856.01.CH2011.png"></a>
+                            <h4><a href="#/artwork/24670">Scrub Woman</a></h4>
+                            <p><strong><a href="#/artist/6814">Gustave Hildebrand</a></strong></p>
+                            <p>FA2856</p>
+                            <p>Sculpture</p>
+                            <p>1935- 1942</p>
+                        </li>
+                    </ul>
+        </div>
     </div>
     </div>
     </section>
@@ -773,6 +774,7 @@
     <section id="results"></section>
     <div id="load"></div>
     <hr>
+    </div>
     <footer>
         <div class="menu">
             <ul>
