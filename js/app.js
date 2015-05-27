@@ -298,7 +298,7 @@ function bindings() {
     });
 
     $('.skip-content').on('click',function(e){
-        $("#main-content").focus();
+        $(".nav-home").focus();
         $(this).blur();
         e.preventDefault();
     })
