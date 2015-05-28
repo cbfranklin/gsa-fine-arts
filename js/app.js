@@ -604,15 +604,15 @@ function loadSearch() {
         var base = '#/results/buildings?';
         var parameters = [];
 
-        if ($('#search #building-name').val() !== '' && $('#search #building-name').val() !== undefined) {
-            parameters.push('Building%20Name=' + $('#search #building-name').val().doorknob());
+        if ($('#search #building-name').val() !== '' && $('#search-for-buildings-building-name').val() !== undefined) {
+            parameters.push('Building%20Name=' + $('#search-for-buildings-building-name').val().doorknob());
         }
-        if ($('#search #state ').val() !== '' && $('#search #state').val() !== undefined) {
-            parameters.push('State=' + $('#search #state').val());
+        if ($('#search #state ').val() !== '' && $('#search-for-buildings-state').val() !== undefined) {
+            parameters.push('State=' + $('#search-for-buildings-state').val());
 
         }
-        if ($('#search #city').val() !== '' && $('#search #city').val() !== undefined) {
-            parameters.push('City=' + $('#search #city').val());
+        if ($('#search #city').val() !== '' && $('#search-for-buildings-city').val() !== undefined) {
+            parameters.push('City=' + $('#search-for-buildings-city').val());
         }
 
         window.location.href = base + parameters.join('&');
