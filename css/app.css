@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+html:focus,body:focus,div:focus{
+    outline:none;
+    outline-style:none;
+}
+
+
 body {
     color: #000;
     font-family: Arial, sans-serif;
@@ -608,15 +614,12 @@ input[type=text] {
     height: 60px;
     margin: 0;
 }
-<<<<<<< HEAD
 
 .works h4 {
     font-size: 16px;
     font-family: 'open-sans-condensed-bold';
     margin: 0;
 }
-=======
->>>>>>> origin/master
 
 #in-this-gallery h4 {
     font-size: 18px;

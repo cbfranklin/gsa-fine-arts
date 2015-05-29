@@ -259,7 +259,7 @@ function routes() {
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
-    $('#main-content').focus();
+    $('html').focus();
 }
 
 //CLICKS
