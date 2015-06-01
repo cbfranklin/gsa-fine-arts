@@ -1799,7 +1799,7 @@ function artistsAppend(source) {
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
         //console.log(alphaOrder[i])
-        $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><small><a href="#"" id="go-to-filter">(Filter)</a></small><ul></ul>')
+        $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><small><a href="#" id="go-to-filter">(Filter)</a></small><ul></ul>')
         //console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
