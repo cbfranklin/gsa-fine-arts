@@ -359,7 +359,9 @@
             <section id="location">
                 <h1>Browse by Location</h1>
                 <br>
-                <label for="state" style="visibility:hidden;width:0!important;height:0!important;">Select a State</label>
+                <div class="row">
+                <div class="col-sm-5 col-sm-offset-7">
+                <label for="state">Select a State</label><br>
                 <div class="selectWrapper">
                     <select id="state">
                         <option value="">Select a State</option>
@@ -418,8 +420,9 @@
                         <option value="WY">Wyoming</option>
                     </select>
                 </div>
-                <br>
-                <button id="location-go" style="float:right" class="btn btn-primary">Go</button>
+                <button title="Go to State" id="location-go" class="btn btn-primary">GO</button>
+            </div>
+        </div>
                 <div id="map"></div>
                 <div id="results-location">
                 </div>
