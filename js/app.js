@@ -681,12 +681,15 @@ function loadLocation() {
         loaded();
     }
 
-    $('#location').on('change', '#state', function() {
+    //$('#location').on('change', '#state', function() {
+    $('#location').on('click','#location-go',function(){
+        //var stateMenu = $(this);
+        var stateMenu = $('#state');
         $("#map > svg > path").each(function() {
             $(this).css('fill', '');
         });
 
-        var state = $(this).val();
+        var state = stateMenu.val();
         if (state !== '') {
             $('#' + state).css('fill', 'red');
             //browseByState(state);
