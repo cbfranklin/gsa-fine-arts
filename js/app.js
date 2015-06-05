@@ -519,11 +519,11 @@ function loadSearch() {
     $('#search-for-buildings button').on('click', searchForBuildings);
 
     //PULL CITIES FOR SELECTED STATE
-    $('#search').on('change', '#state', function() {
+    $('#search').on('change', '#search-for-buildings-state', function() {
         if ($(this).val() === '') {
-            $('#city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
+            $('#search-for-buildings-city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
         } else {
-            $('#city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
+            $('#search-for-buildings-city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
             var state = $(this).val();
             $.ajax({
                 url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
@@ -542,13 +542,13 @@ function loadSearch() {
                         if (cities[0] === undefined) {
                             noArtwork()
                         } else {
-                            $('#city').html('<option value="">Select a City</option>')
+                            $('#search-for-buildings-city').html('<option value="">Select a City</option>')
                             for (i in cities) {
                                 if (cities[i] !== undefined) {
-                                    $('#city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
+                                    $('#search-for-buildings-city').append('<option value="' + cities[i] + '">' + cities[i] + '</option>')
                                 }
                             }
-                            $('#city').removeAttr('disabled').parent('.selectWrapper').removeClass('loading').removeClass('disabled');
+                            $('#search-for-buildings-city').removeAttr('disabled').parent('.selectWrapper').removeClass('loading').removeClass('disabled');
                         }
                     }
                 })
@@ -557,7 +557,7 @@ function loadSearch() {
                 });
 
             function noArtwork() {
-                $('#city').html('<option value="">No Artwork Found</option>').parent('.selectWrapper').removeClass('loading').addClass('disabled');
+                $('#search-for-buildings-city').html('<option value="">No Artwork Found</option>').parent('.selectWrapper').removeClass('loading').addClass('disabled');
             }
         }
     });
