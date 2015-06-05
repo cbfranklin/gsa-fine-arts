@@ -446,7 +446,6 @@ div.splash-title {
 #selectAlphaWrapper,
 .selectWrapper {
     background: #efefef url(../img/down-select.png) 98% center no-repeat;
-    /*background:#efefef url(../img/select-down-arrow.png) center right 5px no-repeat;*/
     
     border: 1px solid #ccc;
     border-bottom: 2px solid rgb(207, 51, 51);
@@ -455,6 +454,10 @@ div.splash-title {
     width: 79%;
     min-width: 130px;
     position: relative;
+}
+.ie9 #selectAlphaWrapper,
+.ie9 .selectWrapper{
+    bakcground-image:none;
 }
 
 .selectWrapper.disabled {
