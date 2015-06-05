@@ -1884,7 +1884,7 @@ function appendResults(json, type) {
 
     var yourQuery = '';
 
-
+    console.log('buildingname',searchParams['Building%20Name'])
     //BUILD STRING SUMMARY FOR QUERY...BUILDINGS FIRST
     if (searchParams['Building%20Name'] && searchParams.City && searchParams.State) {
         yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.City + ', ' + searchParams.State;
@@ -1896,7 +1896,7 @@ function appendResults(json, type) {
         yourQuery = states[searchParams.State.toLowerCase()].titleCase();
     }
     if (searchParams['Building%20Name'] && !searchParams.City && searchParams.State) {
-        yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.states[searchParams.State.toLowerCase()].titleCase();
+        yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + states[searchParams.State.toLowerCase()].titleCase();
     }
     if (searchParams['Building%20Name'] && !searchParams.City && !searchParams.State) {
         yourQuery = '"' + searchParams['Building%20Name'] + '"'
