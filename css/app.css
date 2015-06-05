@@ -459,6 +459,10 @@ div.splash-title {
 .selectWrapper.disabled {
     background: #efefef;
 }
+.ie7 #selectAlphaWrapper,
+.ie7 .selectWrapper,
+.ie8 #selectAlphaWrapper,
+.ie8 .selectWrapper,
 .ie9 #selectAlphaWrapper,
 .ie9 .selectWrapper{
     background: #efefef!important;
