@@ -176,7 +176,7 @@ function ie() {
         isOldIE = true;
         loaded();
     } else {
-        $('#old-ie,#compatibility-mode').remove();
+        //no action
     }
 }
 
