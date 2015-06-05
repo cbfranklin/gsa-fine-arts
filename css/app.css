@@ -455,13 +455,13 @@ div.splash-title {
     min-width: 130px;
     position: relative;
 }
-.ie9 #selectAlphaWrapper,
-.ie9 .selectWrapper{
-    bakcground-image:none;
-}
 
 .selectWrapper.disabled {
     background: #efefef;
+}
+.ie9 #selectAlphaWrapper,
+.ie9 .selectWrapper{
+    background: #efefef!important;
 }
 /*.selectWrapper span.glyphicon{
 	color:rgb(207,51,51);
