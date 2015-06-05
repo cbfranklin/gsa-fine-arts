@@ -2,12 +2,17 @@
     box-sizing: border-box;
 }
 
+html:focus,body:focus,div:focus{
+    outline:none;
+    outline-style:none;
+}
+
+
 body {
     color: #000;
     font-family: Arial, sans-serif;
     max-width: 990px;
     margin: 0 auto;
-    margin-top: 10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -475,7 +480,6 @@ div.splash-title {
 
 #location .selectWrapper {
     width: 200px;
-    float: right;
 }
 
 #selectAlphaWrapper {
@@ -608,15 +612,12 @@ input[type=text] {
     height: 60px;
     margin: 0;
 }
-<<<<<<< HEAD
 
 .works h4 {
     font-size: 16px;
     font-family: 'open-sans-condensed-bold';
     margin: 0;
 }
-=======
->>>>>>> origin/master
 
 #in-this-gallery h4 {
     font-size: 18px;
@@ -697,10 +698,15 @@ img.noImage.featured {
     width: 75%;
 }
 
+
+button{
+    font-family: 'open-sans-condensed-bold';
+    margin-left:10px;
+    min-width:75px;
+}
 #search button {
     margin-left: 20%;
     min-width: 120px;
-    font-family: 'open-sans-condensed-bold';
 }
 
 .results {
@@ -840,6 +846,9 @@ footer .menu ul li a {
 }
 
 @media (max-width: 768px) {
+    
+
+
     #gsa-header,
     #gsa-footer,
     #banner,
@@ -946,6 +955,11 @@ footer .menu ul li a {
 }
 
 @media (max-width: 480px) {
+        button{
+        width:100%;
+        margin-top:10px;
+        margin-left:0;
+    }
 	    .information ul {
         -moz-column-count: 1;
         -webkit-column-count: 1;

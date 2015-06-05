@@ -259,7 +259,7 @@ function routes() {
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
     }
-    $('#main-content').focus();
+    $('html').focus();
 }
 
 //CLICKS
@@ -681,12 +681,15 @@ function loadLocation() {
         loaded();
     }
 
-    $('#location').on('change', '#state', function() {
+    //$('#location').on('change', '#state', function() {
+    $('#location').on('click','#location-go',function(){
+        //var stateMenu = $(this);
+        var stateMenu = $('#state');
         $("#map > svg > path").each(function() {
             $(this).css('fill', '');
         });
 
-        var state = $(this).val();
+        var state = stateMenu.val();
         if (state !== '') {
             $('#' + state).css('fill', 'red');
             //browseByState(state);
@@ -1799,7 +1802,7 @@ function artistsAppend(source) {
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
         //console.log(alphaOrder[i])
-        $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><small><a href="#"" id="go-to-filter">(Filter)</a></small><ul></ul>')
+        $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><small><a href="#" class="go-to-filter">(Filter)</a></small><ul></ul>')
         //console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
@@ -1814,7 +1817,7 @@ function artistsAppend(source) {
             artistsReady();
         }
     };
-    $('#go-to-filter').click(function(e){
+    $('.go-to-filter').click(function(e){
         $('#filter').focus();
         e.preventDefault();
     })

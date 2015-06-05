@@ -148,7 +148,7 @@ function imagesFirst(a, b) {
 
 //GET FILENAME FROM PATH
 function formatImagePath(str) {
-    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
+    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|jpeg|JPEG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
     if (match === '') {
         return false;
     } else {
@@ -157,7 +157,7 @@ function formatImagePath(str) {
 }
 //AS STRING PROTOTYPE
 String.prototype.formatImagePath = function() {
-    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
+    var match = str.match(/[^\/]*$/)[0].replace(/(jpg|JPG|jpeg|JPEG|tif|tiff|TIF|TIFF|gif|GIF|PNG|raw|RAW|bmp|BMP)/, 'png');
     if (match === '') {
         return false;
     } else {

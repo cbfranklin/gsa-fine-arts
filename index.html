@@ -235,7 +235,7 @@
             <!-- END HEADER BLOCK -->
             <!--<div class="crumb"></div>-->
             <div class="menu-trigger"></div>
-            <div class="menu">
+            <div class="menu" id="fine-arts-menu">
                 <a class="nav-home" href="#">Fine Arts Home</a>
                 <a class="nav-artists" href="#/artists">Artists</a>
                 <a class="nav-galleries" href="#/galleries">Galleries</a>
@@ -359,8 +359,10 @@
             <section id="location">
                 <h1>Browse by Location</h1>
                 <br>
+                <div class="row">
+                <div class="col-sm-5 col-sm-offset-7">
+                <label for="state">Select a State</label><br>
                 <div class="selectWrapper">
-                    <label for="state" style="visibility:hidden;width:0;height:0;">Select a State</label>
                     <select id="state">
                         <option value="">Select a State</option>
                         <option value="AL">Alabama</option>
@@ -418,6 +420,9 @@
                         <option value="WY">Wyoming</option>
                     </select>
                 </div>
+                <button title="Go to State" id="location-go" class="btn btn-primary">GO</button>
+            </div>
+        </div>
                 <div id="map"></div>
                 <div id="results-location">
                 </div>
@@ -988,7 +993,7 @@
                                 <div>
                                     <h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
                                     <p>{{objectNumber}}</p>
-                                    <p>{{artist}}</p>
+                                    <p><a href="#/artist/{{artistId}}">{{artist}}</a></p>
                                     <p>{{displayDate}}</p>
                                     <p>{{classification}}</p>
                                 </div>
@@ -1030,7 +1035,7 @@
                                 <div>
                                     <h4><a href="#/artwork/{{id}}">{{title}}</a></h4>
                                     <p>{{objectNumber}}</p>
-                                    <p>{{artist}}</p>
+                                    <p><a href="#/artist/{{artistId}}">{{artist}}</a></p>
                                     <p>{{displayDate}}</p>
                                     <p>{{classification}}</p>
                                 </div>
