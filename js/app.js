@@ -526,7 +526,7 @@ function loadSearch() {
             $('#search-for-buildings-city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
             var state = $(this).val();
             $.ajax({
-                url: apiRoot + 'search/buildings?State=' + state + '&end=1000',
+                url: apiRoot + 'search/buildings?State=' + state + '&end=1000'
             })
                 .success(function(json) {
                     results = json.results;
