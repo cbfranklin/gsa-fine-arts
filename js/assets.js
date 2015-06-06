@@ -8946,7 +8946,7 @@ window.Raphael.vml && function(R) {
       }
       
       return this._getStateShapes;
-    },
+    }
   };
   
   
