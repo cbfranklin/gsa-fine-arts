@@ -8575,7 +8575,7 @@ window.Raphael.vml && function(R) {
                 FL: {
                     x: 763,
                     y: 508
-                },
+                }
             };
             var R = this.paper;
             var textAttr = this.options.labelTextStyles;
