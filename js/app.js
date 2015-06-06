@@ -167,10 +167,12 @@ function helloDevs() {
 function ie() {
     //Site is IE9 Compatible ONLY. No IE9 Compat, No IE8/7
     //if version token MSIE < 9, indicating older browser or browser mode
-    if(navigator.userAgent.indexOf('MSIE 7') > -1 || navigator.userAgent.indexOf('MSIE 8') > -1){
+    var UA = navigator.userAgent;
+    if(UA.indexOf('MSIE 7') > -1 || UA.indexOf('MSIE 8') > -1){
         $('#wrapper').hide();
+        $('#compatibility-mode,#old-ie').append('<small>'+UA+'</small>')
         //if trident token === 5, indicating IE9
-        if(navigator.userAgent.indexOf('Trident/5') > -1){
+        if(UA.indexOf('Trident/5') > -1){
             $('#compatibility-mode').show();
         }
         else{
