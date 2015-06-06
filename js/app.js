@@ -117,10 +117,10 @@ var apiRoot = 'https://gsafinearts.pbs.gsa.gov/emuseum/api/',
     $section,
     $header,
     loadTimeout,
-    refreshPeriod/*IN DAYS*/=7,
+    refreshPeriod /*IN DAYS*/ = 7,
     today = getDate(),
     gaDimensions = {},
-    gaCrumb = '/finearts-test/';
+    gaCrumb = '/finearts/';
 
 $(function() {
     $load = $('#load');
@@ -132,30 +132,30 @@ $(function() {
     if (isOldIE === true) {
         return;
     }
-    /*helloDevs();*/
+    helloDevs();
     preloadImages();
     gsaHeader();
     bindings();
     routes();
 
-    /* TEMP: CLEAR ALL CACHES */
+    /* CLEAR ALL CACHES
     localStorage['fineArtsDB_artistsCache'] = '';
     localStorage['fineArtsDB_galleriesCache'] = '';
-
+    */
 
     $(window).hashchange(function() {
         $fail.hide();
         $section.hide();
         load();
         routes();
-        if(typeof ga !== "undefined"){
-            ga('send', 'pageview', '/fa/'+window.location.hash);
+        if (typeof ga !== "undefined") {
+            ga('send', 'pageview', '/fa/' + window.location.hash);
         }
     });
 });
 
 function helloDevs() {
-console.log(
+    console.log(
         ' _______________________________________ \n' +
         '|                                       |\n' +
         "|       All JSON requests to GSA's      |\n" +
@@ -165,25 +165,26 @@ console.log(
 }
 
 function ie() {
-    if (navigator.userAgent.indexOf('MSIE 7') > -1 && !$('html').hasClass('ie7')) {
+    //Site is IE9 Compatible ONLY. No IE9 Compat, No IE8/7
+    //if version token MSIE < 9, indicating older browser or browser mode
+    if(navigator.userAgent.indexOf('MSIE 7') > -1 || navigator.userAgent.indexOf('MSIE 8') > -1){
         $('#wrapper').hide();
-        $('#compatibility-mode').show();
+        //if trident token === 5, indicating IE9
+        if(navigator.userAgent.indexOf('Trident/5') > -1){
+            $('#compatibility-mode').show();
+        }
+        else{
+            $('#old-ie').show();
+        }
         isOldIE = true;
         loaded();
-    } else if (navigator.userAgent.indexOf('MSIE 8') > -1) {
-        $('#wrapper').hide();
-        $('#old-ie').show();
-        isOldIE = true;
-        loaded();
-    } else {
-        //no action
     }
 }
 
 //ROUTING
 function routes() {
     navHighlight();
-    if(typeof ga !== "undefined"){
+    if (typeof ga !== "undefined") {
         reportGA();
     }
     //HOME PAGE
@@ -207,7 +208,7 @@ function routes() {
         loadAbout();
         navHighlight('about');
     }
-	//NEW DEAL ART
+    //NEW DEAL ART
     else if (window.location.hash.indexOf('#/new-deal-art') !== -1) {
         loadNewDealArt();
         navHighlight('galleries');
@@ -253,8 +254,7 @@ function routes() {
     else if (window.location.hash.indexOf('#/location') !== -1) {
         loadLocation();
         navHighlight('location');
-    }
-    else if (window.location.hash.indexOf('#/scott') !== -1) {
+    } else if (window.location.hash.indexOf('#/scott') !== -1) {
         scott();
     } else {
         fail('404', 'Route Not Found. Please double check the URL and try again.')
@@ -264,40 +264,37 @@ function routes() {
 
 //CLICKS
 function bindings() {
-    $('.menu-trigger').on('click',function(){
+    $('.menu-trigger').on('click', function() {
         $('header .menu').slideToggle();
     });
-    $(window).on('resize',function(){
-        if($header.width() > 769){
+    $(window).on('resize', function() {
+        if ($header.width() > 769) {
             $('header .menu').show()
-        }
-        else{
+        } else {
             $('header .menu').hide()
         }
     });
-    $('header .menu a').on('click',function(){
-        if($header.width() < 769){
+    $('header .menu a').on('click', function() {
+        if ($header.width() < 769) {
             $('header .menu').slideToggle()
         }
     });
-    $('.nav-search').on('click',function(){
+    $('.nav-search').on('click', function() {
         $('#search input[type=text]').val('');
-        $('#search select :first-child').attr('selected','selected');
+        $('#search select :first-child').attr('selected', 'selected');
         $('#search #city').attr('disabled', 'disabled').html('<option value="">Select a State First</option>')
     });
-    $('body').on('click','.social-media .print',function(e){
+    $('body').on('click', '.social-media .print', function(e) {
         window.print();
-        //console.log('print')
         e.preventDefault();
     });
     $.ajaxSetup({
         dataType: "jsonp",
         timeout: 90000,
-        timeout: 120000/*FOR JSONP TESTING*/,
         cache: true
     });
 
-    $('.skip-content').on('click',function(e){
+    $('.skip-content').on('click', function(e) {
         $(".nav-home").focus();
         $(this).blur();
         e.preventDefault();
@@ -315,16 +312,14 @@ function navHighlight(page) {
 
 //HOME PAGE
 function loadHomePage() {
-    if($(window).width() > 769){
+    if ($(window).width() > 769) {
         animateSplash();
     }
 
-    $('#splash > a').on('click',function(){
+    /*$('#splash > a').on('click',function(){
         var hash = $(this).attr('href');
         window.location.hash = hash;
-        //console.log(hash)
-    });
-
+    });*/
     loaded();
     $('#home').show();
 
@@ -340,11 +335,11 @@ function loadHomePage() {
             fadeOutQueue = [],
             rotateQueue,
             currentItem,
-            fadeOutPartial = [2,4,7,10],
+            fadeOutPartial = [2, 4, 7, 10],
             partialFadeVal = 0.33;
 
 
-
+        //WAS RESPONSIVE SPLASH PAGE
         //$(window).on('resize',setSplashDimensions);
 
         /*function setSplashDimensions(){
@@ -371,8 +366,7 @@ function loadHomePage() {
                     clearTimeout(fadeOutQueue[i])
                 };
                 clearTimeout(rotateQueue);
-                //$('.splash-details').css('opacity','0');
-                //REORDER ARRAY TO RESUME ROTATION
+                //REORDER ARRAY - RESUME ROTATION
                 var anustart = order.indexOf(currentItem);
                 //COOOOOOINCIDENCE!
                 var newOrder = [];
@@ -397,42 +391,52 @@ function loadHomePage() {
         $('#home #splash > a').hover(
             function() {
                 //BRING UP ITEM DETAILS, HIDE ALL OTHERS
-                $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
-                $(this).siblings().each(function(i){
-                    var delay = i*25;
+                $(this).children('.splash-details').stop().animate({
+                    opacity: 1
+                }, 400).children('p').show();
+                $(this).siblings().each(function(i) {
+                    var delay = i * 25;
                     var fadeOutVal = 0;
-                    if($(this).hasClass('splash-fade-out-partial')){
+                    if ($(this).hasClass('splash-fade-out-partial')) {
                         var fadeOutVal = partialFadeVal;
                     }
-                    var fadeTo0 = function(el){
-                        $(el).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
+                    var fadeTo0 = function(el) {
+                        $(el).children('.splash-details').stop().animate({
+                            opacity: fadeOutVal
+                        }, 50).children('p').hide();
                     }
-                    setTimeout(fadeTo0,delay,this)
+                    setTimeout(fadeTo0, delay, this)
                 });
             },
             function() {
                 var fadeOutVal = 0;
-                if($(this).hasClass('splash-fade-out-partial')){
+                if ($(this).hasClass('splash-fade-out-partial')) {
                     var fadeOutVal = partialFadeVal;
                 }
-                $(this).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
+                $(this).children('.splash-details').stop().animate({
+                    opacity: fadeOutVal
+                }, 50).children('p').hide();
             }
         );
 
-        $('#home #splash > a').focus(function(){
+        $('#home #splash > a').focus(function() {
             //BRING UP ITEM DETAILS, HIDE ALL OTHERS
-                $(this).children('.splash-details').stop().animate({opacity: 1},400).children('p').show();
-                $(this).siblings().each(function(i){
-                    var delay = i*25;
-                    var fadeOutVal = 0;
-                    if($(this).hasClass('splash-fade-out-partial')){
-                        var fadeOutVal = partialFadeVal;
-                    }
-                    var fadeTo0 = function(el){
-                        $(el).children('.splash-details').stop().animate({opacity: fadeOutVal},50).children('p').hide();  
-                    }
-                    setTimeout(fadeTo0,delay,this)
-                });
+            $(this).children('.splash-details').stop().animate({
+                opacity: 1
+            }, 400).children('p').show();
+            $(this).siblings().each(function(i) {
+                var delay = i * 25;
+                var fadeOutVal = 0;
+                if ($(this).hasClass('splash-fade-out-partial')) {
+                    var fadeOutVal = partialFadeVal;
+                }
+                var fadeTo0 = function(el) {
+                    $(el).children('.splash-details').stop().animate({
+                        opacity: fadeOutVal
+                    }, 50).children('p').hide();
+                }
+                setTimeout(fadeTo0, delay, this)
+            });
         })
 
         function rotate() {
@@ -445,28 +449,28 @@ function loadHomePage() {
                         currentItem = item;
                         //FADE TO ZERO FOR SOME ELEMENTS, NOT FOR OTHERS
                         var fadeOutVal = 0;
-                        if(fadeOutPartial.indexOf(item) > -1){
+                        if (fadeOutPartial.indexOf(item) > -1) {
                             var fadeOutVal = partialFadeVal;
                         }
-                        //$('#home #splash .splash-' + item + ' .splash-details').fadeIn(fadeInTime);
-                        $('.splash-' + item + ' .splash-details').stop().animate({opacity: 1},fadeInTime);
+                        $('.splash-' + item + ' .splash-details').stop().animate({
+                            opacity: 1
+                        }, fadeInTime);
                         var fadeOut = setTimeout(function() {
                             if (play === true) {
-                                //$('#home #splash .splash-' + item + ' .splash-details').fadeOut(fadeOutTime);
-                                $('.splash-' + item + ' .splash-details').stop().animate({opacity: fadeOutVal},fadeOutTime);
+        
+                                $('.splash-' + item + ' .splash-details').stop().animate({
+                                    opacity: fadeOutVal
+                                }, fadeOutTime);
                             }
                         }, pause + fadeInTime);
 
                         fadeOutQueue.push(fadeOut);
                     }
-                    /*else {
-                        //console.log('FADE suppressed ITEM # ' + item);
-                    }*/
                 }
 
                 itemQueue[i] = setTimeout(fade, i * interval, item);
 
-                /*IE8 SUPPORT NO LONGER NECESSARY:
+                /*IE8 SUPPORT NO LONGER NECESSARY HERE:
                 itemQueue[i] = setTimeout((function(item) {
                     return function() {
                         fade(item);
@@ -526,8 +530,8 @@ function loadSearch() {
             $('#search-for-buildings-city').attr('disabled', 'disabled').html('<option value="">Loading Cities...</option>').parent('.selectWrapper').addClass('loading');
             var state = $(this).val();
             $.ajax({
-                url: apiRoot + 'search/buildings?State=' + state + '&end=1000'
-            })
+                    url: apiRoot + 'search/buildings?State=' + state + '&end=1000'
+                })
                 .success(function(json) {
                     results = json.results;
                     if (json.total_results === 0) {
@@ -581,7 +585,7 @@ function loadSearch() {
             if (e.preventDefault) {
                 e.preventDefault();
             } else {
-                //internet exploder
+                //INTERNET EXPLODER
                 e.returnValue = false;
             }
         }
@@ -622,7 +626,7 @@ function loadSearch() {
 function loadLocation() {
 
     $('#location').show();
-    //reset
+    //RESET
     $('#state').val('');
     $("#map > svg > path").each(function() {
         $(this).css('fill', '');
@@ -659,30 +663,27 @@ function loadLocation() {
         click: function(event, data) {
             $('#location #state option[value="' + data.name + '"]').attr("selected", "selected");
             //browseByState(data.name);
-            if(Modernizr.history){
-                history.pushState({}, '', '/location/'+data.name)
+            if (Modernizr.history) {
+                history.pushState({}, '', '/location/' + data.name)
+            } else {
+                window.location.hash = '/location/' + data.name;
             }
-            else{
-                window.location.hash = '/location/'+data.name;
-            }
-            //console.log(data.name)
+
         },
         includeTerritories: ['PR', 'VI']
     });
 
     //LOCATION STATE
     var hash = window.location.hash.split('/');
-    if(hash[2]){
-       var hashState = hash[2].toUpperCase();
-       browseByState(hashState)
-       loaded(false);
-    }
-    else{
+    if (hash[2]) {
+        var hashState = hash[2].toUpperCase();
+        browseByState(hashState)
+        loaded(false);
+    } else {
         loaded();
     }
 
-    //$('#location').on('change', '#state', function() {
-    $('#location').on('click','#location-go',function(){
+    $('#location').on('click', '#location-go', function() {
         //var stateMenu = $(this);
         var stateMenu = $('#state');
         $("#map > svg > path").each(function() {
@@ -692,12 +693,10 @@ function loadLocation() {
         var state = stateMenu.val();
         if (state !== '') {
             $('#' + state).css('fill', 'red');
-            //browseByState(state);
-            if(Modernizr.history){
-                history.pushState({}, '', '/location/'+state)
-            }
-            else{
-                window.location.hash = '/location/'+state;
+            if (Modernizr.history) {
+                history.pushState({}, '', '/location/' + state)
+            } else {
+                window.location.hash = '/location/' + state;
             }
         } else {
             $('#results-location').html('').hide()
@@ -714,15 +713,14 @@ function loadLocation() {
         var req = apiRoot + 'search/buildings?State=' + state + '&end=1000'
         console.log('JSON request: ' + req)
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
                 var results = []
-                if(isArray(json.results)){
+                if (isArray(json.results)) {
                     results = results.concat(json.results)
-                }
-                else{
+                } else {
                     //console.log('is not Array')
                     results.push(json.results);
                 }
@@ -765,7 +763,6 @@ function loadLocation() {
                     locations.sort(function(a, b) {
                         return a.city.toLowerCase().localeCompare(b.city.toLowerCase());
                     });
-                    //console.log(results)
                     var state = states[results[0].state.toLowerCase()].titleCase();
 
                     var template = $('#templates .results-location').html();
@@ -798,7 +795,7 @@ function loadResults(type) {
     var hash = window.location.hash.split('?');
 
     var searchParams = hash[1];
-    searchParams = searchParams.replace('&refine=false','').replace('&scott=scott','');
+    searchParams = searchParams.replace('&refine=false', '').replace('&scott=scott', '');
 
     fetchAllResults(type, searchParams, appendResults);
 };
@@ -809,16 +806,15 @@ function loadArtists() {
     if (localStorage['fineArtsDB_artistsCache']) {
         //DOM is populated
         if ($('#artists-index .alpha-heading').length === 26) {
-            //console.log('ARTISTS: DOM is preserved. No Action.')
             load('Refreshing artists from the Fine Arts Database', 30000)
             $('#artists').show();
             artistsReady();
             loaded();
-        //DOM is not populated
+            //DOM is not populated
         } else {
             $('#artists-index').html('')
             artistsCache = JSON.parse(localStorage['fineArtsDB_artistsCache'])
-            if(today > (artistsCache.date + refreshPeriod*86400)){
+            if (today > (artistsCache.date + refreshPeriod * 86400)) {
                 //console.log('ARTISTS: Old artistsCache, refreshing from API.')
                 load('Refreshing artists from the Fine Arts Database', 30000)
                 artistCache = artistsCacheTemplate;
@@ -826,36 +822,28 @@ function loadArtists() {
                 return;
             }
             artistsAppend(artistsCache);
-            //console.log('ARTISTS: artistsCache exists in localStorage.')
             artistsReady();
         }
-    //localStorage is not populated
+        //localStorage is not populated
     } else {
         $('#artists-index').html('')
         load('Loading artists from the Fine Arts Database', 30000)
-        //console.log('ARTISTS: No artistsCache, pulling from API.')
+            //console.log('ARTISTS: No artistsCache, pulling from API.')
         loadFromAPI()
     }
-    function loadFromAPI(){
-        //var queue = [];
-        //var interval = 300;
-        //for (var i = 0; i < alphaOrder.length; i++) {
-        //    queue[i] = setTimeout(fetchAllResults, i * interval, 'people', 'Index=' + alphaOrder[i], artistsHandler);
-        //};
-        function repeater(i){
-            //console.log(i)
+
+    function loadFromAPI() {
+        function repeater(i) {
             var req = apiRoot + 'search/people?Index=' + alphaOrder[i] + '&end=1000';
-            //console.log(req)
             $.ajax({
                 url: req,
                 jsonpCallback: randomJSONpCallback()
-            }).success(function(json){
-                //console.log(json)
+            }).success(function(json) {
                 artistsHandler(json);
-                if(i < 25){
-                    repeater(i+1);
+                if (i < 25) {
+                    repeater(i + 1);
                 }
-            }).error(function(){
+            }).error(function() {
                 repeater(i);
             });
         }
@@ -866,138 +854,88 @@ function loadArtists() {
 function artistsReady() {
 
     $('#artists').show();
-    //LIVE FILTER
-    /*$('#artists').liveFilter('#filter', '.artist', {
-        filterChildSelector: 'a',
-        filter: function(el, val) {
-            console.time('filter')
-            val = val.replace(/,/g, '');
-            var regex = new RegExp('((?:[a-z][a-z]+)) ');
-            if (regex.test(val)) {
-                valarray = val.split(' ');
-                var regex2 = '(?=.*{{first}}).*?(?=.*{{second}})';
-                regex2 = regex2.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-                var regex2 = new RegExp(regex2, 'i');
-                return regex2.test($(el).text());
-            } else {
-                return $(el).text().toUpperCase().indexOf(val.toUpperCase()) >= 0;
-            }
-            console.timeEnd('filter')
-        },
-        after: function() {
-            for (i = 0; i < 26; i++) {
-                if ($('#artists-index div').eq(i).find('.artist:not(.filter-hidden)').length === 0) {
-                    $('#artists-index div').eq(i).addClass('filter-hidden')//.hide();
-                } else {
-                    $('#artists-index div').eq(i).removeClass('filter-hidden')//.show();
-                }
-            }
-        }
-    });*/
 
-    $('#artists-index li').each(function(){
-        $(this).data('name',$(this).text().toLowerCase());
+    $('#artists-index li').each(function() {
+        $(this).data('name', $(this).text().toLowerCase());
     });
 
     var firstRegex = new RegExp('([a-zA-Z])+( )+([a-zA-Z])+');
-    //partials
-    //var secondRegex = '[\\s\\S]*({{first}}+)[\\s\\S]*({{second}}+)[\\w]*';
-    //var thirdRegex = '[\\s\\S]*({{second}}+)[\\s\\S]*({{first}}+)[\\w]*';
     //beginnings only
     var secondRegex = '\\b{{input}}';
     var thirdRegex = '\\s*(\\b{{first}}[a-z]*)\\s(\\b{{second}}[a-z]*)\\s*';
     var fourthRegex = '\\s*(\\b{{second}}[a-z]*)\\s(\\b{{first}}[a-z]*)\\s*';
 
-    //$('#filter').bindWithDelay('keyup',function(){
-    $('#filter').on('keyup',function(){
+    $('#filter').on('keyup', function() {
 
-        delay(runFilter,500);
+        delay(runFilter, 500);
 
-        function runFilter(){
-            $('#filter').addClass('loading');
-            $('#artists-index').hide();
-            var val = $('#filter').val().toLowerCase().replace(/[^a-zA-Z\d\s:]|[0-9\d:]/g,'');
-            var filterRegex = firstRegex;
-            var filterRegex2 = secondRegex;
-            var filterRegex3 = thirdRegex;
-            var filterRegex4 = fourthRegex;
-            ////console.log(val)
-            if (filterRegex.test(val)){
-                val = val.replace(/ +(?= )/g,'');
-                valarray = val.split(' ');
-                filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-                filterRegex4 = filterRegex4.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
-                ////console.log(filterRegex3,filterRegex4)
-                filterRegex3 = new RegExp(filterRegex3, 'i');
-                filterRegex4 = new RegExp(filterRegex4, 'i');
-                ////console.log(filterRegex3,filterRegex4)
-                $('#artists-index .artist').each(function(){
-                    if(filterRegex3.test($(this).data('name')) || filterRegex4.test($(this).data('name'))){
-                        $(this).removeClass('filter-hidden');
-                    }
-                    else{
-                        $(this).addClass('filter-hidden');
-                    }
-                });
-                showHideHeadings()
-                ////console.log('match')
-            } else {
-                if(val.replace('/ /g','') === ''){
-                    $('#artists-index .artist').removeClass('filter-hidden');
-                    ////console.log('zero')
-                    showHideHeadings()
-                }
-                else{
-                    ////console.log(filterRegex2,typeof filterRegex2)
-                    filterRegex2 = filterRegex2.replace(/\{\{input\}\}/g,val.replace(/ /g,''));
-                    ////console.log(filterRegex2,typeof filterRegex2)
-                    filterRegex2 = new RegExp(filterRegex2);
-                    ////console.log(filterRegex2,typeof filterRegex2)
-                    $('#artists-index .artist').each(function(){
-                        //if($(this).data('name').toLowerCase().indexOf(val.replace(/ /g,'')) > -1){
-                        if(filterRegex2.test($(this).data('name'))){
+        function runFilter() {
+                $('#filter').addClass('loading');
+                $('#artists-index').hide();
+                var val = $('#filter').val().toLowerCase().replace(/[^a-zA-Z\d\s:]|[0-9\d:]/g, '');
+                var filterRegex = firstRegex;
+                var filterRegex2 = secondRegex;
+                var filterRegex3 = thirdRegex;
+                var filterRegex4 = fourthRegex;
+                if (filterRegex.test(val)) {
+                    val = val.replace(/ +(?= )/g, '');
+                    valarray = val.split(' ');
+                    filterRegex3 = filterRegex3.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+                    filterRegex4 = filterRegex4.replace(/\{\{first\}\}/g, valarray[0]).replace(/\{\{second\}\}/g, valarray[1]);
+                    filterRegex3 = new RegExp(filterRegex3, 'i');
+                    filterRegex4 = new RegExp(filterRegex4, 'i');
+                    $('#artists-index .artist').each(function() {
+                        if (filterRegex3.test($(this).data('name')) || filterRegex4.test($(this).data('name'))) {
                             $(this).removeClass('filter-hidden');
-                        }
-                        else{
+                        } else {
                             $(this).addClass('filter-hidden');
                         }
                     });
                     showHideHeadings()
-                }
-            }
-            function showHideHeadings(){
-                $('#artists-index .alpha-heading').each(function(){
-                    if($(this).find('.artist:not(.filter-hidden)').length === 0){
-                        $(this).addClass('filter-hidden');
+                } else {
+                    if (val.replace('/ /g', '') === '') {
+                        $('#artists-index .artist').removeClass('filter-hidden');
+                        showHideHeadings()
+                    } else {
+                        filterRegex2 = filterRegex2.replace(/\{\{input\}\}/g, val.replace(/ /g, ''));
+                        filterRegex2 = new RegExp(filterRegex2);
+                        $('#artists-index .artist').each(function() {
+                            if (filterRegex2.test($(this).data('name'))) {
+                                $(this).removeClass('filter-hidden');
+                            } else {
+                                $(this).addClass('filter-hidden');
+                            }
+                        });
+                        showHideHeadings()
                     }
-                    else{
-                        $(this).removeClass('filter-hidden');
+                }
+
+                function showHideHeadings() {
+                    $('#artists-index .alpha-heading').each(function() {
+                        if ($(this).find('.artist:not(.filter-hidden)').length === 0) {
+                            $(this).addClass('filter-hidden');
+                        } else {
+                            $(this).removeClass('filter-hidden');
+                        }
+                    });
+                    if ($('#artists-index').find('.alpha-heading:not(.filter-hidden)').length === 0) {
+                        $('#artists-index .heading-none').removeClass('filter-hidden')
+                    } else {
+                        $('#artists-index .heading-none').addClass('filter-hidden')
                     }
-                });
-                if($('#artists-index').find('.alpha-heading:not(.filter-hidden)').length === 0){
-                    $('#artists-index .heading-none').removeClass('filter-hidden')
+                    $('#filter').removeClass('loading');
                 }
-                else{
-                    $('#artists-index .heading-none').addClass('filter-hidden')
-                }
-                $('#filter').removeClass('loading');
+                $('#artists-index').show(0);
             }
-        $('#artists-index').show(0);
-        }
-    //},500);
     });
 
     loaded()
 
     //BROWSE WITH SELECT MENU
     $('#selectAlphaWrapper select').change(function() {
-        //$('#filter').liveFilterClear();
-
         var val = $(this).val();
-
         scrollToAnchor(val, -200)
     });
-
     $('#artists-search').sticky();
 }
 
@@ -1010,8 +948,7 @@ function loadGalleries() {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
-            if(today > 1409685913/*(galleriesCache.date + refreshPeriod*86400)*/){
-                //console.log('ARTISTS: Old artistsCache, refreshing from API.')
+            if (today > (galleriesCache.date + refreshPeriod*86400) ) {
                 load('Refreshing galleries from the Fine Arts Database');
                 loadFromAPI();
                 return;
@@ -1023,7 +960,8 @@ function loadGalleries() {
             loadFromAPI();
         }
     }
-    function loadFromAPI(){
+
+    function loadFromAPI() {
         var req = apiRoot + 'collections/all';
         console.log('JSON request: ' + req)
         $.ajax({
@@ -1033,7 +971,9 @@ function loadGalleries() {
             galleriesCache = json.results;
             galleriesHandler(galleriesCache);
             localStorage.setItem('fineArtsDB_galleriesCache', JSON.stringify(galleriesCache));
-        }).error(function(){fail()});
+        }).error(function() {
+            fail()
+        });
     }
 };
 
@@ -1074,10 +1014,9 @@ function loadGallery() {
         //IF IN LOCALSTORAGE
         if (localStorage['fineArtsDB_galleriesCache']) {
             galleriesCache = JSON.parse(localStorage['fineArtsDB_galleriesCache']);
-            if(today > galleriesCache.date){
+            if (today > galleriesCache.date) {
                 jsonTime();
-            }
-            else{
+            } else {
                 var gallery = galleriesCache.filter(function(obj) {
                     return obj.id == objID;
                 });
@@ -1088,15 +1027,16 @@ function loadGallery() {
             jsonTime();
         }
     }
-    function jsonTime(){
+
+    function jsonTime() {
         var req = apiRoot + 'collections/all';
 
         console.log('JSON request: ' + req)
 
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
 
                 galleriesCache = json.results;
@@ -1107,12 +1047,14 @@ function loadGallery() {
                 });
                 galleryHandler(gallery[0]);
             })
-            .error(function(){fail()});
+            .error(function() {
+                fail()
+            });
     }
 }
 
 function galleryHandler(gallery) {
-    if(!isArray(gallery.Objects)){
+    if (!isArray(gallery.Objects)) {
         var obj = gallery.Objects;
         gallery.Objects = [];
         gallery.Objects.push(obj)
@@ -1179,9 +1121,9 @@ function loadArtwork() {
     } else {
         console.log('JSON request: ' + req)
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
                 artwork = json.results;
                 if (json.total_results === 0) {
@@ -1196,16 +1138,16 @@ function loadArtwork() {
                                 return obj.textType == 'Interpretation';
                             });
                             if (interpretation.length > 0) {
-                                interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                                interpretation = interpretation[0].textEntry;
                             }
                         } else {
                             if (artwork.ObjTextEntries.textType === 'Interpretation') {
-                                var interpretation = artwork.ObjTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                                var interpretation = artwork.ObjTextEntries.textEntry;
                             }
                         }
                     }
 
-                
+
                     //RELATED ARTWORK
                     var artistRelated = [],
                         siteRelated = [],
@@ -1218,7 +1160,6 @@ function loadArtwork() {
                             artwork.artistRelatedObjects.push(aro);
                         }
                         artistRelated = artwork.artistRelatedObjects;
-                        //creditLine = artwork.artistRelatedObjects.creditLine;
                     }
 
                     if (artwork.siteRelatedObjects) {
@@ -1244,7 +1185,6 @@ function loadArtwork() {
                             }
                             collectionRelated.concat(artwork.Collections[i].objects)
                         }
-                        //collectionRelated = artwork.Collections.objects;
                     }
 
                     //CONCAT INTO ONE ARRAY
@@ -1276,7 +1216,6 @@ function loadArtwork() {
                         }
                         var hasAdditional = (artwork.ObjMedia.length > 0);
                     }
-                    //var template = $('#templates .artwork-works').html();
 
                     //FORMAT IMAGE FILENAMES
                     if (hasRelated) {
@@ -1309,17 +1248,14 @@ function loadArtwork() {
                     }
 
                     //PULL ARTIST ID FROM OBJPEOPLE
-                    //console.log('artist id...')
                     var objPeople = artwork.ObjectsPeople;
-                    for(i=0; i < objPeople.length; i++){
-                        //console.log(objPeople[i].role)
-                        if(objPeople[i].role === 'Artist'){
+                    for (i = 0; i < objPeople.length; i++) {
+                        if (objPeople[i].role === 'Artist') {
                             var artistID = objPeople[i].personId;
-                            //console.log('true')
                         }
                     }
-                    if(additional){
-                        additional.sort(function(a,b){
+                    if (additional) {
+                        additional.sort(function(a, b) {
                             return a.rank - b.rank;
                         })
                     }
@@ -1328,27 +1264,26 @@ function loadArtwork() {
                     var photoCaption = null;
                     //and PHOTOCREDIT is COPYRIGHT
                     var photoCredit = null;
-                    if(artwork.ObjMedia){
-                        if(isArray(artwork.ObjMedia)){
-                            for(i in artwork.ObjMedia){
-                                if(artwork.ObjMedia[i].primaryDisplay == 1){
-                                    if(artwork.ObjMedia[i].copyright){
+                    if (artwork.ObjMedia) {
+                        if (isArray(artwork.ObjMedia)) {
+                            for (i in artwork.ObjMedia) {
+                                if (artwork.ObjMedia[i].primaryDisplay == 1) {
+                                    if (artwork.ObjMedia[i].copyright) {
                                         photoCredit = artwork.ObjMedia[i].copyright;
                                     }
-                                    if(artwork.ObjMedia[i].publicCaption){
+                                    if (artwork.ObjMedia[i].publicCaption) {
                                         photoCaption = artwork.ObjMedia[i].publicCaption;
                                     }
                                 }
                             }
-                        }
-                        else{
-                            if(artwork.ObjMedia.primaryDisplay == 1){
+                        } else {
+                            if (artwork.ObjMedia.primaryDisplay == 1) {
                                 photoCredit = artwork.ObjMedia.copyright;
                             }
-                        }                 
+                        }
                     }
                     //add line breaks for HTML
-                    if(artwork.creditLine){
+                    if (artwork.creditLine) {
                         artwork.creditLine = artwork.creditLine.replace(/(?:\r\n|\r|\n)/g, '<br/>');
                     }
 
@@ -1398,15 +1333,13 @@ function loadArtwork() {
                         if ($(this).attr('data-credit')) {
                             console.log($(this).attr('data-credit'))
                             $('.photo-credit span').html($(this).attr('data-credit')).parent().show();
-                        }
-                        else{
+                        } else {
                             $('.photo-credit').hide();
                         }
                         if ($(this).attr('data-caption')) {
                             console.log($(this).attr('data-caption'))
                             $('.photo-caption span').html($(this).attr('data-caption')).parent().show();
-                        }
-                        else{
+                        } else {
                             $('.photo-caption').hide()
                         }
                         $('#artwork-overview').scrollToAnchor();
@@ -1416,7 +1349,9 @@ function loadArtwork() {
                     loaded();
                 }
             })
-            .error(function(){fail()});
+            .error(function() {
+                fail()
+            });
     }
 }
 
@@ -1436,9 +1371,9 @@ function loadArtist() {
         console.log('JSON request: ' + req)
 
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
                 artist = json.results;
                 if (json.total_results === 0) {
@@ -1510,7 +1445,9 @@ function loadArtist() {
                     loaded();
                 }
             })
-            .error(function(){fail()});
+            .error(function() {
+                fail()
+            });
     }
 }
 
@@ -1529,16 +1466,16 @@ function loadBuilding() {
         fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
     } else {
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
                 building = json.results;
                 if (json.total_results === 0) {
                     fail("We're Sorry", 'This Building Could Not Be Found');
                 } else {
                     var building = json.results;
-                    if(building.primaryImage){
+                    if (building.primaryImage) {
                         building.primaryImage = formatImagePath(building.primaryImage);
                     }
 
@@ -1553,12 +1490,6 @@ function loadBuilding() {
                     }
                     var worksLength = works.length;
                     if (worksLength > 1) {
-                        /*works = works.sort(function(a, b) {
-                            b.title = b.title.removeQuotes().toLowerCase()
-                            a.title = a.title.removeQuotes().toLowerCase()
-                            return b.title.localeCompare(a.title);
-                        });*/
-
                         var worksNoImage = works.filter(hasntImage);
 
                         works = works.filter(hasImage);
@@ -1583,20 +1514,19 @@ function loadBuilding() {
                     }
                     //PHOTO CREDIT
                     var photoCredit = null;
-                    if(building.SiteMedia){
-                        if(isArray(building.SiteMedia)){
-                            for(i in building.SiteMedia){
+                    if (building.SiteMedia) {
+                        if (isArray(building.SiteMedia)) {
+                            for (i in building.SiteMedia) {
                                 console.log(building.SiteMedia[i].copyright)
-                                if(building.SiteMedia[i].primaryDisplay == 1){
+                                if (building.SiteMedia[i].primaryDisplay == 1) {
                                     photoCredit = building.SiteMedia[i].copyright;
                                 }
                             }
-                        }
-                        else{
-                            if(building.SiteMedia.primaryDisplay == 1){
+                        } else {
+                            if (building.SiteMedia.primaryDisplay == 1) {
                                 photoCredit = building.SiteMedia.copyright;
                             }
-                        }                 
+                        }
                     }
 
                     //TEXT TYPE INTERPRETATION
@@ -1606,11 +1536,11 @@ function loadBuilding() {
                                 return obj.textType == 'Interpretation';
                             });
                             if (interpretation.length > 0) {
-                                interpretation = interpretation[0].textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                                interpretation = interpretation[0].textEntry /*.replace(/<[^>]*>/gi, "")*/ ;
                             }
                         } else {
                             if (building.SiteTextEntries.textType === 'Interpretation') {
-                                var interpretation = building.SiteTextEntries.textEntry/*.replace(/<[^>]*>/gi, "")*/;
+                                var interpretation = building.SiteTextEntries.textEntry /*.replace(/<[^>]*>/gi, "")*/ ;
                             }
                         }
                     }
@@ -1638,7 +1568,9 @@ function loadBuilding() {
                     loaded();
                 }
             })
-            .error(function(){fail()});
+            .error(function() {
+                fail()
+            });
     }
 }
 
@@ -1657,16 +1589,16 @@ function loadLoan() {
         fail('This Request is Not Valid.', 'Building ID must be a number, and should look like this: #/building/3606.')
     } else {
         $.ajax({
-            url: req,
-            jsonpCallback: randomJSONpCallback()
-        })
+                url: req,
+                jsonpCallback: randomJSONpCallback()
+            })
             .success(function(json) {
                 building = json.results;
                 if (json.total_results === 0) {
                     fail("We're Sorry", 'This Building Could Not Be Found');
                 } else {
                     var building = json.results;
-                    if(building.primaryImage){
+                    if (building.primaryImage) {
                         building.primaryImage = formatImagePath(building.primaryImage);
                     }
 
@@ -1681,11 +1613,6 @@ function loadLoan() {
                     }
                     var worksLength = works.length;
                     if (worksLength > 1) {
-                        /*works = works.sort(function(a, b) {
-                            b.title = b.title.removeQuotes().toLowerCase()
-                            a.title = a.title.removeQuotes().toLowerCase()
-                            return b.title.localeCompare(a.title);
-                        });*/
 
                         var worksNoImage = works.filter(hasntImage);
 
@@ -1711,20 +1638,19 @@ function loadLoan() {
                     }
                     //PHOTO CREDIT
                     var photoCredit = null;
-                    if(building.SiteMedia){
-                        if(isArray(building.SiteMedia)){
-                            for(i in building.SiteMedia){
+                    if (building.SiteMedia) {
+                        if (isArray(building.SiteMedia)) {
+                            for (i in building.SiteMedia) {
                                 console.log(building.SiteMedia[i].copyright)
-                                if(building.SiteMedia[i].primaryDisplay == 1){
+                                if (building.SiteMedia[i].primaryDisplay == 1) {
                                     photoCredit = building.SiteMedia[i].copyright;
                                 }
                             }
-                        }
-                        else{
-                            if(building.SiteMedia.primaryDisplay == 1){
+                        } else {
+                            if (building.SiteMedia.primaryDisplay == 1) {
                                 photoCredit = building.SiteMedia.copyright;
                             }
-                        }                 
+                        }
                     }
 
                     var template = $('#templates .loan').html();
@@ -1748,7 +1674,9 @@ function loadLoan() {
                     loaded();
                 }
             })
-            .error(function(){fail()});
+            .error(function() {
+                fail()
+            });
     }
 }
 
@@ -1760,20 +1688,22 @@ function loadLoan() {
 function fetchAllResults(searchType, searchParams, handler) {
 
     var req = apiRoot + 'search/' + searchType + '?' + searchParams;
-    if(req.indexOf('&end') === -1){
+    if (req.indexOf('&end') === -1) {
         req += '&end=1000'
     }
 
     console.log('JSON request: ' + req)
 
     $.ajax({
-        url: req,
-        jsonpCallback: randomJSONpCallback(),
-    })
-    .success(function(json) {
-        handler(json, searchType);
-    })
-    .error(function(){fail()});
+            url: req,
+            jsonpCallback: randomJSONpCallback(),
+        })
+        .success(function(json) {
+            handler(json, searchType);
+        })
+        .error(function() {
+            fail()
+        });
 };
 
 //CACHES all artists, Saves as local storage
@@ -1782,12 +1712,11 @@ function artistsHandler(json) {
         var item = json.results[i];
         addValue(artistsCache.artists, item.index.toLowerCase(), item);
     };
-    if(!artistsCache.status){
+    if (!artistsCache.status) {
         artistsCache.status = [];
     }
     artistsCache.status.push(json.results[0].index);
     if (artistsCache.status.length === 26) {
-        //console.log('DONE')
         artistsCache.date = getDate();
         delete artistsCache.status;
         artistsAppend(artistsCache);
@@ -1801,9 +1730,7 @@ function artistsAppend(source) {
     $('#fail,#load').hide();
     var artists = source.artists;
     for (var i = 0; i < Object.size(source.artists); i++) {
-        //console.log(alphaOrder[i])
         $('#artists #artists-index').show().append('<div class="alpha-heading" id="' + artists[alphaOrder[i]][0].index.toLowerCase() + '"><h3>' + artists[alphaOrder[i]][0].index + '</h3><small><a href="#" class="go-to-filter">(Filter)</a></small><ul></ul>')
-        //console.log('artists[alphaOrder[i]].length = ',artists[alphaOrder[i]].length)
         for (var j = 0; j < artists[alphaOrder[i]].length; j++) {
             if (artists[alphaOrder[i]][j].lastName && artists[alphaOrder[i]][j].firstName) {
                 var name = '<strong>' + artists[alphaOrder[i]][j].lastName + '</strong> ' + artists[alphaOrder[i]][j].firstName;
@@ -1817,21 +1744,20 @@ function artistsAppend(source) {
             artistsReady();
         }
     };
-    $('.go-to-filter').click(function(e){
+    $('.go-to-filter').click(function(e) {
         $('#filter').focus();
         e.preventDefault();
     })
 }
 
 
-//CACHES any result -- UNUSED
+/*CACHES any result -- UNUSED
 function cacheResults(item) {
-    resultsCache.push(item);
-}
+  resultsCache.push(item);
+}*/
 
 //APPENDS search results
 function appendResults(json, type) {
-    //console.log(type)
     if (json.results && json.results.length !== 0) {
         if (isArray(json.results)) {
             var results = json.results;
@@ -1884,8 +1810,8 @@ function appendResults(json, type) {
 
     var yourQuery = '';
 
-    console.log('buildingname',searchParams['Building%20Name'])
-    //BUILD STRING SUMMARY FOR QUERY...BUILDINGS FIRST
+    console.log('buildingname', searchParams['Building%20Name'])
+        //BUILD STRING SUMMARY FOR QUERY...BUILDINGS FIRST
     if (searchParams['Building%20Name'] && searchParams.City && searchParams.State) {
         yourQuery = '"' + searchParams['Building%20Name'] + '" in ' + searchParams.City + ', ' + searchParams.State;
     }
@@ -1924,7 +1850,7 @@ function appendResults(json, type) {
     if (totalResults > highEnd && window.location.hash.indexOf('&refine=false') === -1) {
         var over9000 = true;
     }
-    if(window.location.hash.indexOf('&scott=scott') > -1){
+    if (window.location.hash.indexOf('&scott=scott') > -1) {
         scott()
     }
 
@@ -1944,13 +1870,13 @@ function appendResults(json, type) {
 }
 
 //LOAD WITH TIMEOUT
-function load(message,timeout) {
+function load(message, timeout) {
     clearTimeout(loadTimeout);
 
     if (message) {
         $load.text(message)
     }
-    if(!timeout){
+    if (!timeout) {
         var timeout = 90000;
     }
     $fail.hide();
@@ -1961,8 +1887,8 @@ function load(message,timeout) {
 
 function loaded(scroll) {
     clearTimeout(loadTimeout);
-    $load.hide().text('');
-    if(scroll != false){
+    $load.hide().html('');
+    if (scroll != false) {
         scrollToAnchor('wrapper', 0, 0)
     }
 }
@@ -1971,7 +1897,6 @@ function loaded(scroll) {
 
 //ERROR REPORT
 function fail(message, description) {
-    //console.log('fail',message,description)
     if (message === undefined) {
         var message = "We're Sorry";
     }
