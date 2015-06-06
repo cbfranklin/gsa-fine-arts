@@ -170,7 +170,8 @@ function ie() {
     var UA = navigator.userAgent;
     if(UA.indexOf('MSIE 7') > -1 || UA.indexOf('MSIE 8') > -1){
         $('#wrapper').hide();
-        $('#compatibility-mode,#old-ie').append('<small>'+UA+'</small>')
+        $('#compatibility-mode,#old-ie').append('<small>'+UA+'</small>');
+        console.log(UA)
         //if trident token === 5, indicating IE9
         if(UA.indexOf('Trident/5') > -1){
             $('#compatibility-mode').show();
