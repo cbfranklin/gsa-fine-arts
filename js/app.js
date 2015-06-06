@@ -168,10 +168,10 @@ function ie() {
     //Site is IE9 Compatible ONLY. No IE9 Compat, No IE8/7
     //if version token MSIE < 9, indicating older browser or browser mode
     var UA = navigator.userAgent;
+    $('body').prepend(UA)
     if(UA.indexOf('MSIE 7') > -1 || UA.indexOf('MSIE 8') > -1){
         $('#wrapper').hide();
         $('#compatibility-mode,#old-ie').append('<small>'+UA+'</small>');
-        $('body').prepend(UA)
         //if trident token === 5, indicating IE9
         if(UA.indexOf('Trident/5') > -1){
             $('#compatibility-mode').show();
