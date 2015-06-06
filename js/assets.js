@@ -8941,7 +8941,7 @@ window.Raphael.vml && function(R) {
           labelBacking: stateName in this.labelShapes ? this.labelShapes[stateName] : null,
           labelText: stateName in this.labelTexts ? this.labelTexts[stateName] : null,
           labelHitArea: stateName in this.labelHitAreas ? this.labelHitAreas[stateName] : null,
-          name: stateName, 
+          name: stateName
         };
       }
       
