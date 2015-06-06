@@ -1699,7 +1699,7 @@ function fetchAllResults(searchType, searchParams, handler) {
 
     $.ajax({
             url: req,
-            jsonpCallback: randomJSONpCallback(),
+            jsonpCallback: randomJSONpCallback()
         })
         .success(function(json) {
             handler(json, searchType);
