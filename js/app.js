@@ -127,6 +127,7 @@ $(function() {
     $section = $('section');
     $fail = $('#fail');
     $header = $('#emuseum-header');
+    $('#wrapper').show();
     load();
     ie();
     if (isOldIE === true) {
