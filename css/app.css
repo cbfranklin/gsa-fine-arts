@@ -870,6 +870,7 @@ footer .menu ul li a {
     #home #splash,
     #home #splash > a {
         overflow: hidden;
+        display:block;
     }
     #home #splash {
         height: auto;
@@ -896,7 +897,6 @@ footer .menu ul li a {
     }
     #home #splash img {
         width: 100%;
-        height: auto;
     }
     .splash-1,
     .splash-2,
