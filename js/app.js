@@ -1549,6 +1549,22 @@ function loadBuilding() {
                         }
                     }
 
+                    //TEXT TYPE WEB BIO
+                    if (building.SiteTextEntries) {
+                        if (isArray(building.SiteTextEntries)) {
+                            var webBio = building.SiteTextEntries.filter(function(obj) {
+                                return obj.textType == "Web bio";
+                            });
+                            if (webBio.length > 0) {
+                                webBio = webBio[0].textEntry /*.replace(/<[^>]*>/gi, "")*/ ;
+                            }
+                        } else {
+                            if (building.SiteTextEntries.textType === "Web bio") {
+                                var webBio = building.SiteTextEntries.textEntry /*.replace(/<[^>]*>/gi, "")*/ ;
+                            }
+                        }
+                    }
+
 
                     var template = $('#templates .building').html();
                     var html = Mustache.to_html(template, {
@@ -1557,7 +1573,8 @@ function loadBuilding() {
                         hasWorks: hasWorks,
                         worksLength: worksLength,
                         photoCredit: photoCredit,
-                        interpretation: interpretation
+                        interpretation: interpretation,
+                        webBio: webBio
                     });
                     $('#building').html(html).show();
 
