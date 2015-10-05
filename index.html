@@ -9,6 +9,7 @@
 
 <head>
     <title>GSA Fine Arts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset='utf-8' />
     <meta content="True" name="HandheldFriendly" />
     <meta content="320" name="MobileOptimized" />
@@ -24,13 +25,13 @@
 
 <body>
     <div id="wrapper" style="display:none">
-        <div class="print-title">
-            <h1>Fine Arts Collection</h1>
-        </div>
+        <!--<div class="print-title">
+            <h1>Fine Arts Collection</h2>
+        </div>-->
         <header id="emuseum-header">
             <div class="mobile-title">
                 <img class="starmark-mobile" src="img/starmark.jpg" />
-                <h1>FINE ARTS COLLECTION</h1>
+                <h1>FINE ARTS COLLECTION</h2>
             </div>
             <div id="skip-to-content-destination"><a href="#skipContent" class="skip-content">Skip to main content</a></div>
             <div id="gray" style="display: none;"></div>
@@ -307,7 +308,7 @@
             <section id="artists">
                 <div id="artists-search">
                     <div class="search">
-                        <h1>Artist Index</h1>
+                        <h2>Artist Index</h2>
                         <label for="filter" style="visibility:hidden;width:0;height:0;">Filter</label>
                         <input id="filter" type="text" placeholder="Enter Artist's Name" />
                     </div>
@@ -316,7 +317,7 @@
             </section>
             <!-- LOCATION -->
             <section id="location">
-                <h1>Browse by Location</h1>
+                <h2>Browse by Location</h2>
                 <br>
                 <div class="row">
                     <div class="col-sm-5 col-sm-offset-7">
@@ -389,7 +390,7 @@
             </section>
             <!-- SEARCH -->
             <section id="search">
-                <h1>Search the Fine Arts Collection</h1>
+                <h2>Search the Fine Arts Collection</h2>
                 <div id="search-for-artwork">
                     <h3>Search for Artwork</h3>
                     <label for="keywords-artwork">Search Terms:</label>
@@ -480,7 +481,7 @@
             </section>
             <!-- ABOUT -->
             <section id="about">
-                <h1>About the Collection</h1>
+                <h2>About the Collection</h2>
                 <div style="width: 145px; float: left; margin-top: 5px; margin-right: 15px; margin-bottom: 0px;">
                     <a href="#/artwork/23673"><img src="img/about/Ahearn_Torres_ AA307_08_CH2007.png" alt="Homage to Medicare and Medicaid, Ahearn & Torres" title="Homage to Medicare and Medicaid, Ahearn &amp; Torres" /></a>
                     <p style="font-size: .9em; text-align: left;"><strong><em>Homage to Medicare and Medicaid</em><br />
@@ -537,7 +538,7 @@
                 </div>
                 <div class="rightCol col-md-9">
                         <div id="gallery-overview" class="overview">
-                            <h1>New Deal Art</h1>
+                            <h2>New Deal Art</h2>
                             <p><img src="img/new_deal_gallery/Haines_R_FA428_01.jpg" /></p>
                             <p>New Deal art was produced under four separate federal programs that operated from 1933 to 1943. The artists who worked for these programs created thousands of paintings, sculptures, and works on paper.</p>
                             <p>The four programs were:</p>
@@ -698,7 +699,7 @@
     </section>
     <!-- Disclaimer -->
     <section id="disclaimer">
-        <h1>Disclaimer/Copyright</h1>
+        <h2>Disclaimer/Copyright</h2>
         <p>This website and the images and information it contains are provided as a service of the General Services Administration. The contents of this site, including all images and text, are intended for personal, educational, non-commercial use only. This system is monitored to ensure proper operation, to verify the functioning of applicable security features, and for comparable purposes. Anyone using this system expressly consents to such monitoring. Unauthorized attempts to modify any information stored on this system, to defeat or circumvent security features or to utilize this system for other than its intended purposes are prohibited and may result in criminal prosecution.</p>
         <h3>Restriction of Liability</h3>
         <p>The GSA makes no claims, promises or guarantees about the accuracy, completeness, or adequacy of the contents of this website and expressly disclaims liability for errors and omissions in the contents of this website. No warranty of any kind, implied, expressed or statutory, including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose and freedom from computer virus, is given with respect to the contents of this website or its hyperlinks to other internet resources. Reference in this website to any specific commercial products processes, or services, or the use of any trade, firm or corporation name is for the information and convenience of the public and does not constitute endorsement, recommendation, or favoring by GSA.</p>
@@ -742,12 +743,12 @@
     </div>
     </div>
     <div id="old-ie">
-        <h1>Sorry...</h1>
+        <h2>Sorry...</h2>
         <p>Your browser is out of date, and incompatible with this site.</p>
         <p><a href="http://whatbrowser.org/" target="_blank">Click Here</a> for more information.</p>
     </div>
     <div id="compatibility-mode">
-        <h1>Sorry...</h1>
+        <h2>Sorry...</h2>
         <p>Your browser is currently running in compatibility mode which somewhat ironically is incompatible with this site.</p>
         <p>To view the site, click the Compatibility button in your address bar:</p>
         <br>
@@ -767,7 +768,7 @@
                 <div class="rightCol col-md-9">
                     <div id="artist-overview" class="overview">
                         {{#artist}}
-                        <h1>{{displayName}}</h1> {{#displayDate}}
+                        <h2>{{displayName}}</h2> {{#displayDate}}
                         <strong>{{displayDate}}</strong>
                         <br>
                         <br>{{/displayDate}}
@@ -802,7 +803,7 @@
                 <div class="rightCol col-md-9">
                     {{#gallery}}
                     <div id="gallery-overview" class="overview">
-                        <h1>{{collection}}</h1> {{{longText}}}
+                        <h2>{{collection}}</h2> {{{longText}}}
                     </div>
                     <div id="in-this-gallery" class="works">
                         <h3>Works In This Gallery<span style="float:left" title="Number of results" class="label label-default">{{total}}</span></h3>
@@ -849,7 +850,7 @@
                     {{#artwork}}
                     <div class="overview row" id="artwork-overview">
                         <div class="col-sm-12">
-                            <h1>{{title}}</h1>
+                            <h2>{{title}}</h2>
                         </div> {{^primaryImage}}
                         <div class="col-sm-12">{{/primaryImage}} {{#primaryImage}}
                             <div class="col-sm-8">{{/primaryImage}} {{^primaryImage}}
@@ -945,7 +946,7 @@
                 <div class="rightCol col-md-9">
                     {{#building}}
                     <div id="building-overview" class="overview">
-                        <h1>{{building}}</h1> {{#primaryImage}}
+                        <h2>{{building}}</h2> {{#primaryImage}}
                         <img class="featured" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" alt="{{buildingName}}" src="http://gsa.gov/fa/images/display/{{primaryImage}}"> {{/primaryImage}}
                         <p>{{address}}</p>
                         <p>{{city}}, {{state}} {{zipCode}}</p>
@@ -989,7 +990,7 @@
                 <div class="rightCol col-md-9">
                     {{#building}}
                     <div id="building-overview" class="overview">
-                        <h1>{{borrower}}</h1> {{#primaryImage}}
+                        <h2>{{borrower}}</h2> {{#primaryImage}}
                         <img class="featured" title="{{#title}}{{title}}{{/title}}{{#artist}}, {{artist}}{{/artist}}" alt="{{buildingName}}" src="http://gsa.gov/fa/images/display/{{primaryImage}}"> {{/primaryImage}} {{#address}}
                         <p>{{address}}</p>{{/address}}
                         <p>{{city}}, {{state}} {{zipCode}}</p>
@@ -1022,7 +1023,7 @@
         </script>
         <!-- INDEXES -->
         <script class="galleries" type="text/template">
-            <h1>Galleries</h1>
+            <h2>Galleries</h2>
             <p>Welcome to the galleries of Fine Arts. The works in these galleries have been curated using a variety of criteria, including medium, period, and theme. One gallery focuses on work that has been a part of GSA's preservation efforts.</p>
             <br>
             <div>
@@ -1044,7 +1045,7 @@
         </script>
         <!-- SEARCH RESULTS -->
         <script class="results-none" type="text/template">
-            <h1>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">0</span></h1>
+            <h2>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">0</span></h2>
             <br>
             <div class="alert alert-danger" role="alert">
                 <h4>Your search yielded no results.</h4>
@@ -1052,7 +1053,7 @@
             </div>
         </script>
         <script class="results-objects" type="text/template">
-            <h1>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">{{total}}</span></h1>
+            <h2>Results{{#yourQuery}} <small>for {{yourQuery}}</small>{{/yourQuery}}<span title="Number of results" style="float:left" class="label label-default">{{total}}</span></h2>
             <br> {{#over9000}}
             <div class="alert alert-warning" role="alert">
                 <h4>There are over {{highEnd}} results for this query.</h4>
@@ -1075,7 +1076,7 @@
             </ul>
         </script>
         <script class="results results-people" type="text/template">
-            <h1>Results{{#yourQuery}} <small>for {{yourQuery}}{{/yourQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h1>
+            <h2>Results{{#yourQuery}} <small>for {{yourQuery}}{{/yourQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h2>
             <br> {{#over9000}}
             <div class="alert alert-warning" role="alert">
                 <h4>There are over {{highEnd}} results for this query.</h4>
@@ -1094,7 +1095,7 @@
             </ul>
         </script>
         <script class="results results-buildings" type="text/template">
-            <h1>Results{{#yourQuery}} <small>for {{yourQuery}}{{/yourQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h1>
+            <h2>Results{{#yourQuery}} <small>for {{yourQuery}}{{/yourQuery}}</small><span style="float:left" class="label label-default">{{total}}</span></h2>
             <br> {{#over9000}}
             <div class="alert alert-warning" role="alert">
                 <h4>There are over {{highEnd}} results for this query.</h4>
