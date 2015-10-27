@@ -45,7 +45,7 @@ h6 {
     font-style: normal;
 }
 
-h1 {
+h1,h2 {
     color: #ea3239;
     font-family: 'open-sans-condensed-bold';
 }
@@ -128,7 +128,7 @@ section {
     /*position:absolute;
 	top:30%;
 	width:100%;*/
-    
+
     text-align: center;
     padding: 50px;
     display: none;
@@ -194,7 +194,7 @@ div.splash-title {
     top: 0;
     left: 0;
     /*display:none;*/
-    
+
     opacity: 0;
 }
 
@@ -446,7 +446,7 @@ div.splash-title {
 #selectAlphaWrapper,
 .selectWrapper {
     background: #efefef url(../img/down-select.png) 98% center no-repeat;
-    
+
     border: 1px solid #ccc;
     border-bottom: 2px solid rgb(207, 51, 51);
     display: inline-block;
@@ -673,7 +673,7 @@ img.noImage.featured {
 	height:100%;
 	float:left;
 	overflow:hidden;*/
-    
+
     padding-top: 45px;
 }
 
@@ -853,7 +853,7 @@ footer .menu ul li a {
 }
 
 @media (max-width: 768px) {
-    
+
 
 
     #gsa-header,
