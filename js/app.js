@@ -208,9 +208,9 @@ function routes() {
         navHighlight('galleries');
     }
     //ABOUT
-    else if (window.location.hash.indexOf('#/about') !== -1) {
+    else if (window.location.hash.indexOf('#/about-the-collection') !== -1) {
         loadAbout();
-        navHighlight('about');
+        navHighlight('about-the-collection');
     }
     //NEW DEAL ART
     else if (window.location.hash.indexOf('#/new-deal-art') !== -1) {
@@ -494,7 +494,7 @@ function loadHomePage() {
 
 
 function loadAbout() {
-    $('#about').show();
+    $('#about-the-collection').show();
     loaded();
 }
 
